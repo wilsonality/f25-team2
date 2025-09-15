@@ -1,0 +1,46 @@
+body {
+	margin-top: 0px;
+	min-height: 100vh;
+
+	/* Skeleton layout for page */
+	display: grid;
+	grid-template-areas:
+	"navbar navbar"
+	"sidebar main"
+	"footer main";
+
+	/* size of columns and rows */
+	grid-template-columns: 300px 1fr;
+	grid-template-rows: auto 1fr auto;
+	
+}
+
+nav {
+	/* Defines this as "navbar" in grid-template-areas */
+	grid-area: navbar;
+
+	/* sticky navbar */
+	position: sticky;
+	top: 0;
+
+	/* Color for visibility */
+	background-color: lightyellow;
+}
+
+aside {
+	grid-area: sidebar;
+
+	background-color: lightseagreen;
+}
+
+main {
+	grid-area: main;
+
+	background-color: lightblue;
+}
+
+footer {
+	grid-area: footer;
+
+	background-color: lightyellow;
+}
