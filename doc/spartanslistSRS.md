@@ -48,7 +48,7 @@ Spartan's List is an online marketplace dedicated to UNCG students and Almuni. S
 
 ### 1.2 Product Scope
 
-Spartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage and purchase, and account data tracking.
+Spartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage, offer requesting, and account data tracking.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
 
@@ -90,6 +90,10 @@ This subsection should provide a general description of any other items that wil
 ### 2.3 User Characteristics
 Identify the various user classes that you anticipate will use this product. User classes may be differentiated based on frequency of use, subset of product functions used, technical expertise, security or privilege levels, educational level, or experience. Describe the pertinent characteristics of each user class. Certain requirements may pertain only to certain user classes. Distinguish the most important user classes for this product from those who are less important to satisfy.
 
+Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
+
+The product is accessible to those who have never used e-commerce sites. Shoppers are not expected to be familiar with setting up digital offers
+
 ### 2.4 Assumptions and Dependencies
 List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the vision and scope document or the project plan).
 
@@ -99,43 +103,62 @@ List any assumed factors (as opposed to known facts) that could affect the requi
 This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
 
 The specific requirements should:
-* Be uniquely identifiable.
-* State the subject of the requirement (e.g., system, software, etc.) and what shall be done.
-* Optionally state the conditions and constraints, if any.
-* Describe every input (stimulus) into the software system, every output (response) from the software system, and all functions performed by the software system in response to an input or in support of an output.
-* Be verifiable (e.g., the requirement realization can be proven to the customer's satisfaction)
-* Conform to agreed upon syntax, keywords, and terms.
+* FR0: The system shall allow for user creation as either a Seller or a Shopper.
+    * Each account will have a unique AccountID, user name, and password.
+    * Each user profile will show user name and account age.
+* FR1: The system shall allow Sellers to create a new offer by providing details including title, offer type, price, availability, images, payment method, and description.
+* FR2: The system shall allow Shoppers to browse available offers.
+   * Shoppers shall be able to search and filter offers by title, offer type, price, and availability.
+* FR3: The system shall allow Shoppers to view an offer.
+  * Shoppers shall be able to view offer details, previous reviews, and the profile of the Seller.
+* FR4: The system shall allow Shoppers to view any Seller's profile, follower count, and offers for sale.
+* FR5: The system shall allow Shoppers shall be able to request offers and leave reviews on purchased offers.
+* FR6: The system shall allow Sellers to accept offer requests to mark them as purchased.
+  * Sellers will be able to edit availability after an offer request
+* FR7: THe system shall allow Sellers to respond to reviews and select reviews to feature on their profile.
+* FR8: The system shall allow Sellers to view their follower count, their average rating, previous orders, and pending orders.
+* FR9: The system shall allow Shoppers to request an offer.
+  * Shoppers shall be able to see the status of their offers: requested, denied, and complete.
+* FR10: The system shall allow Shoppers to follow a Seller profile.
 
 #### 3.1.1 User interfaces
-Define the software components for which a user interface is needed. Describe the logical characteristics of each interface between the software product and the users. This may include sample screen images, any GUI standards or product family style guides that are to be followed, screen layout constraints, standard buttons and functions (e.g., help) that will appear on every screen, keyboard shortcuts, error message display standards, and so on. Details of the user interface design should be documented in a separate user interface specification.
+The system will require web pages using HTML, CSS, and JavaScript, which must be accessed through an internet browser.
 
-Could be further divided into Usability and Convenience requirements.
 
 #### 3.1.2 Hardware interfaces
-Describe the logical and physical characteristics of each interface between the software product and the hardware components of the system. This may include the supported device types, the nature of the data and control interactions between the software and the hardware, and communication protocols to be used.
+The system will require devices with web browser capabilities.
 
 #### 3.1.3 Software interfaces
-Describe the connections between this product and other specific software components (name and version), including databases, operating systems, tools, libraries, and integrated commercial components. Identify the data items or messages coming into the system and going out and describe the purpose of each. Describe the services needed and the nature of communications. Refer to documents that describe detailed application programming interface protocols. Identify data that will be shared across software components. If the data sharing mechanism must be implemented in a specific way (for example, use of a global data area in a multitasking operating system), specify this as an implementation constraint.
+
+* Java JDK 21
+* PostgreSQL 17
+* SpringBoot 3.5.5
 
 ### 3.2 Non Functional Requirements 
 
 #### 3.2.1 Performance
-If there are performance requirements for the product under various circumstances, state them here and explain their rationale, to help the developers understand the intent and make suitable design choices. Specify the timing relationships for real time systems. Make such requirements as specific as possible. You may need to state performance requirements for individual functional requirements or features.
+
+* NFR0: The system shall consume no more than 100 MB of memory.
+* NFR1: The novice Shopper shall be able to search for, view, and request a given offer in less than 5 minutes.
+* NFR2: The novice Seller shall be able to create an offer, add details, and request the offer in less than 5 minutes.
+* NFR3: The novice Shopper shall be able to find a completed offer and leave a review in less than two minutes.
+* NFR4: The novice Seller shall be able to open reviews and respond to a review in less than a minute.
 
 #### 3.2.2 Security
-Specify any requirements regarding security or privacy issues surrounding use of the product or protection of the data used or created by the product. Define any user identity authentication requirements. Refer to any external policies or regulations containing security issues that affect the product. Define any security or privacy certifications that must be satisfied.
+* NFR5: The system shall not allow offer postage, request, or purchase to non-authorized users.
+* NFR6: The system shall not handle payment within the application.
 
 #### 3.2.3 Reliability
-Specify the factors required to establish the required reliability of the software system at time of delivery.
+* NFR7: The system shall be able to handle ten users at once.
+* NFR8: The system shall be able to display 
 
 #### 3.2.4 Availability
-Specify the factors required to guarantee a defined availability level for the entire system such as checkpoint, recovery, and restart.
+* NFR9: The system shall be available at all times. Maintenance will be scheduled during low traffic hours to impact user experiences as little as possible.
 
 #### 3.2.5 Compliance
-Specify the requirements derived from existing standards or regulations
 
 #### 3.2.6 Cost
-Specify monetary cost of the software product.
+* NFR10: The system shall be developed with zero cost.
 
 #### 3.2.7 Deadline
-Specify schedule for delivery of the software product.
+* NFR11: The final product will be delivered by December 2025.
