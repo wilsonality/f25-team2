@@ -1,10 +1,9 @@
 # Software Requirements Specification
-## For <project name>
+## For <Spartan's List>
 
-Version 0.1  
-Prepared by <author>  
-<organization>  
-<date created> 
+Version 0.2  
+Prepared by <Team 2>    
+<Sept. 15> 
 
 Table of Contents
 =================
@@ -37,21 +36,18 @@ Table of Contents
 ## Revision History
 | Name | Date    | Reason For Changes  | Version   |
 | ---- | ------- | ------------------- | --------- |
-|      |         |                     |           |
-|      |         |                     |           |
+|W.G.  |Sept. 15 2025      |Issues 7, 8, 9, 11                     |0.1           |
+|S.Z.      |Sept. 15 2025         |Issue 10                      |0.2           |
 |      |         |                     |           |
 
 ## 1. Introduction
-
 ### 1.1 Document Purpose
 Spartan's List is an online marketplace dedicated to UNCG students and Almuni. Spartan's List aims to help students exchange goods and services, in order to better support fellow Spartans.
 
 ### 1.2 Product Scope
-
 Spartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage, offer requesting, and account data tracking.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
-
 | Reference | Definition   |
 | ---- | ------- | 
 |   Java   |   An object oriented programming language developed in 1995 by James Gosling. This is the primary programming langauage that will be used to develop Spartan's List.      | 
@@ -66,7 +62,6 @@ Spartan's List is a convenient and free web-based application to allow Spartans 
 |MDN | Mozilla Developer Network. A web forum with resources about web-development tools. |
 
 ### 1.4 References
-
 Spring Documentation,  — https://docs.spring.io/spring-framework/reference/index.html
 MDN (Developer Resources) — https://developer.mozilla.org/en-US/
 
@@ -75,28 +70,28 @@ Section 1 provides an overview of the product, for all audiences. Section 2 desc
 
 ## 2. Product Overview
 ### 2.1 Product Functions
-Summarize the major functions the product must perform or must let the user perform. Details will be provided in Section 3, so only a high level summary (such as a bullet list) is needed here. Organize the functions to make them understandable to any reader of the SRS. A picture of the major groups of related requirements and how they relate, such as a top level data flow diagram or object class diagram, is often effective.
+Spartan's List is a website not unlike Craigslist, where users can advertise goods and services for sale, and contact the individuals who list them.
 
 ### 2.2 Product Constraints
-* Spartan's List be hosted on a website.
+* Spartan's List will be hosted on a website.
 * Spartan's List must be mobile friendly.
 * Spartan's List must protect user's privacy.
   
 ### 2.3 User Characteristics
 #### Shopper
-* Views listings for sale
+* The Shopper is a user who visits Spartan's List to view listings of products and services for sale. They can also see the reviews for the products and Sellers. They should be using the website to browse for things that they might need. 
 #### Seller
-* Lists things for sale
-
-Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
-
-The product is accessible to those who have never used e-commerce sites. Shoppers are not expected to be familiar with setting up digital offers
+* The Seller is a user who lists products or services for sale on Spartan's List. They should use the website for the purpose of advertising and monetary gain. 
 
 ### 2.4 Assumptions and Dependencies
-List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the vision and scope document or the project plan).
+* We will be using an external API (that has not been decided yet)
+* The user interface should look similar for all pages
+* Shoppers and Sellers have separate profiles
+* Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
+* The product is accessible to those who have never used e-commerce sites. Shoppers are not expected to be familiar with setting up digital offers
+* Payment and messaging will be handled privately.
 
 ## 3. Requirements
-
 ### 3.1 Functional Requirements 
 This section specifies the software product's requirements. Specify all of the software requirements to a level of detail sufficient to enable designers to design a software system to satisfy those requirements, and to enable testers to test that the software system satisfies those requirements.
 
@@ -122,20 +117,16 @@ The specific requirements should:
 #### 3.1.1 User interfaces
 The system will require web pages using HTML, CSS, and JavaScript, which must be accessed through an internet browser.
 
-
 #### 3.1.2 Hardware interfaces
 The system will require devices with web browser capabilities.
 
 #### 3.1.3 Software interfaces
-
 * Java JDK 21
 * PostgreSQL 17
 * SpringBoot 3.5.5
 
 ### 3.2 Non Functional Requirements 
-
 #### 3.2.1 Performance
-
 * NFR0: The system shall consume no more than 100 MB of memory.
 * NFR1: The novice Shopper shall be able to search for, view, and request a given offer in less than 5 minutes.
 * NFR2: The novice Seller shall be able to create an offer, add details, and request the offer in less than 5 minutes.
@@ -154,6 +145,7 @@ The system will require devices with web browser capabilities.
 * NFR9: The system shall be available at all times. Maintenance will be scheduled during low traffic hours to impact user experiences as little as possible.
 
 #### 3.2.5 Compliance
+* NFR12: The final product shall follow the rubric outlined on Canvas.
 
 #### 3.2.6 Cost
 * NFR10: The system shall be developed with zero cost.
