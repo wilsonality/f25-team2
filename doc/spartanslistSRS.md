@@ -47,10 +47,8 @@ Table of Contents
 Spartan's List is an online marketplace dedicated to UNCG students and Almuni. Spartan's List aims to help students exchange goods and services, in order to better support fellow Spartans.
 
 ### 1.2 Product Scope
-Identify the product whose software requirements are specified in this document, including the revision or release number. Explain what the product that is covered by this SRS will do, particularly if this SRS describes only part of the system or a single subsystem. 
-Provide a short description of the software being specified and its purpose, including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.
 
-TSpartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage and purchase, and account data tracking.
+Spartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage and purchase, and account data tracking.
 
 ### 1.3 Definitions, Acronyms and Abbreviations
 
@@ -64,12 +62,17 @@ TSpartan's List is a convenient and free web-based application to allow Spartans
 | HTML | Hypertext Markup Language. This is the language used to structure the web pages of Spartan's List.|
 | CSS | Cascading Style Sheets. This is used to add styling and appearances to the web application. |
 |JavaScript| An object-oriented computer programming language  used to create interactive elements within web browsers. This will be used with HTML and CSS to make the application. |
+|Visual Studio Code | An IDE (Integrated Developer Environment|
+|MDN | Mozilla Developer Network. A web forum with resources about web-development tools. |
 
 ### 1.4 References
-List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.
+List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.'
+
+Spring Documentation — https://docs.spring.io/spring-framework/reference/index.html
+MDN (Developer Resources) — https://developer.mozilla.org/en-US/
 
 ### 1.5 Document Overview
-Describe what the rest of the document contains and how it is organized.
+Section 1 provides an overview of the product, for all audiences. Section 2 describes the product, its functions, and its features. This section is aimed for users, Shoppers and Sellers. Section 3 is describes the development process, with the products requirements and constraints.
 
 ## 2. Product Overview
 This section should describe the general factors that affect the product and its requirements. This section does not state specific requirements. Instead, it provides a background for those requirements, which are defined in detail in Section 3, and makes them easier to understand.
