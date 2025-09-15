@@ -83,6 +83,10 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 #### Seller
 * The Seller is a user who lists products or services for sale on Spartan's List. They should use the website for the purpose of advertising and monetary gain. 
 
+Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
+
+The product is accessible to those who have never used e-commerce sites. Shoppers are not expected to be familiar with setting up digital offers
+
 ### 2.4 Assumptions and Dependencies
 * We will be using an external API (that has not been decided yet)
 * The user interface should look similar for all pages
