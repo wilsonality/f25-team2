@@ -66,9 +66,8 @@ Spartan's List is a convenient and free web-based application to allow Spartans 
 |MDN | Mozilla Developer Network. A web forum with resources about web-development tools. |
 
 ### 1.4 References
-List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.'
 
-Spring Documentation — https://docs.spring.io/spring-framework/reference/index.html
+Spring Documentation,  — https://docs.spring.io/spring-framework/reference/index.html
 MDN (Developer Resources) — https://developer.mozilla.org/en-US/
 
 ### 1.5 Document Overview
