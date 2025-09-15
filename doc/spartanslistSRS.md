@@ -44,13 +44,26 @@ Table of Contents
 ## 1. Introduction
 
 ### 1.1 Document Purpose
-Describe the purpose of the SRS and its intended audience.
+Spartan's List is an online marketplace dedicated to UNCG students and Almuni. Spartan's List aims to help students exchange goods and services, in order to better support fellow Spartans.
 
 ### 1.2 Product Scope
 Identify the product whose software requirements are specified in this document, including the revision or release number. Explain what the product that is covered by this SRS will do, particularly if this SRS describes only part of the system or a single subsystem. 
 Provide a short description of the software being specified and its purpose, including relevant benefits, objectives, and goals. Relate the software to corporate goals or business strategies. If a separate vision and scope document is available, refer to it rather than duplicating its contents here.
 
-### 1.3 Definitions, Acronyms and Abbreviations                                                                                                                                                                          |
+TSpartan's List is a convenient and free web-based application to allow Spartans to post offers or shop for offers posted, these offers being goods or services. This is a web-based application as to permit account creation, offer postage and purchase, and account data tracking.
+
+### 1.3 Definitions, Acronyms and Abbreviations
+
+| Reference | Definition   |
+| ---- | ------- | 
+|   Java   |   An object oriented programming language developed in 1995 by James Gosling. This is the primary programming langauage that will be used to develop Spartan's List.      | 
+|   PostgreSQL   | Open-source relational database management system. |
+|   Spring MVC   | Model-View-Controller. This is the architectural pattern that will be used to implement the system. |
+| Spring Web  |  This is used to build our web application with Spring MVC.  |
+| API | Application programming interface. This will be used in the front-end and back-end of the system. |
+| HTML | Hypertext Markup Language. This is the language used to structure the web pages of Spartan's List.|
+| CSS | Cascading Style Sheets. This is used to add styling and appearances to the web application. |
+|JavaScript| An object-oriented computer programming language  used to create interactive elements within web browsers. This will be used with HTML and CSS to make the application. |
 
 ### 1.4 References
 List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.
