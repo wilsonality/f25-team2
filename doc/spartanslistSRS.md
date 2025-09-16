@@ -82,9 +82,9 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 * The Shopper is a user who visits Spartan's List to view listings of products and services for sale. They can also see the reviews for the products and Sellers. They should be using the website to browse for things that they might need. 
 #### Seller
 * The Seller is a user who lists products or services for sale on Spartan's List. They should use the website for the purpose of advertising and monetary gain.
-* 
+  
 ### 2.4 Assumptions and Dependencies
-* We will be using an external API (that has not been decided yet)
+* We will be using an external API: (https://www.abstractapi.com/api/phone-validation-api)
 * The user interface should look similar for all pages
 * Shoppers and Sellers have separate profiles
 * Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
