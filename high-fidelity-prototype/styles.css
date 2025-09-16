@@ -10,7 +10,7 @@ body {
 	"footer main";
 
 	/* Size of columns and rows */
-	grid-template-columns: 300px 1fr;
+	grid-template-columns: 200px 1fr;
 	grid-template-rows: auto 1fr auto;
 	
 }
@@ -45,8 +45,11 @@ main {
 
 .offers_container div {
 	/* Margin, width, and color for debugging visibility */
-	margin: 10px;
-	min-width: 500px;
+	margin: 5px;
+	min-width: 250px;
+	width: 20vw;
+	min-height: 250px;
+	height: 20vw;
 	background-color: blue;
 }
 
