@@ -1,7 +1,8 @@
-body {
-	margin-top: 0px;
-	min-height: 100vh;
+html {
+	background-color: floralwhite;
+}
 
+body {
 	/* Skeleton layout for page */
 	display: grid;
 	grid-template-areas:
@@ -12,48 +13,60 @@ body {
 	/* Size of columns and rows */
 	grid-template-columns: 200px 1fr;
 	grid-template-rows: auto 1fr auto;
-	
+
+	margin-top: 0px;
+	min-height: 100vh;
 }
 
 nav {
-	/* Defines this as "navbar" in grid-template-areas */
 	grid-area: navbar;
 
 	/* Sticky navbar */
 	position: sticky;
 	top: 0;
 
-	/* Color for debugging visibility */
-	background-color: lightyellow;
+	background-color: floralwhite;
+	border-bottom: 1px solid black;
 }
 
 aside {
 	grid-area: sidebar;
-	background-color: lightseagreen;
+	border-right: 1px solid black;
 }
 
 main {
 	grid-area: main;
-	background-color: lightblue;
 }
 
 .offers_container {
-	background-color: red;
 	display: flex;
 	flex-wrap: wrap;
+	border: 0.5px dotted black;
 }
 
-.offers_container div {
-	/* Margin, width, and color for debugging visibility */
+.offer {
+	border: 1px solid black;
 	margin: 5px;
-	min-width: 250px;
-	width: 20vw;
-	min-height: 250px;
-	height: 20vw;
-	background-color: blue;
+	width: 256px;
+	height: 256px;
+}
+
+.offer img {
+	/* Center */
+	display: block;	
+	margin-left: auto;
+	margin-right: auto;
+
+	width: 128px;
+	height: 128px;
+}
+
+.offer p {
+	white-space: pre-line;
 }
 
 footer {
 	grid-area: footer;
-	background-color: lightyellow;
+	border-top: 1px solid black;
+	border-right: 1px solid black;
 }
