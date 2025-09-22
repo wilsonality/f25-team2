@@ -3,40 +3,46 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../styles.css">
+	<link rel="stylesheet" href="provider_styles.css">
 	<title></title>
 </head>
 <body>
 	<nav>
-		<a href="homepage_no_login.html">Spartan's List</a>
+		<a href="homepage_provider.html">Spartan's List</a>
 	</nav>
 
 	<aside>
 		<div class="order_preview">
 			<!-- shows pending orders -->
 			 <h2>Pending Orders</h2>
-			 <div class="order">
-				<a href="manage/order.html">
-					<ul>
-						<li class="order_name">ERASER</li>
-						<li class="order_customer">Jimmy Dean</li>
-						<li class="order_time">2H</li>
-					</ul>
-				</a>
-			 </div>
-			 <div class="order">
-				<a href="manage/order.html">
-					<ul>
-						<li class="order_name">STATIONARY SET</li>
-						<li class="order_customer">Emily Snicket</li>
-						<li class="order_time">1D</li>
-					</ul>
-				</a>
-		</div>
+			 <section class="orders_container">
 
-		<div class="review_preview">
+				<div class="order">
+					<a href="manage_orders.html">
+						<ul>
+							<li class="order_name">ERASER</li>
+							<li class="order_customer">Jimmy Dean</li>
+							<li class="order_time">2H</li>
+						</ul>
+					</a>
+				</div>
 
+				<div class="order">
+					<a href="manage_orders.html">
+						<ul>
+							<li class="order_name">STATIONARY SET</li>
+							<li class="order_customer">Emily Snicket</li>
+							<li class="order_time">1D</li>
+						</ul>
+					</a>
+				</div>
+			</section>
 		</div>
+		<section class="review_preview">
+			<h2>Recent Reviews</h2>
+			
+
+		</section>
 	</aside>
 
 	<main>
