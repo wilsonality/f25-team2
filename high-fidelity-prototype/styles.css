@@ -51,18 +51,23 @@ main {
 	height: 256px;
 }
 
-.offer img {
+.offer ul {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+}
+
+.offer_image img{
 	/* Center */
 	display: block;	
 	margin-left: auto;
 	margin-right: auto;
 
-	width: 128px;
-	height: 128px;
+	width: 256px;
+	height: 200px;
 }
-
-.offer p {
-	white-space: pre-line;
+.offer_title {
+	font-weight: bold;
 }
 
 footer {
