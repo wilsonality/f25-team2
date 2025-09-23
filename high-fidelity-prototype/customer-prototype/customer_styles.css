@@ -46,7 +46,7 @@ review {
 }
 
 .view_offer_body {
-    padding: 0 200px;
+    padding: 0 10vw;
 }
 
 .offers_container {
@@ -125,8 +125,6 @@ review {
     width: 30vw;
     white-space: wrap;
 }
-
-
 
 footer {
 	grid-area: footer;
