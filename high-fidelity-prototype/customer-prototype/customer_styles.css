@@ -88,6 +88,7 @@ review {
     margin: 5px;
     width: 1fr;
     height: auto;
+    border: 1px solid black;
 }
 .review ul {
     list-style-type: none;
@@ -111,6 +112,16 @@ review {
 
 .review_content {
     white-space: pre-line;
+}
+
+.add_review {
+    float: right;
+}
+
+.review_text_box {
+    height: 50px;
+    width: 30vw;
+    white-space: wrap;
 }
 
 footer {
