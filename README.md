@@ -22,5 +22,4 @@ Spartan's List is the solution for Spartans who need something from their commun
 
 
 # Prototype Link
-
-https://wilsonality.github.io/f25-team2/high-fidelity-prototype/homepage_no_login.html
+[Link To Page](https://wilsonality.github.io/f25-team2/high-fidelity-prototype/homepage_no_login.html)
