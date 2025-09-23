@@ -29,6 +29,10 @@ nav {
 	border-bottom: 1px solid black;
 }
 
+nav img{
+	height: 20px;
+}
+
 aside {
 	grid-area: sidebar;
 	border-right: 1px solid black;
@@ -135,9 +139,6 @@ button.deny{
 	margin: 0;
 }
 
-.review li{
-}
-
 .review_title{
 	font-weight: 700;
 }
@@ -155,6 +156,49 @@ button.deny{
 	font-size: 0.80em;
 	display:inline;
 }
+
+/* seller profile */
+
+.profile{
+	display: flex;
+	flex-wrap: wrap;
+
+	gap: 2em;
+	padding: 3em;
+}
+
+.user_info{
+	width: 30%;
+	min-height: 500px;
+	background-color: bisque;
+	padding: 2em;
+	border-radius: 1em;
+	text-align: center;
+}
+
+.user_info span{
+	font-weight: 750;
+}
+
+img.user_photo{
+	border-radius: 50%;
+	border: 3px solid black;
+	width:15em;
+}
+
+.profile button{
+	font-size: large;
+	background-color: burlywood;
+}
+
+.edit_profile{
+	display: flex;
+	flex-wrap: wrap;
+
+	gap: 2em;
+	padding: 3em;
+}
+
 
 
 /* footer styling */
