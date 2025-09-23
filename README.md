@@ -19,3 +19,7 @@ Spartan's List is the solution for Spartans who need something from their commun
     2. Create services - Post offers (item or service) and/or update previous offers.
     3. View customer statistics -  View follow count, average rating, average offer completions per month, and more.
     4. Reply to reviews - Respond to offer reviews and select reviews to be featured on their profile.
+
+
+# Prototype Link
+[Link To Page](https://wilsonality.github.io/f25-team2/high-fidelity-prototype/homepage_no_login.html)
