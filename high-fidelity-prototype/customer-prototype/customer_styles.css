@@ -8,7 +8,7 @@ body {
 	grid-template-areas:
 	"navbar navbar"
 	"main about"
-    "main review"
+    "review review"
 	"footer footer";
 
 	/* Size of columns and rows */
@@ -37,14 +37,16 @@ main {
 
 about {
     grid-area: about;
-    border-bottom: 1px solid black;
-
 }
 
 review {
     grid-area: review;
     border-top: 1px solid black;
 
+}
+
+.view_offer_body {
+    padding: 0 200px;
 }
 
 .offers_container {
@@ -70,8 +72,8 @@ review {
 	margin-left: auto;
 	margin-right: auto;
 
-	width: 40vw;
-	height: 40vw;
+	width: 250px;
+	height: 250px;
 }
 
 .offer_title {
@@ -123,6 +125,8 @@ review {
     width: 30vw;
     white-space: wrap;
 }
+
+
 
 footer {
 	grid-area: footer;
