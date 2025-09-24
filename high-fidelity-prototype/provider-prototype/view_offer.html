@@ -79,24 +79,50 @@
 			</section>
 		</div>
 	</aside>
-    <main class="edit_offer">
+    <main class="view_offer">
         <section class="offer_summary">
             <div class="offer_1">
 				<img src="../images/eraser.jpeg" alt="" class="offer_image">
-				<p>Change image: <input type="file"></p>
-				<p>Edit Title: <input class="large" type="text" placeholder="Cute Eraser"></p>
+				<h1 id="offer_title">Cute Eraser</h1>
 				<p><strong>Watching:</strong> 4</p>
-				<a href="view_offer.html">
-					<button>Save Changes</button>
+				<a href="manage_offer.html">
+					<button>Edit Offer</button>
 				</a>
 			</div>
 			<div class="offer_2">
 				<h1>Availability: <span>$10</span></h1>
-				<h3>Change Availability</h3>
-				<h3>Free:<input type="checkbox"></h3>
-				<h3>Insert price ($$): <input type="number"></h3>
-				<p>Edit Description</p>
-				<textarea name="description" id="description"></textarea>
+				<h3>Description</h3>
+				<p>This is a fine eraser. Handmade by my grandma. A family heirloom.</p>
+				<div class="offer_cards">
+					<div class="pending_orders">
+						<h2>Pending Orders</h2>
+						<div class="order">
+							<a href="manage_orders.html">
+								<ul>
+									<li class="order_name">ERASER</li>
+									<li class="order_customer">Jimmy Dean</li>
+									<li class="order_time">2H</li>
+									<li>
+										<button class="accept">Accept</button>
+										<button class="deny">Deny</button>
+									</li>
+								</ul>
+							</a>
+						</div>
+					</div>
+					<div class="completed_orders">
+						<h2>Completed Orders</h2>
+						<div class="order">
+							<a href="manage_orders.html">
+								<ul>
+									<li class="order_name">ERASER</li>
+									<li class="order_customer">John Smith</li>
+									<li class="order_time">5H</li>
+								</ul>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
         </section>
     </main>

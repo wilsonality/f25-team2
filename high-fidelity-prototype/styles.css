@@ -24,9 +24,20 @@ nav {
 	/* Sticky navbar */
 	position: sticky;
 	top: 0;
+	padding-top: 0.25em;
 
 	background-color: floralwhite;
 	border-bottom: 1px solid black;
+
+	a, a:visited{
+		text-decoration: none;
+		color: inherit;
+		font-weight: 900;
+	}
+
+	span{
+		font-size: larger;
+	}
 }
 
 aside {
