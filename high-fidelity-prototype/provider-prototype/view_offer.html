@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="provider_styles.css">
+	<script src="js/view_offer.js" defer></script>
 	<title>Cute Eraser</title>
 </head>
 <body>
@@ -12,7 +13,9 @@
 		<a href="homepage_provider.html">
 			<span>Spartan's List</span>
 		</a>
-		<img src="../images/icons/profile_black_20pt.svg" alt="">
+		<a href="view_profile.html">
+			<img src="../images/icons/profile_black_20pt.svg" alt="">
+		</a>
 
 		<a href="../homepage_no_login.html">
 			<img src="../images/icons/logout_black_20pt.svg" alt="">
@@ -38,7 +41,7 @@
 				<div class="order">
 					<a href="manage_orders.html">
 						<ul>
-							<li class="order_name">STATIONARY SET</li>
+							<li class="order_name">STATIONERY SET</li>
 							<li class="order_customer">Emily Snicket</li>
 							<li class="order_time">1D</li>
 						</ul>
@@ -113,7 +116,7 @@
 					<div class="completed_orders">
 						<h2>Completed Orders</h2>
 						<div class="order">
-							<a href="manage_orders.html">
+							<a href="">
 								<ul>
 									<li class="order_name">ERASER</li>
 									<li class="order_customer">John Smith</li>
@@ -125,6 +128,49 @@
 				</div>
 			</div>
         </section>
+		<section class="offer_reviews">
+			<!-- contains reviews for this offer -->
+			<h2>Reviews on This Offer</h2>
+			<div class="reviews_container">
+				<div class="review">
+					<ul>
+						<li class=""><img src="../images/default_user.jpg" class="review_image"></li>
+						<li class="review_title">
+							<p>Great Working Pens</p>
+							<p>3 / 5</p>
+						</li>
+						<li class="review_author">
+							<p>Samantha Brown</p>
+						</li>
+						<li class="make_response">
+							<button id="response-btn">
+								Respond
+							</button>
+							<div id="response-input" class="hide">
+								<textarea name="" id="new_response"></textarea>
+								<button id="submit-btn">Submit Reply</button>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="review">
+					<ul>
+						<li class=""><img src="../images/blue_user.jpg" class="review_image"></li>
+						<li class="review_title">
+							<p>Pretty Good</p>
+							<p>4 / 5</p>
+						</li>
+						<li class="review_author">
+							<p>Albert Steinson</p>
+						</li>
+						<li class="response">
+							<h3>YOU</h3>
+							<p>Thanks! Glad you enjoyed the stationery.</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
     </main>
 	<footer>
 		<!-- Footer -->
