@@ -73,8 +73,6 @@ main {
 }
 
 /* order styling */
-
-
 .order {
 	border: 1px solid black;
     background-color: whitesmoke;
@@ -99,6 +97,10 @@ main {
 }
 
 .order_time{
+	font-style: italic;
+}
+
+.order_status {
 	font-style: italic;
 }
 
