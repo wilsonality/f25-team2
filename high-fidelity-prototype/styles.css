@@ -54,7 +54,6 @@ main {
 .offers_container {
 	display: flex;
 	flex-wrap: wrap;
-	border: 0.5px dotted black;
 }
 
 .offer {

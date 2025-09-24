@@ -48,6 +48,7 @@ main {
 	margin: 5px;
 	width: 256px;
 	height: 256px;
+	border: 0px;
 }
 
 .offer ul {
@@ -95,6 +96,7 @@ about {
 	padding: 2em;
 	border-radius: 1em;
 	text-align: center;
+	list-style-type: none;
 }
 
 .user_info span{
