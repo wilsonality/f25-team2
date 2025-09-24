@@ -1,0 +1,20 @@
+body {
+	/* Skeleton layout for page */
+	display: grid;
+	grid-template-areas:
+	"navbar navbar"
+	"main main"
+	"footer footer";
+
+	/* Size of columns and rows */
+	grid-template-columns: 200px 1fr;
+	grid-template-rows: auto 1fr auto;
+
+	margin-top: 0px;
+	min-height: 100vh;
+    padding: 0 30vw;
+}
+
+footer {
+    border-right: 0px;
+}

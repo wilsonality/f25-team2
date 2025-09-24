@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="registration.css">
+	<title>Reigstration</title>
+</head>
+<body>
+	<nav>
+		<!-- Nav bar -->
+		<a href="/high-fidelity-prototype/homepage_no_login.html">Spartan's List</a>
+		<img src="/high-fidelity-prototype/images/icons/profile_black_20pt.svg" alt="">
+	</nav>
+
+	<main>
+		<div class="registration_form">
+			<form>
+				<label for="name">Name: </label><br>
+				<input type="text" id="name" name="name"><br><br>
+
+				<label for="bio">Bio: </label><br>
+				<textarea class="bio" name="bio" id="bio" rows="3" cols="20" wrap="soft"></textarea><br>
+
+				<p>I am a:</p>
+				<input type="radio" name="account_type" value="Shopper">
+				<label for="account_type">Shopper</label><br>
+
+				<input type="radio" name="account_type" value="Seller">
+				<label for="account_type">Seller</label><br><br>
+
+				<label for="pfp">Profile Picture: </label><br>
+				<input type="file" id="pfp" name="pfp"><br><br>
+
+				<input type="submit" value="Submit"><br>
+			</form>
+		</div>
+	</main>
+
+	<footer>
+		<!-- Footer -->
+		<p>About Us</p>
+		<p>Contact</p>
+		<p>Terms of Service</p>
+	</footer>
+</body>
+</html>
