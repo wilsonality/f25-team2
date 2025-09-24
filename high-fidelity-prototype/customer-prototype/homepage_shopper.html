@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../styles.css">
+	<link rel="stylesheet" href="homepage_shopper.css">
 	<title>Shopper Home</title>
 </head>
 <body>
@@ -12,12 +13,23 @@
 	</nav>
 
 	<aside>
-		<input type="input" name="Search" placeholder="Search">
-		<p>Filter ></p>
-		<p>Sort</p>
-		<p>Offer Type</p>
-		<p>* Item</p>
-		<p>* Service</p>
+		<input type="input" name="Search" placeholder="Search Offers">
+		<h2>Filter</h2>
+
+		<u>Item Type</u><br>
+		<label for="offer_type">Item</label>
+		<input type="radio" name="offer_type" value="item"><br>
+		<label for="offer_type">Service</label>
+		<input type="radio" name="offer_type" value="service"><br>
+		<br>
+
+		<u>Sort</u><br>
+		<label for="offer_type">Ascending ⬆️</label>
+		<input type="radio" name="sort" value="ascending">
+		<br>
+		<label for="offer_type">Descending ⬇️</label>
+		<input type="radio" name="sort" value="descending">
+		<br>
 	</aside>
 
 	<main>
