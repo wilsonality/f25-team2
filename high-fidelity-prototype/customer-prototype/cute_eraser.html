@@ -3,13 +3,16 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="customer_styles.css">
+	<link rel="stylesheet" href="shopper_views_offer.css">
+	<script src="buttons.js"></script>
 	<title>Cute Eraser</title>
 </head>
 <body class="view_offer_body">
 	<nav>
 		<!-- Nav bar -->
-		<a href="/high-fidelity-prototype/customer-prototype/homepage_customer.html">Spartan's List</a>
+		<a href="/high-fidelity-prototype/customer-prototype/homepage_shopper.html">Spartan's List</a>
+		<img src="/high-fidelity-prototype//images/icons/profile_black_20pt.svg" alt="">
+        <a href="/high-fidelity-prototype/customer-prototype/shopper_cart.html">Cart</a>
 	</nav>
 
 	<main>
@@ -19,13 +22,13 @@
 				<ul>
 					<li class="offer_image"><img src="../images/eraser.jpeg"></li>
 					<li class="offer_title">Cute Eraser</li>
-					<li class="offer_context">Emily Snicket 1d $40</li>
+					<a href="/high-fidelity-prototype/provider-prototype/view_profile_public_page.html"><li class="offer_context">Jane Doe 4hrs $10</li></a>
                     <li class="offer_desc">This is a fine eraser. Handmade by my grandma. A family heirloom.</li>
 				</ul>
 
                 <div class="buttons">
-                    <input type="button" name="buy" value="Buy">
-                    <input type="button" name="watch" value="Watch">
+                    <button onclick="request()">Request</button>
+                    <button onclick="watch()">Watch</button>
                 </div>
 			</div>	
 		</div>
@@ -33,12 +36,25 @@
 	</main>
 
     <about>
-        <h2>About Emily Snicket</h2>
+		<div class="profile">
+			<section class="user_info">
+				<img src="../images/jane_doe.jpg" alt="profile picture" class="user_photo">
+				<h3>Spartan Seller</h3>
+				<h2>Jane Doe</h2>
+				<p>Member Since: <span>09/25/2025</span></p>
+
+				<div class="analytics_preview">
+					<p>Bio: <span>I sell stationary!</span></p>
+					<p>Follow Count: <span>1</span></p>
+					<p>Rating: <span>⭐️⭐️⭐️⭐️⭐️</span></p>
+				</div>
+			</section>
+		</div>
     </about>
 
     <review>
         <h1>Reviews</h1>
-        <div class="make_review_bontainer">
+        <div class="make_review_container">
             <textarea class="review_text_box" name="text" id="text" rows="14" cols="10" wrap="soft"></textarea><br>
 
             <label for="stars" name="review">⭐️</label>

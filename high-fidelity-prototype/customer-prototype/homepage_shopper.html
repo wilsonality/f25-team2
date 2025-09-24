@@ -4,20 +4,44 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../styles.css">
+	<link rel="stylesheet" href="homepage_shopper.css">
 	<title>Shopper Home</title>
 </head>
 <body>
 	<nav>
-		<a href="../homepage_no_login.html">Spartan's List</a>
+		<a href="/high-fidelity-prototype/customer-prototype/homepage_shopper.html">Spartan's List</a>
+		<a href="/high-fidelity-prototype/customer-prototype/view_profile.html"><img src="/high-fidelity-prototype//images/icons/profile_black_20pt.svg" alt="profile icon"></a>
+		<a href="/high-fidelity-prototype/customer-prototype/shopper_cart.html">Cart</a>
 	</nav>
 
 	<aside>
-		<input type="input" name="Search" placeholder="Search">
-		<p>Filter ></p>
-		<p>Sort</p>
-		<p>Offer Type</p>
-		<p>* Item</p>
-		<p>* Service</p>
+		<div class="filters">
+			<input type="input" name="Search" placeholder="Search Offers">
+			<h2>Filter</h2>
+
+			<u>Item Type</u><br>
+			<label for="offer_type">Item</label>
+			<input type="radio" name="offer_type" value="item"><br>
+			<label for="offer_type">Service</label>
+			<input type="radio" name="offer_type" value="service"><br>
+			<br>
+
+			<u>Sort</u><br>
+			<label for="offer_type">Ascending ⬆️</label>
+			<input type="radio" name="sort" value="ascending">
+			<br>
+			<label for="offer_type">Descending ⬇️</label>
+			<input type="radio" name="sort" value="descending">
+			<br>
+		</div>
+
+		<div class="Watching">
+			<h2>Watching</h2>
+				<ul>
+					<li>Jane Doe</li>
+					<li>Jimmy Dean</li>
+				</ul>
+		</div>
 	</aside>
 
 	<main>
@@ -27,7 +51,7 @@
 				<ul>
 					<li class="offer_image"><a href="cute_eraser.html"><img src="../images/eraser.jpeg"></a></li>
 					<li class="offer_title" style="color: blue"><a href="cute_eraser.html">Cute Eraser</a></li>
-					<li class="offer_context">Jane Doe 4hrs 10</li>
+					<li class="offer_context">Jane Doe 4hrs $10</li>
 				</ul>	
 			</div>
 			<div class="offer">
