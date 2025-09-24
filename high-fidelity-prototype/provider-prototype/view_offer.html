@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="provider_styles.css">
+	<script src="../js/review.js" defer></script>
 	<title>Cute Eraser</title>
 </head>
 <body>
@@ -38,7 +39,7 @@
 				<div class="order">
 					<a href="manage_orders.html">
 						<ul>
-							<li class="order_name">STATIONARY SET</li>
+							<li class="order_name">STATIONERY SET</li>
 							<li class="order_customer">Emily Snicket</li>
 							<li class="order_time">1D</li>
 						</ul>
@@ -139,10 +140,14 @@
 						<li class="review_author">
 							<p>Samantha Brown</p>
 						</li>
-						<li class="response-btn">
-							<button>
+						<li class="make_response">
+							<button id="response-btn">
 								Respond
 							</button>
+							<div id="response-input" class="hide">
+								<textarea name="" id="new_response"></textarea>
+								<button id="submit-btn">Submit Reply</button>
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -158,7 +163,7 @@
 						</li>
 						<li class="response">
 							<h3>YOU</h3>
-							<p>Thanks! Glad you enjoyed the staionary.</p>
+							<p>Thanks! Glad you enjoyed the stationery.</p>
 						</li>
 					</ul>
 				</div>
