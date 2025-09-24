@@ -84,8 +84,6 @@ main {
 }
 
 /* order styling */
-
-
 .order {
 	border: 1px solid black;
     background-color: whitesmoke;
@@ -113,6 +111,10 @@ main {
 	font-style: italic;
 }
 
+.order_status {
+	font-style: italic;
+}
+
 .order a{
 	color: inherit;
 }
@@ -124,3 +126,4 @@ footer {
 	border-top: 1px solid black;
 	border-right: 1px solid black;
 }
+
