@@ -9,21 +9,94 @@
 <body>
 	<nav>
 		<!-- Nav bar -->
-		<a href="homepage_provider.html">Spartan's List</a>
+		<a href="homepage_provider.html">
+			<span>Spartan's List</span>
+		</a>
 		<img src="../images/icons/profile_black_20pt.svg" alt="">
+
+		<a href="../homepage_no_login.html">
+			<img src="../images/icons/logout_black_20pt.svg" alt="">
+			SIGN OUT
+		</a>
 	</nav>
-    <main class="view_offer">
+	<aside>
+		<div class="order_preview">
+			<!-- shows pending orders -->
+			 <h2>Pending Orders</h2>
+			 <section class="orders_container">
+
+				<div class="order">
+					<a href="manage_orders.html">
+						<ul>
+							<li class="order_name">ERASER</li>
+							<li class="order_customer">Jimmy Dean</li>
+							<li class="order_time">2H</li>
+						</ul>
+					</a>
+				</div>
+
+				<div class="order">
+					<a href="manage_orders.html">
+						<ul>
+							<li class="order_name">STATIONARY SET</li>
+							<li class="order_customer">Emily Snicket</li>
+							<li class="order_time">1D</li>
+						</ul>
+					</a>
+				</div>
+			</section>
+		</div>
+		<div class="review_preview">
+			<h2>Recent Reviews</h2>
+			<section class="reviews_container">
+				<div class="review">
+					<a href="view_offer.html">
+						<ul>
+							<li class="review_title">
+								<p>Great Working Pens</p>
+								<p>3 / 5</p>
+							</li>
+							<li class="review_author">
+								<p>Samantha Brown</p>
+							</li>
+						</ul>
+					</a>
+				</div>
+
+				<div class="review">
+					<a href="view_offer.html">
+						<ul>
+							<li class="review_title">
+								<p>Chair Too Old</p>
+								<p>1 / 5</p>
+							</li>
+							<li class="review_author">
+								<p>John Smith</p>
+							</li>
+						</ul>
+					</a>
+				</div>
+			</section>
+		</div>
+	</aside>
+    <main class="edit_offer">
         <section class="offer_summary">
             <div class="offer_1">
 				<img src="../images/eraser.jpeg" alt="" class="offer_image">
-				<h1 id="offer_title">Cute Eraser</h1>
-				<a href="manage_offer.html">
-					<button>Edit Offer</button>
+				<p>Change image: <input type="file"></p>
+				<p>Edit Title: <input class="large" type="text" placeholder="Cute Eraser"></p>
+				<p><strong>Watching:</strong> 4</p>
+				<a href="view_offer.html">
+					<button>Save Changes</button>
 				</a>
 			</div>
 			<div class="offer_2">
-				<h1>Availability / Price: <span>$10</span></h1>
-				
+				<h1>Availability: <span>$10</span></h1>
+				<h3>Change Availability</h3>
+				<h3>Free:<input type="checkbox"></h3>
+				<h3>Insert price ($$): <input type="number"></h3>
+				<p>Edit Description</p>
+				<textarea name="description" id="description"></textarea>
 			</div>
         </section>
     </main>
