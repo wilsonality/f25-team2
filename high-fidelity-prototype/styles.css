@@ -2,6 +2,12 @@ html {
 	background-color: floralwhite;
 }
 
+a {
+	color: blue;
+	text-decoration: underline;
+	background-color: rgba(253, 207, 255, 0.371);
+}
+
 body {
 	/* Skeleton layout for page */
 	display: grid;
