@@ -3,9 +3,9 @@ html {
 }
 
 a {
-	color: blue;
-	text-decoration: underline;
-	background-color: rgba(253, 207, 255, 0.371);
+	color: none;
+	text-decoration: none;
+	background-color: rgba(250, 222, 251, 0.371);
 }
 
 body {
