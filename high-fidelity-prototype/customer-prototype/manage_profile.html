@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
 	<link rel="stylesheet" href="profile.css">
 	<link rel="stylesheet" href="shopper_profile.css">
-
+    <script src="buttons.js"></script>
 	<title>My Profile</title>
 </head>
 <body>
@@ -26,15 +26,21 @@
         <div class="profile">
             <section class="user_info">
 				<img src="../images/blue_user.jpg" alt="profile picture" class="user_photo">
-				<h3>Spartan Shopper</h3>
-				<h2>Jimmy Dean</h2>
-				<p>Member Since: <span>09/25/2025</span></p>
 
-				<div class="analytics_preview">
-					<p>Bio: <span>Despite my given name, I love stationary!</span></p>
-					<p>Items Purchased: <span>12</span></p>
-					<a href="manage_profile.html"><button>Edit Profile</button></a>
-				</div>
+                <label for="pfp">Profile Picture: </label><br>
+				<input type="file" id="pfp" name="pfp"><br><br>
+
+				<label for="name">Username: </label><br>
+				<input type="text" id="name" name="name"><br><br>
+
+                <label for="password">Password: </label><br>
+				<input type="password" id="password" name="password"><br><br>
+				
+                <label for="bio">Bio: </label><br>
+				<textarea class="bio" name="bio" id="bio" rows="3" cols="20" wrap="soft"></textarea><br>
+
+                <a href="view_profile.html"><button onclick="save()">Save Changes</button></a>
+                <a href="view_profile.html"><button onclick="cancel()">Cancel Changes</button></a>
 			</section>
 
 			<dic class="review_preview">
