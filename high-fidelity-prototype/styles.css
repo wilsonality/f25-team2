@@ -39,11 +39,16 @@ nav {
 		text-decoration: none;
 		color: inherit;
 		font-weight: 900;
+		padding: 3px;
 	}
 
-	span{
+	span {
 		font-size: larger;
 	}
+
+
+
+
 }
 
 aside {
