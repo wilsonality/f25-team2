@@ -29,12 +29,14 @@ nav {
 	border-bottom: 1px solid black;
 }
 
-/* Offer Content */
+
 main {
 	grid-area: main;
     border-right: 1px solid black;
 }
 
+
+/* Offer Content */
 .view_offer_body {
     padding: 0 10vw;
 }
@@ -45,70 +47,25 @@ main {
 }
 
 .offer {
-	margin: 5px;
-	width: 256px;
-	height: 256px;
-	border: 0px;
-}
-
-.offer ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
+	width: 1fr;
+	height: 1fr;
+	border: none;
 }
 
 .offer_image img {
 	display: block;	
-	margin-left: auto;
 	margin-right: auto;
 
-	width: 250px;
-	height: 250px;
+	width: 512px;
+	height: 512px;
 }
 
-.offer_title {
-	font-weight: bold;
-}
-/* END Offer Content */
+
+ /* END Offer Content */
 
 /* -------- */
 
-/* About Seller */
-about {
-    grid-area: about;
-	overflow: scroll;
-}
 
-.profile{
-	display: flex;
-	flex-wrap: wrap;
-
-	height: 250px;
-
-	gap: 2em;
-	padding: 3em;
-}
-
-.user_info{
-	width: 300px;
-	min-height: 500px;
-	background-color: bisque;
-	padding: 2em;
-	border-radius: 1em;
-	text-align: center;
-	list-style-type: none;
-}
-
-.user_info span{
-	font-weight: 750;
-}
-
-img.user_photo{
-	border-radius: 50%;
-	border: 3px solid black;
-	width:15em;
-}
-/* END About Seller */
 
 /* -------- */
 

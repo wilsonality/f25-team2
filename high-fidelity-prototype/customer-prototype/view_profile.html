@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="../styles.css">
     <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
+	<link rel="stylesheet" href="profile.css">
 
 	<title>My Profile</title>
 </head>
@@ -13,6 +14,7 @@
 		<a href="homepage_shopper.html">Spartan's List</a>
 		<a href="view_profile.html"><img src="../images/icons/profile_black_20pt.svg" alt="profile icon"></a>
 		<a href="shopper_cart.html">Cart</a>
+		<a href="../homepage_no_login.html"><img src="../images/icons/logout_black_20pt.svg" alt=""></a>
 	</nav>
 
 	<aside>
@@ -22,25 +24,26 @@
 	<main>
         <div class="profile">
             <section class="user_info">
-				<img src="../images/jane_doe.jpg" alt="profile picture" class="user_photo">
+				<img src="../images/blue_user.jpg" alt="profile picture" class="user_photo">
 				<h3>Spartan Shopper</h3>
 				<h2>Jimmy Dean</h2>
 				<p>Member Since: <span>09/25/2025</span></p>
 
 				<div class="analytics_preview">
 					<p>Bio: <span>Despite my given name, I love stationary!</span></p>
+					<a href="manage_profile.html"><button>Edit Profile</button></a>
 					<p>Items Purchased: <span>12</span></p>
 				</div>
 			</section>
 
-			<section class="profile_features">
+			<dic class="review_preview">
 				<h2>REVIEWS MADE</h2>
-				<div class="reviews_cards">
+				<section class="reviews_container">
 					<div class="review">
-						<a href="../provider-prototype/">
+						<a href="../customer-prototype/cute_eraser.html">
 							<ul>
 								<li class="review_title">
-									<p>Best eraser I've ever had.</p>
+									<p>Best ras I've ever had.</p>
 									<p>5 / 5</p>
 								</li>
 								<li class="review_author">
@@ -51,7 +54,6 @@
 					</div>
 				</div>
 			</section>
-		
 	</main>
 
 	<footer>

@@ -53,39 +53,6 @@ main {
 	grid-area: main;
 }
 
-/* browse offer styling */
-
-.offers_container {
-	display: flex;
-	flex-wrap: wrap;
-	border: 0.5px dotted black;
-}
-
-.offer {
-	border: 1px solid black;
-	margin: 5px;
-	width: 256px;
-	height: 256px;
-}
-
-.offer ul {
-	list-style-type: none;
-	padding: 0;
-	margin: 0;
-}
-
-.offer_image img{
-	/* Center */
-	display: block;	
-	margin-left: auto;
-	margin-right: auto;
-
-	width: 256px;
-	height: 200px;
-}
-.offer_title {
-	font-weight: bold;
-}
 
 /* view offer details styling */
 
@@ -414,7 +381,7 @@ aside {
 	background-color: bisque;
 	padding: 2em;
 	border-radius: 1em;
-	text-align: center;
+	text-align: left;
 }
 
 .user_info span{
