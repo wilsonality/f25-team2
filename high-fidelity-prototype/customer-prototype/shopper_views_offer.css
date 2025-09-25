@@ -32,7 +32,6 @@ nav {
 
 main {
 	grid-area: main;
-    border-right: 1px solid black;
 }
 
 
@@ -77,6 +76,7 @@ review {
 
 .review {
     margin: 5px;
+	padding: 5px;
     width: 1fr;
     height: auto;
     border: 1px solid black;
@@ -90,7 +90,8 @@ review {
 .review_image img {
 	display: block;	
 	margin-left: 0;
-	margin-right: auto;
+	margin-right: 2px;
+	padding-right: 2px;
 
 	width: 10vw;
 	height: 10vw;
@@ -121,4 +122,5 @@ review {
 footer {
 	grid-area: footer;
 	border-top: 1px solid black;
+	border-right: 0;
 }
