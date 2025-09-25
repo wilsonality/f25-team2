@@ -59,6 +59,7 @@ main {
 .offer {
 	border: 1px solid black;
 	margin: 5px;
+	padding: 5px;
 	width: 256px;
 	height: 256px;
 }
@@ -125,4 +126,6 @@ footer {
 	border-top: 1px solid black;
 	border-right: 1px solid black;
 }
+
+
 
