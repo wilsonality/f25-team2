@@ -29,7 +29,7 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 
 ## 2. Use Cases
 ### 2.1 Use Case Model
-![Use Case Model](use-case-diagram.pdf)
+![Use Case Model](use-case-diagram.jpg)
 
 ### 2.2 Use Case Descriptions
 
@@ -59,5 +59,6 @@ A customer may write a review for a box they subscribed to. They will be able to
 
 ## 3. UML Class Diagram
 ![UML Class Diagram](https://github.com/csc340-uncg/f25-team0/blob/main/doc/Object-Oriented-Design/class-diagram.png)
+
 ## 4. Database Schema
-![UML Class Diagram](database-schema.pdf)
+![UML Class Diagram](database-schema.jpg)
