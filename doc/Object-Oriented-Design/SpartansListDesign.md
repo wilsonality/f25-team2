@@ -22,7 +22,7 @@ Table of Contents
 | ---- | ------- | ------------------- | --------- |
 |  SZ  |10/20    | Initial Design      |    0.1    |
 |  SZ  |10/21    | Shopper Desc.       |    0.2    |
-|      |         |                     |           |
+|  WG  |10/21    |  Seller Use Cases   |    0.3   |
 
 ## 1. Product Overview
 Spartan's List is a website not unlike Craigslist, where users can advertise goods and services for sale, and contact the individuals who list them.
@@ -70,7 +70,7 @@ A Shopper can write a review for an offer after they purchase it. The review wil
 A Shopper can follow a Seller. This will add the Shopper to the Seller's amialing list, which will notify the Shopper of any new products or services the Shopper makes in the future. 
 
 ## 3. UML Class Diagram
-![UML Class Diagram](https://github.com/csc340-uncg/f25-team0/blob/main/doc/Object-Oriented-Design/class-diagram.png)
+![UML Class Diagram](SpartansListClassDiagram.png)
 
 ## 4. Database Schema
-![UML Class Diagram](database-schema.jpg)
+![UML Class Diagram](SpartansListSchema.png)
