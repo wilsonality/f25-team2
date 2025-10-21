@@ -22,7 +22,7 @@ Table of Contents
 | ---- | ------- | ------------------- | --------- |
 |  SZ  |10/20    | Initial Design      |    0.1    |
 |  SZ  |10/21    | Shopper Desc.       |    0.2    |
-|      |         |                     |           |
+|  WG  |10/21    |  Seller Use Cases   |    0.3   |
 
 ## 1. Product Overview
 Spartan's List is a website not unlike Craigslist, where users can advertise goods and services for sale, and contact the individuals who list them.
@@ -35,15 +35,21 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 
 #### 2.2.1 Actor: Seller
 ##### 2.2.1.1 Sign Up
-A farmer can sign up to create their profile with their name, email, password, and phone number. Emails must be unique.
+A Seller can sign up using a username and password. The username must be unique.
 ##### 2.2.1.2 Log In
-A farmer shall be able to sign in using their registred email and password. After logging in, the farmer shall be directed their dashboard where they see an overview of their farm, boxes and stats.
+A Seller shall be able to sign in using their registered email and password. After logging in, the Seller shall be directed their dashboard where they see an overview of their posted offers.
 ##### 2.2.1.3 Update Profile
-A farmer shall be to modify their profile by going to their profile page. They can change their email, password, and farm.
-##### 2.2.1.4 Create Produce Boxes
-The farmer shall be able to create a new produce box listing. They would provide a box name, description, and price. This box will be created to be associated with only this farmer and their farm.
+A Seller shall be to update their profile by going to their profile page. They can change their email, password, featured reviews, and featured offers.
+##### 2.2.1.4 Create Offers
+The Seller shall be able to create a new Offer. They would provide a offer title, descriptoin, availability, type, payment method, and price. This Offer will be created to be associated with only this Seller.
 ##### 2.2.1.4 View Customer Stats
-A farmer will be able to view several statistics such as total revenue, total subscribers, and average ratings.
+A Seller shall be able to view several statistics such as average rating, purchases this month, subscriber count, and account age.
+##### 2.2.1.5 Respond to Orders
+A Seller shall be able to respond to orders from Shoppers. They shall be able to accept or deny any offer.
+##### 2.2.1.6 Reply To Reviews
+A Seller shall be able to reply to reviews associated with their Offers.
+
+
 
 #### 2.2.2 Actor: Shopper
 ##### 2.2.2.1 Sign Up
@@ -64,7 +70,7 @@ A Shopper can write a review for an offer after they purchase it. The review wil
 A Shopper can follow a Seller. This will add the Shopper to the Seller's amialing list, which will notify the Shopper of any new products or services the Shopper makes in the future. 
 
 ## 3. UML Class Diagram
-![UML Class Diagram](https://github.com/csc340-uncg/f25-team0/blob/main/doc/Object-Oriented-Design/class-diagram.png)
+![UML Class Diagram](SpartansListClassDiagram.png)
 
 ## 4. Database Schema
-![UML Class Diagram](database-schema.jpg)
+![UML Class Diagram](SpartansListSchema.png)
