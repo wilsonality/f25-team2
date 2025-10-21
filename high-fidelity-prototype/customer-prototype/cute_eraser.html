@@ -3,25 +3,21 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../styles.css">
+	<link rel="stylesheet" href="../provider-prototype/provider_styles.css">
+	<link rel="stylesheet" href="profile.css">
 	<link rel="stylesheet" href="shopper_views_offer.css">
 	<link rel="icon" type="image/x-icon" href="/high-fidelity-prototype/images/icons/favicon.svg">
 	<script src="buttons.js"></script>
 	<title>Cute Eraser</title>
+	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
 </head>
 <body class="view_offer_body">
 	<nav>
-		<!-- Nav bar -->
-		<a href="homepage_shopper.html">
-			<span>Spartan's List</span>
-		</a>
-		<a href="view_profile.html">
-			<img src="../images/icons/profile_black_20pt.svg" alt="">
-		</a>
-
-		<a href="../homepage_no_login.html">
-			<img src="../images/icons/logout_black_20pt.svg" alt="">
-			SIGN OUT
-		</a>
+		<a href="homepage_shopper.html">Spartan's List</a>
+		<a href="view_profile.html"><img src="../images/icons/profile_black_20pt.svg" alt="profile icon"></a>
+		<a href="shopper_cart.html"><img src="../images/icons/cart_black_20pt.svg"></a>
+		<a href="../homepage_no_login.html"><img src="../images/icons/logout_black_20pt.svg" alt=""></a>
 	</nav>
 
 	<main>
@@ -41,26 +37,21 @@
                 </div>
 			</div>	
 		</div>
-
 	</main>
 
     <about>
-		<div class="profile">
-			<a href="../provider-prototype/view_profile_public_page.html">
-				<section class="user_info">
-					<img src="../images/jane_doe.jpg" alt="profile picture" class="user_photo">
-					<h3>Spartan Seller</h3>
-					<h2>Jane Doe</h2>
-					<p>Member Since: <span>09/25/2025</span></p>
+		<section class="user_info" style="margin-left: auto; margin-right: auto; margin-top: 7px;">
+				<a href="../provider-prototype/view_profile_public_page.html"><img src="../images/jane_doe.jpg" alt="profile picture" class="user_photo" style="width:150px; height:150px"></a>
+				<h3>Spartan Seller</h3>
+				<h2>Jane Doe</h2>
+				<p>Member Since: <span>09/25/2025</span></p>
 
-					<div class="analytics_preview">
-						<p>Bio: <span>I sell stationary!</span></p>
-						<p>Follow Count: <span>1</span></p>
-						<p>Rating: <span>⭐️⭐️⭐️⭐️⭐️</span></p>
-					</div>
-				</section>
-			</a>
-		</div>
+				<div class="analytics_preview">
+					<p>Bio: <span>I sell stationary!</span></p>
+					<p>Follow Count: <span>1</span></p>
+					<p>Rating: <span>⭐️⭐️⭐️⭐️⭐️</span></p>
+				</div>
+		</section>
     </about>
 
     <review>
@@ -85,54 +76,21 @@
         <div class="reviews_container">
             <div class="review">
 				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders 5/5</li>
-                    <li class="review_content">Best Eraser Ever</li>
+					<li class="review_image"><img src="../images/default_user.jpg"></li>
+                    <li class="review_name">Samantha Brown</li>
+					<li class="review_stars">⭐️⭐️⭐️</li>
 				</ul>
+				<p class="review_content">Great working pens!</p>
 			</div>
             <div class="review">
 				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders' Twin</li>
-                    <li class="review_content">Worst Eraser Ever!!</li>
-
+					<li class="review_image"><img src="../images/blue_user.jpg"></li>
+                    <li class="review_name">Albert Steinson</li>
+					<li class="review_stars">⭐️⭐️⭐️⭐️</li>
 				</ul>
-			</div>
-            <div class="review">
-				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders' Twin</li>
-                    <li class="review_content">Worst Eraser Ever!!</li>
-
-				</ul>
-			</div>
-            <div class="review">
-				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders' Twin 5/5</li>
-                    <li class="review_content">Worst Eraser Ever!!</li>
-
-				</ul>
-			</div>
-            <div class="review">
-				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders' Twin</li>
-                    <li class="review_content">Worst Eraser Ever!!</li>
-
-				</ul>
-			</div>
-            <div class="review">
-				<ul>
-					<li class="review_image"><img src="../images/guy.png"></li>
-                    <li class="review_name">Guy Sanders' Twin</li>
-                    <li class="review_content">Worst Eraser Ever!!</li>
-
-				</ul>
+				<p class="review_content">Pretty good!</p>
 			</div>
         </div>
-
-        
     </review>
 
 	<footer>

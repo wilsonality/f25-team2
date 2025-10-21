@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
+	<link rel="stylesheet" href="profile.css">
+	<link rel="stylesheet" href="shopper_profile.css">
+    <script src="buttons.js"></script>
+	<title>Manage Your Profile</title>
+</head>
+<body>
+	<nav>
+		<a href="homepage_shopper.html">Spartan's List</a>
+		<a href="view_profile.html"><img src="../images/icons/profile_black_20pt.svg" alt="profile icon"></a>
+		<a href="shopper_cart.html"><img src="../images/icons/cart_black_20pt.svg"></a>
+		<a href="../homepage_no_login.html"><img src="../images/icons/logout_black_20pt.svg" alt=""></a>
+	</nav>
+
+	<main style="margin-left: auto; margin-right:auto;">
+        <div class="profile">
+            <section class="user_info">
+				<img src="../images/blue_user.jpg" alt="profile picture" class="user_photo"><br>
+
+                <label for="pfp">Profile Picture: </label><br>
+				<input type="file" id="pfp" name="pfp"><br><br>
+
+				<label for="name">Username: </label><br>
+				<input type="text" id="name" name="name"><br><br>
+
+                <label for="password">Password: </label><br>
+				<input type="password" id="password" name="password"><br><br>
+				
+                <label for="bio">Bio: </label><br>
+				<textarea class="bio" name="bio" id="bio" rows="3" cols="20" wrap="soft"></textarea><br>
+
+                <a href="view_profile.html"><button onclick="save()">Save Changes</button></a>
+                <a href="view_profile.html"><button onclick="cancel()">Cancel Changes</button></a>
+			</section>
+	</main>
+
+	<footer>
+		<!-- Footer -->
+		<p>About Us</p>
+		<p>Contact</p>
+		<p>Terms of Service</p>
+	</footer>
+</body>
+</html>

@@ -5,3 +5,11 @@ function watch() {
 function request() {
     alert("Requested!");
 }
+
+function save() {
+  alert("Saved!");
+}
+
+function cancel() {
+  alert("Cancelled!");
+}
