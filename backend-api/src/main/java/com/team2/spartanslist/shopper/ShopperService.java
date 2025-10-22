@@ -13,16 +13,26 @@ public class ShopperService {
     /*
      * Get
      */
-
      public List<Shopper> getAllShoppers() {
         return shopperRepository.findAll();
+     }
+
+     public Shopper getShopper(Long user_ID) {
+         return shopperRepository.findById(user_ID).orElse(null);
      }
 
     /*
      * Post
      */
-    
-     public Shopper createShopper(Shopper shopper) {
-        return shopperRepository.save(shopper);
+     public Shopper createShopper(Shopper newShopper) {
+         return shopperRepository.save(newShopper);
      }
+
+     /*
+      * Put
+      */
+      public Shopper updateShopper(Long user_ID, Shopper updatedShopper) {
+         shopperRepository.save(updatedShopper);
+         return getShopper(user_ID);
+      }
 }
