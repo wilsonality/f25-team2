@@ -17,19 +17,22 @@ public class ShopperService {
         return shopperRepository.findAll();
      }
 
+     public Shopper getShopper(Long user_ID) {
+         return shopperRepository.findById(user_ID).orElse(null);
+     }
+
     /*
      * Post
      */
      public Shopper createShopper(Shopper newShopper) {
-        return shopperRepository.save(newShopper);
+         return shopperRepository.save(newShopper);
      }
 
      /*
       * Put
       */
-      public Shopper updateShopper(Shopper updatedShopper) {
-         return shopperRepository.save(updatedShopper);
+      public Shopper updateShopper(Long user_ID, Shopper updatedShopper) {
+         shopperRepository.save(updatedShopper);
+         return getShopper(user_ID);
       }
-
-      
 }

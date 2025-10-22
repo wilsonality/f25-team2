@@ -24,6 +24,11 @@ public class ShopperController {
         return shopperService.getAllShoppers();
     }
 
+    @GetMapping("/shopper/{user_ID}") 
+    public Shopper getShopper(@PathVariable Long user_ID) {
+        return shopperService.getShopper(user_ID);
+    }
+
     /*
      * Post Mappings
      */
@@ -37,7 +42,7 @@ public class ShopperController {
       */
       @PutMapping("/shopper/update/{user_ID}")
       public Shopper updateShopper(@PathVariable Long user_ID, @RequestBody Shopper updatedShopper) {
-        return shopperService.updateShopper(updatedShopper);
+        return shopperService.updateShopper(user_ID, updatedShopper);
       }
 
 }
