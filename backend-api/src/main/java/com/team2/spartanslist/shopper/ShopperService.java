@@ -13,7 +13,6 @@ public class ShopperService {
     /*
      * Get
      */
-
      public List<Shopper> getAllShoppers() {
         return shopperRepository.findAll();
      }
@@ -21,8 +20,16 @@ public class ShopperService {
     /*
      * Post
      */
-    
-     public Shopper createShopper(Shopper shopper) {
-        return shopperRepository.save(shopper);
+     public Shopper createShopper(Shopper newShopper) {
+        return shopperRepository.save(newShopper);
      }
+
+     /*
+      * Put
+      */
+      public Shopper updateShopper(Shopper updatedShopper) {
+         return shopperRepository.save(updatedShopper);
+      }
+
+      
 }
