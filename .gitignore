@@ -1,3 +1,4 @@
 .DS_Store
-
-*.drawio
+application.properties
+.vscode
+backend-api/target
