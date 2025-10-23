@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,9 +23,9 @@ public class ShopperController {
         return shopperService.getAllShoppers();
     }
 
-    @GetMapping("/shopper/{user_ID}") 
-    public Shopper getShopper(@PathVariable Long user_ID) {
-        return shopperService.getShopper(user_ID);
+    @GetMapping("/shopper/{shopperID}") 
+    public Shopper getShopper(@PathVariable Long shopperID) {
+        return shopperService.getShopper(shopperID);
     }
 
     /*
@@ -40,9 +39,9 @@ public class ShopperController {
      /*
       * Put Mappings
       */
-      @PutMapping("/shopper/update/{user_ID}")
-      public Shopper updateShopper(@PathVariable Long user_ID, @RequestBody Shopper updatedShopper) {
-        return shopperService.updateShopper(user_ID, updatedShopper);
+      @PutMapping("/shopper/update/{shopperID}")
+      public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
+        return shopperService.updateShopper(shopperID, updatedShopper);
       }
 
 }
