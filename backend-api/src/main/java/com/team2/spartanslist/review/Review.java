@@ -29,9 +29,7 @@ public class Review {
     @Column(nullable = false)
     @JoinColumn(name = "shopperID")
     private Shopper author;
-
     
-    @Column(nullable = false)
     @OneToMany(mappedBy = "review")
     @JsonIgnoreProperties("review")
     @JoinColumn(name = "offerID")
@@ -43,12 +41,22 @@ public class Review {
     private String content;
     
     private int rating;
+
     /*
      * Constructors
      */
 
     public Review(Long reviewID, Shopper author, Offer offer, String content, LocalDate dateTime, int rating) {
         this.reviewID = reviewID;
+        this.author = author;
+        this.offer = offer;
+        this.content = content;
+        this.dateTime = dateTime;
+        this.content = content;
+        this.rating = rating;
+    }
+
+    public Review(Shopper author, Offer offer, String content, LocalDate dateTime, int rating) {
         this.author = author;
         this.offer = offer;
         this.content = content;

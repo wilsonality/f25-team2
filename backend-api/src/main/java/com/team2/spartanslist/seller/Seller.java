@@ -1,5 +1,11 @@
 package com.team2.spartanslist.seller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.team2.spartanslist.offer.Offer;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,8 +15,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import java.util.ArrayList;
 
 @Entity
 @Table(name = "Seller")
@@ -37,6 +41,7 @@ public class Seller {
     @JsonIgnoreProperties("seller")
     private List<Offer> offers = new ArrayList<>();
 
+
     /*
      * Constructors
      */
@@ -44,63 +49,16 @@ public class Seller {
     public Seller(Long user_ID, String user_name, String password, String user_phone, String profile_image, String profile_bio) {
         this.user_ID = user_ID;
         this.user_name = user_name;
-        this.password = password;
         this.user_phone = user_phone;
+        this.password = password;
         this.profile_image = profile_image;
         this.profile_bio = profile_bio;
     }
-
-    /*
-     * Getters and Setters
-     */
-
-    public Long getUser_ID() {
-        return user_ID;
-    }
-
-    public void setUser_ID(Long user_ID) {
-        this.user_ID = user_ID;
-    }
-
-    public String getUser_name() {
-        return user_name;
-    }
-
-    public void setUser_name(String user_name) {
+    public Seller (String user_name, String password, String user_phone, String profile_image, String profile_bio) {
         this.user_name = user_name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getUser_phone() {
-        return user_phone;
-    }
-
-    public void setUser_phone(String user_phone) {
         this.user_phone = user_phone;
-    }
-
-    public String getProfile_image() {
-        return profile_image;
-    }
-
-    public void setProfile_image(String profile_image) {
+        this.password = password;
         this.profile_image = profile_image;
-    }
-
-    public String getProfile_bio() {
-        return profile_bio;
-    }
-
-    public void setProfile_bio(String profile_bio) {
         this.profile_bio = profile_bio;
     }
-
-    // 
 }
