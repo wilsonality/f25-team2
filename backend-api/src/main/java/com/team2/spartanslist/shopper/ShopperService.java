@@ -17,8 +17,8 @@ public class ShopperService {
         return shopperRepository.findAll();
      }
 
-     public Shopper getShopper(Long user_ID) {
-         return shopperRepository.findById(user_ID).orElse(null);
+     public Shopper getShopper(Long shopperID) {
+         return shopperRepository.findById(shopperID).orElse(null);
      }
 
     /*
@@ -31,8 +31,8 @@ public class ShopperService {
      /*
       * Put
       */
-      public Shopper updateShopper(Long user_ID, Shopper updatedShopper) {
+      public Shopper updateShopper(Long shopperID, Shopper updatedShopper) {
          shopperRepository.save(updatedShopper);
-         return getShopper(user_ID);
+         return getShopper(shopperID);
       }
 }
