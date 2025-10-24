@@ -15,33 +15,28 @@ public class ShopperController {
     @Autowired
     private ShopperService shopperService;
 
-    /*
-     * Get Mappings
-     */
+    // Returns a list of all Shopper entities
     @GetMapping("/shopper")
     public List<Shopper> getAllShoppers() {
         return shopperService.getAllShoppers();
     }
 
+    // Gets a Shopper entity by ID
     @GetMapping("/shopper/{shopperID}") 
     public Shopper getShopper(@PathVariable Long shopperID) {
         return shopperService.getShopper(shopperID);
     }
 
-    /*
-     * Post Mappings
-     */
-     @PostMapping("/shopper")
-     public Shopper createShopper(@RequestBody Shopper newShopper) {
-        return shopperService.createShopper(newShopper);
-     }
+    // Insert a new Shopper entity into the table
+    @PostMapping("/shopper")
+    public Shopper createShopper(@RequestBody Shopper newShopper) {
+    return shopperService.createShopper(newShopper);
+    }
 
-     /*
-      * Put Mappings
-      */
-      @PutMapping("/shopper/update/{shopperID}")
-      public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
-        return shopperService.updateShopper(shopperID, updatedShopper);
-      }
+    // Update a Shopper entity
+    @PutMapping("/shopper/update/{user_ID}")
+    public Shopper updateShopper(@PathVariable Long user_ID, @RequestBody Shopper updatedShopper) {
+    return shopperService.updateShopper(user_ID, updatedShopper);
+    }
 
 }

@@ -10,29 +10,20 @@ public class ShopperService {
     @Autowired 
     private ShopperRepository shopperRepository;
 
-    /*
-     * Get
-     */
-     public List<Shopper> getAllShoppers() {
-        return shopperRepository.findAll();
-     }
+    public List<Shopper> getAllShoppers() {
+    return shopperRepository.findAll();
+    }
 
-     public Shopper getShopper(Long shopperID) {
-         return shopperRepository.findById(shopperID).orElse(null);
-     }
+    public Shopper getShopper(Long shopperID) {
+        return shopperRepository.findById(shopperID).orElse(null);
+    }
 
-    /*
-     * Post
-     */
-     public Shopper createShopper(Shopper newShopper) {
-         return shopperRepository.save(newShopper);
-     }
+    public Shopper createShopper(Shopper newShopper) {
+        return shopperRepository.save(newShopper);
+    }
 
-     /*
-      * Put
-      */
-      public Shopper updateShopper(Long shopperID, Shopper updatedShopper) {
-         shopperRepository.save(updatedShopper);
-         return getShopper(shopperID);
-      }
+    public Shopper updateShopper(Long shopperID, Shopper updatedShopper) {
+        shopperRepository.save(updatedShopper);
+        return getShopper(shopperID);
+    }
 }
