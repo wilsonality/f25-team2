@@ -1,8 +1,6 @@
 package com.team2.spartanslist.mailing_list;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class MailingListRepository {
-    
+public interface MailingListRepository extends JpaRepository<MailingList, Long>{
 }

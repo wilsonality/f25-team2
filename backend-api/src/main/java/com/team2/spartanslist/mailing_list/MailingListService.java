@@ -8,10 +8,7 @@ public class MailingListService {
     @Autowired
     private MailingListRepository mailingListRepository;
 
-    public void subscribe() {
-        
+    public void subscribe(MailingList newMailingList) {
+        mailingListRepository.save(newMailingList);
     }
-
-
-    
 }
