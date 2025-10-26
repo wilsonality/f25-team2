@@ -12,7 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,9 +28,10 @@ public class Review {
 
     @Column(nullable = false)
     @JoinColumn(name = "shopperID")
+    @ManyToOne
     private Shopper author;
     
-    @OneToMany(mappedBy = "review")
+    @ManyToOne
     @JsonIgnoreProperties("review")
     @JoinColumn(name = "offerID")
     private Offer offer;
@@ -40,13 +41,16 @@ public class Review {
 
     private String content;
     
+    @Column(nullable = false)
     private int rating;
+
+    private String reply;
 
     /*
      * Constructors
      */
 
-    public Review(Long reviewID, Shopper author, Offer offer, String content, LocalDate dateTime, int rating) {
+    public Review(Long reviewID, Shopper author, Offer offer, String content, LocalDate dateTime, int rating, String reply) {
         this.reviewID = reviewID;
         this.author = author;
         this.offer = offer;
@@ -54,14 +58,16 @@ public class Review {
         this.dateTime = dateTime;
         this.content = content;
         this.rating = rating;
+        this.reply = reply;
     }
 
-    public Review(Shopper author, Offer offer, String content, LocalDate dateTime, int rating) {
+    public Review(Shopper author, Offer offer, String content, LocalDate dateTime, int rating, String reply) {
         this.author = author;
         this.offer = offer;
         this.content = content;
         this.dateTime = dateTime;
         this.content = content;
         this.rating = rating;
+        this.reply = reply;
     }
 }

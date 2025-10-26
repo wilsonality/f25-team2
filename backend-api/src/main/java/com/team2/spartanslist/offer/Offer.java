@@ -7,11 +7,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.team2.spartanslist.review.Review;
 import com.team2.spartanslist.seller.Seller;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -26,7 +29,8 @@ public class Offer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long offerID;
 
-    @Column(nullable = false)
+    @ManyToOne
+    @JoinColumn(name="sellerID",nullable = false)
     private Seller seller;
 
     @Column(nullable = false)
@@ -44,7 +48,7 @@ public class Offer {
     private String payment;
     private int numPurchased;
 
-    @OneToMany(mappedBy = "offer")
+    @OneToMany(mappedBy = "offer", cascade= CascadeType.ALL)
     @JsonIgnoreProperties("offer")
     private List<Review> reviews = new ArrayList<>();
 
