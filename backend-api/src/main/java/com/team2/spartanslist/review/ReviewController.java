@@ -23,6 +23,9 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.createReview(review));
     }
 
-    /** endpoint to update a review*/
+    /** endpoint to update a review
+     * 
+     * @param nReview the new details of the review
+    */
     
 }

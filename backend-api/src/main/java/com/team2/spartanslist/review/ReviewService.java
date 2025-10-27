@@ -10,6 +10,8 @@ import com.team2.spartanslist.shopper.ShopperService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+
+import com.team2.spartanslist.seller.SellerService;
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -18,6 +20,7 @@ public class ReviewService {
     private final ReviewRepository reviewRepository;
     private final ShopperService shopperService;
     private final OfferService offerService;
+    private final SellerService sellerService;
 
     /** method to create a review
      * @param review the review to create
@@ -83,5 +86,13 @@ public class ReviewService {
      */
     public List<Review> getAllReviewsByOfferId(Long offerID) {
         return reviewRepository.findAllByOffer(offerService.getOfferById(offerID));
+    }
+    
+    /** method to get unreplied reviews for a seller
+     * @param sellerID id of the seller
+     * @return
+     */
+    public List<Review> getAllReviewsByOfferSellerAndNoReply(Long sellerID){
+        return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
     }
 }
