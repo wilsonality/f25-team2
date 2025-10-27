@@ -29,5 +29,4 @@ public class Shopper {
     
     private String profileImage;
     private String profileBio;
-
 }

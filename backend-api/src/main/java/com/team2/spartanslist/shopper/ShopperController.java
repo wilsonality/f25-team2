@@ -35,8 +35,8 @@ public class ShopperController {
 
     // Update a Shopper entity
     @PutMapping("/shopper/update/{user_ID}")
-    public Shopper updateShopper(@PathVariable Long user_ID, @RequestBody Shopper updatedShopper) {
-    return shopperService.updateShopper(user_ID, updatedShopper);
+    public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
+    return shopperService.updateShopper(shopperID, updatedShopper);
     }
 
 }
