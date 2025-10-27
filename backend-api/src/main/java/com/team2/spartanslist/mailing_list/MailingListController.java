@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,6 +15,13 @@ public class MailingListController {
     @Autowired
     private MailingListService mailingListService;
 
+
+    /**
+     * { 
+     *   sellerID: 
+     *   shopperID:
+     * }
+     */
     @PostMapping("/subscribe")
     public MailingList subscribe(@RequestBody MailingList mailingList ) {
         return mailingListService.subscribe(mailingList);
@@ -26,11 +32,13 @@ public class MailingListController {
         mailingListService.unsubscribe(shopperID, shopperID);
     }
 
+    // Returns a list of all subscriptions for shopperID
     @GetMapping("/{shopperID}/subscriptions")
     public List<MailingList> getAllSubs(@PathVariable Long shopperID) {
         return mailingListService.getAllSubs(shopperID);
     }
 
+    // Reurns a list of subscriptions by for shopperID by sellerID
     @GetMapping("/{shopperID}/subscriptions/{sellerID}")
     public List<MailingList> getSubscriptionStatus(@PathVariable Long shopperID, @PathVariable Long sellerID) {
         return mailingListService.getSubscriptionStatus(shopperID, sellerID);
