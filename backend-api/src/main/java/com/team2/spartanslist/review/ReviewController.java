@@ -84,5 +84,11 @@ public class ReviewController {
     public ResponseEntity<Review> getAllReviewsByOfferId(@PathVariable Long offerID){
         return ResponseEntity.ok((Review) reviewService.getAllReviewsByOfferId(offerID));
     }
+
+    /** endpoint to get */
+    @GetMapping("/seller/{sellerID}/noreply")
+    public ResponseEntity<List<Review>> getAllReviewsBySellerAndNoReply(@PathVariable Long sellerID){
+        return ResponseEntity.ok(reviewService.getAllReviewsBySellerAndNoReply(sellerID));
+    }
     
 }
