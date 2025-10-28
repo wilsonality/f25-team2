@@ -18,7 +18,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "Seller")
+@Table(name = "Review")
 @Data
 @NoArgsConstructor
 public class Review {
@@ -26,8 +26,7 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewID;
 
-    @Column(nullable = false)
-    @JoinColumn(name = "shopperID")
+    @JoinColumn(name = "shopperID",nullable = false)
     @ManyToOne
     private Shopper author;
     

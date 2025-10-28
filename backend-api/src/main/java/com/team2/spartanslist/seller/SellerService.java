@@ -1,5 +1,7 @@
 package com.team2.spartanslist.seller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,11 +33,20 @@ public class SellerService {
         return sellerRepository.save(seller);
     }
 
+    public List<Seller> deleteSeller(Long sellerID){
+        sellerRepository.deleteById(sellerID);
+        return sellerRepository.findAll();
+    }
+
     public Seller getSellerById(Long sellerID){
         return sellerRepository.findById(sellerID).orElseThrow(() -> new IllegalStateException("Seller with ID:" + sellerID + " does not exist."));
     }
     
     public Seller getSellerByPhone(String userPhone){
         return sellerRepository.findByUserPhone(userPhone);
+    }
+
+    public List<Seller> getAllSellers(){
+        return sellerRepository.findAll();
     }
 }

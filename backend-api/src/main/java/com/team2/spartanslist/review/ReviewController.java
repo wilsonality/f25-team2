@@ -1,10 +1,17 @@
 package com.team2.spartanslist.review;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
@@ -19,13 +26,63 @@ public class ReviewController {
      * @return the offer of the review
      */
     @PostMapping
-    public ResponseEntity<Review> creatReview(Review review){
+    public ResponseEntity<Review> creatReview(@Valid @RequestBody Review review){
         return ResponseEntity.ok(reviewService.createReview(review));
     }
 
     /** endpoint to update a review
      * 
      * @param nReview the new details of the review
+     * @return
     */
+    @PutMapping("/{reviewID}")
+    public ResponseEntity<Review> updateReview(@PathVariable Long reviewID, @Valid @RequestBody Review nReview){
+        return ResponseEntity.ok(reviewService.updateReview(reviewID, nReview));
+    }
+
+    /** endpoint to get a review 
+     * @param reviewID the id of the review to get
+     * @return
+    */
+    @GetMapping("/{reviewID}")
+    public ResponseEntity<Review> getReviewById(@PathVariable Long reviewID){
+        return ResponseEntity.ok(reviewService.getReviewById(reviewID));
+    }
+
+    /** endpoint to delete a review
+     * @param reviewID the id of the review to delete
+     * @return all reviews
+    */
+    @PostMapping("/{reviewID}")
+    public ResponseEntity<List<Review>> deleteReview(@PathVariable Long reviewID){
+        reviewService.deleteReview(reviewID);
+        return ResponseEntity.ok(reviewService.getAllReviews());
+    }
+
+    /** endpoint to get all reviews
+     * @return all reviews
+    */
+    @GetMapping("/all")
+    public ResponseEntity<List<Review>> getAllReviews(){
+        return ResponseEntity.ok((reviewService.getAllReviews()));
+    }
+
+    /** endpoint to get all reviews by shopper id
+     * @param shopperID the id of the shopper
+     * @return
+    */
+    @GetMapping("/all/shopper/{shopperID}")
+    public ResponseEntity<List<Review>> getAllReviewsByShopperId(@PathVariable Long shopperID){
+        return ResponseEntity.ok(reviewService.getAllReviewsByAuthorId(shopperID));
+    }
+
+    /** endpoint to get all reviews by offer id
+     * @param offerID the id of the offer
+     * @return
+    */
+    @GetMapping("/all/offer/{offerID}")
+    public ResponseEntity<Review> getAllReviewsByOfferId(@PathVariable Long offerID){
+        return ResponseEntity.ok((Review) reviewService.getAllReviewsByOfferId(offerID));
+    }
     
 }

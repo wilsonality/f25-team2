@@ -1,17 +1,16 @@
 package com.team2.spartanslist.review;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.ShopperService;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
-
-import com.team2.spartanslist.seller.SellerService;
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -77,7 +76,7 @@ public class ReviewService {
      * @return
      */
     public List<Review> getAllReviewsByAuthorId(Long shopperID) {
-        return reviewRepository.findAllByAuthor(shopperService.findById(shopperID));
+        return reviewRepository.findAllByAuthor(shopperService.getShopper(shopperID));
     }
 
     /** method to get all reviews by offer id

@@ -82,7 +82,7 @@ public class OfferController{
      * @param availability availability of the offers
      * @return
      */
-    @GetMapping("/all/available")
+    @GetMapping
     public ResponseEntity<List<Offer>> findByAvailability(String availability){
         return ResponseEntity.ok(offerService.findByAvailability(availability));
     }
@@ -92,7 +92,7 @@ public class OfferController{
      * @param sellerID seller of the offers
      * @return 
      */
-    @GetMapping("/{sellerID}/available")
+    @GetMapping("/seller/{sellerID}/available")
     public ResponseEntity<List<Offer>> findByAvailabilityAndSeller(String availability,Long sellerID){
         return ResponseEntity.ok(offerService.findByAvailabilityAndSeller(availability, sellerID));
     }
@@ -101,7 +101,7 @@ public class OfferController{
      * @param sellerID seller to get offers for
      * @return
      */
-    @GetMapping("/{sellerID}")
+    @GetMapping("/seller/{sellerID}")
     public ResponseEntity<List<Offer>> findBySeller(Long sellerID){
         return ResponseEntity.ok(offerService.findBySeller(sellerID));
     }
