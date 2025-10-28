@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "cart")
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartID;
     List<Long> offers = new ArrayList<Long>();
 }
