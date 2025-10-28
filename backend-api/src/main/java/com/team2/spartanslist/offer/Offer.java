@@ -23,7 +23,7 @@ public class Offer {
     private Long offerID;
 
     @ManyToOne
-    @JoinColumn(name="sellerID",nullable = false)
+    @JoinColumn(name = "sellerID", nullable = false)
     private Seller seller;
 
     @Column(nullable = false)
@@ -45,35 +45,4 @@ public class Offer {
      * Constructors
      */
 
-    public Offer(Long offerID, String title, String availability, String description, String offer_image, int type, int price, String payment, int numPurchased) {
-        this.offerID = offerID;
-        this.title = title;
-        this.availability = availability;
-        this.description = description;
-        this.offer_image = offer_image;
-        this.type = type;
-        this.price = price;
-        this.payment = payment;
-        this.numPurchased = numPurchased;
-    }
-    public Offer(String title, String availability, String description, String offer_image, int type, int price, String payment, int numPurchased) {
-        this.title = title;
-        this.availability = availability;
-        this.description = description;
-        this.offer_image = offer_image;
-        this.type = type;
-        this.price = price;
-        this.payment = payment;
-        this.numPurchased = numPurchased;
-    }
-    public Offer(String title, String availability, String description, String offer_image, int type, int price, String payment) {
-        this.title = title;
-        this.availability = availability;
-        this.description = description;
-        this.offer_image = offer_image;
-        this.type = type;
-        this.price = price;
-        this.payment = payment;
-        this.numPurchased = 0;
-    }
 }
