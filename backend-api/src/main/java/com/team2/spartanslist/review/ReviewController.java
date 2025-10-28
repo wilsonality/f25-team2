@@ -31,7 +31,7 @@ public class ReviewController {
     }
 
     /** endpoint to update a review
-     * 
+     * @param reviewID the id of the review to update 
      * @param nReview the new details of the review
      * @return
     */
@@ -62,7 +62,7 @@ public class ReviewController {
     /** endpoint to get all reviews
      * @return all reviews
     */
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Review>> getAllReviews(){
         return ResponseEntity.ok((reviewService.getAllReviews()));
     }
@@ -83,6 +83,12 @@ public class ReviewController {
     @GetMapping("/all/offer/{offerID}")
     public ResponseEntity<Review> getAllReviewsByOfferId(@PathVariable Long offerID){
         return ResponseEntity.ok((Review) reviewService.getAllReviewsByOfferId(offerID));
+    }
+
+    /** endpoint to get */
+    @GetMapping("/seller/{sellerID}/noreply")
+    public ResponseEntity<List<Review>> getAllReviewsBySellerAndNoReply(@PathVariable Long sellerID){
+        return ResponseEntity.ok(reviewService.getAllReviewsBySellerAndNoReply(sellerID));
     }
     
 }

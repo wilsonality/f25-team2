@@ -45,6 +45,7 @@ public class ReviewService {
         review.setContent(nReview.getContent());
         review.setDateTime(nReview.getDateTime());
         review.setRating(nReview.getRating());
+        review.setReply(nReview.getReply());
 
         return reviewRepository.save(review);
     }
@@ -91,7 +92,7 @@ public class ReviewService {
      * @param sellerID id of the seller
      * @return
      */
-    public List<Review> getAllReviewsByOfferSellerAndNoReply(Long sellerID){
+    public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
         return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
     }
 }

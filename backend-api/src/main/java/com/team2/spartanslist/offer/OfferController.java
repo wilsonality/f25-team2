@@ -72,29 +72,18 @@ public class OfferController{
      * 
      * @return all offers
      */
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Offer>> getAllOffers(){
         return ResponseEntity.ok(offerService.getAllOffers());
     }
-
 
     /** endpoint to see all available offers
      * @param availability availability of the offers
      * @return
      */
-    @GetMapping
-    public ResponseEntity<List<Offer>> findByAvailability(String availability){
+    @GetMapping("/availability/{availability}")
+    public ResponseEntity<List<Offer>> findByAvailability(@PathVariable String availability){
         return ResponseEntity.ok(offerService.findByAvailability(availability));
-    }
-
-    /** endpoint to get available offers of a seller
-     * @param availability availability of the offer
-     * @param sellerID seller of the offers
-     * @return 
-     */
-    @GetMapping("/seller/{sellerID}/available")
-    public ResponseEntity<List<Offer>> findByAvailabilityAndSeller(String availability,Long sellerID){
-        return ResponseEntity.ok(offerService.findByAvailabilityAndSeller(availability, sellerID));
     }
 
     /** endpoint to get all offers of a seller
@@ -102,8 +91,20 @@ public class OfferController{
      * @return
      */
     @GetMapping("/seller/{sellerID}")
-    public ResponseEntity<List<Offer>> findBySeller(Long sellerID){
+    public ResponseEntity<List<Offer>> findBySeller(@PathVariable Long sellerID){
         return ResponseEntity.ok(offerService.findBySeller(sellerID));
     }
+
+    /** endpoint to get available offers of a seller
+     * @param availability availability of the offer
+     * @param sellerID seller of the offers
+     * @return 
+     */
+    @GetMapping("/seller/{sellerID}/availability/{availability}")
+    public ResponseEntity<List<Offer>> findByAvailabilityAndSeller(@PathVariable Long sellerID, @PathVariable String availability){
+        return ResponseEntity.ok(offerService.findByAvailabilityAndSeller(availability, sellerID));
+    }
+
+    
 
 }
