@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor
 @Data
-@Table(name = "Offer")
+@Table(name = "Order")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,7 +26,6 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "offerID", nullable = false)
     private Offer offer;
-
 
     @ManyToOne
     @JoinColumn(name = "shopperID", nullable = false)
