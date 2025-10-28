@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -16,33 +15,28 @@ public class ShopperController {
     @Autowired
     private ShopperService shopperService;
 
-    /*
-     * Get Mappings
-     */
+    // Returns a list of all Shopper entities
     @GetMapping("/shopper")
     public List<Shopper> getAllShoppers() {
         return shopperService.getAllShoppers();
     }
 
-    @GetMapping("/shopper/{user_ID}") 
-    public Shopper getShopper(@PathVariable Long user_ID) {
-        return shopperService.getShopper(user_ID);
+    // Gets a Shopper entity by ID
+    @GetMapping("/shopper/{shopperID}") 
+    public Shopper getShopper(@PathVariable Long shopperID) {
+        return shopperService.getShopper(shopperID);
     }
 
-    /*
-     * Post Mappings
-     */
-     @PostMapping("/shopper")
-     public Shopper createShopper(@RequestBody Shopper newShopper) {
-        return shopperService.createShopper(newShopper);
-     }
+    // Insert a new Shopper entity into the table
+    @PostMapping("/shopper")
+    public Shopper createShopper(@RequestBody Shopper newShopper) {
+    return shopperService.createShopper(newShopper);
+    }
 
-     /*
-      * Put Mappings
-      */
-      @PutMapping("/shopper/update/{user_ID}")
-      public Shopper updateShopper(@PathVariable Long user_ID, @RequestBody Shopper updatedShopper) {
-        return shopperService.updateShopper(user_ID, updatedShopper);
-      }
+    // Update a Shopper entity
+    @PutMapping("/shopper/update/{user_ID}")
+    public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
+    return shopperService.updateShopper(shopperID, updatedShopper);
+    }
 
 }
