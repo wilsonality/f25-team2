@@ -29,5 +29,20 @@ public class Offer {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false)
+    private String availability;
+
+    @Column(nullable = false)
+    private String description;
+    
+    private String offer_image;
+    private int type;
+    private int price;
+    private String payment;
+    private int numPurchased;
+
+    /*
+     * Constructors
+     */
 
 }
