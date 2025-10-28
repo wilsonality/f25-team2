@@ -28,8 +28,8 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer){
-        return ResponseEntity.ok(offerService.createOffer(offer));
+    public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer, Long sellerID){
+        return ResponseEntity.ok(offerService.createOffer(offer, sellerID));
     }
 
     /** endpoint to update an offer
