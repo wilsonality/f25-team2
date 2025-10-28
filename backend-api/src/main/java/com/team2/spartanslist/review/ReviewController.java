@@ -31,7 +31,7 @@ public class ReviewController {
     }
 
     /** endpoint to update a review
-     * 
+     * @param reviewID the id of the review to update 
      * @param nReview the new details of the review
      * @return
     */
@@ -62,7 +62,7 @@ public class ReviewController {
     /** endpoint to get all reviews
      * @return all reviews
     */
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Review>> getAllReviews(){
         return ResponseEntity.ok((reviewService.getAllReviews()));
     }
