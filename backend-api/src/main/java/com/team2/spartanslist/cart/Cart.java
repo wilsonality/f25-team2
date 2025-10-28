@@ -19,5 +19,5 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartID;
-    List<Long> offers = new ArrayList<Long>();
+    List<Long> offerIDList = new ArrayList<>();
 }
