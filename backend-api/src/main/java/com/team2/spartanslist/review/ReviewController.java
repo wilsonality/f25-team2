@@ -94,6 +94,6 @@ public class ReviewController {
     @PostMapping("/{reviewID}/reply")
     public ResponseEntity<Review> replyToReview(@PathVariable Long reviewID, @Valid @RequestBody Review reply){
         return ResponseEntity.ok(reviewService.replyToReview(reviewID, reply));
-    "
+    }
     
 }
