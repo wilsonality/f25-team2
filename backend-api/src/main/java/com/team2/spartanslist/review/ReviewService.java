@@ -95,4 +95,21 @@ public class ReviewService {
     public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
         return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
     }
+
+    /** method to reply to a review 
+     * @param reviewID the id of the review to reply to
+     * @param nReview review object with reply only
+     * @return
+     */
+    public Review replyToReview(Long reviewID, Review nReview){
+        Review review = reviewRepository.findById(reviewID).orElseThrow(() -> new IllegalStateException("Review with ID:" + reviewID + " could not be found."));
+        review.setReply(nReview.getClass());
+        return reviewRepository.save(review);
+    }
+
+    /*
+    public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
+        return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
+    }
+    */
 }

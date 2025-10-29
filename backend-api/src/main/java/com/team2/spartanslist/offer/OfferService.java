@@ -21,15 +21,18 @@ public class OfferService {
 
     /** method to create an offer
      * @param offer the offer to create
-     * @param sellerID the id of the seller creating the offer
+     * note : this offer contains a seller that only has an ID defined.
+     * we use this id to get the seller object and set it to the offer
      * @return
      */
     
-    public Offer createOffer(Offer offer, Long sellerID){
+    public Offer createOffer(Offer offer){
         if (offerRepository.existsById(offer.getOfferID())){
             throw new IllegalStateException("Offer already created");
         }
-        offer.setSeller(sellerService.getSellerById(sellerID));
+
+        Seller seller = sellerService.getSellerById(offer.getSeller().getSellerID());
+        offer.setSeller(seller);
         return offerRepository.save(offer);
     }
 

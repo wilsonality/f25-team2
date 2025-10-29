@@ -40,7 +40,7 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.updateReview(reviewID, nReview));
     }
 
-    /** endpoint to get a review 
+    /** endpoint to get a review
      * @param reviewID the id of the review to get
      * @return
     */
@@ -85,10 +85,15 @@ public class ReviewController {
         return ResponseEntity.ok((Review) reviewService.getAllReviewsByOfferId(offerID));
     }
 
-    /** endpoint to get */
+    /** endpoint to get all offers of a seller with no reply */
     @GetMapping("/seller/{sellerID}/noreply")
     public ResponseEntity<List<Review>> getAllReviewsBySellerAndNoReply(@PathVariable Long sellerID){
         return ResponseEntity.ok(reviewService.getAllReviewsBySellerAndNoReply(sellerID));
     }
+
+    @PostMapping("/{reviewID}/reply")
+    public ResponseEntity<Review> replyToReview(@PathVariable Long reviewID, @Valid @RequestBody Review reply){
+        return ResponseEntity.ok(reviewService.replyToReview(reviewID, reply));
+    "
     
 }
