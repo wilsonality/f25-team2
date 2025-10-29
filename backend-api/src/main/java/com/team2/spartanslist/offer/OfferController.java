@@ -28,7 +28,7 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer, Long sellerID){
+    public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer, @RequestBody Long sellerID){
         return ResponseEntity.ok(offerService.createOffer(offer, sellerID));
     }
 
