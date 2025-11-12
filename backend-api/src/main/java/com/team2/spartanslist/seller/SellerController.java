@@ -107,7 +107,7 @@ public class SellerController{
      * @param sellerID
      * @return
      */
-    @GetMapping("/updateForm/{sellerID")
+    @GetMapping("/updateForm/{sellerID}")
     public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
         return "seller-update";
     }
