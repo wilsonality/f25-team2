@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Seller {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userID;
+    private Long sellerID;
 
     @Column(nullable = false)
     private String username;
@@ -35,8 +35,8 @@ public class Seller {
      * Constructors
      */
 
-    public Seller(Long user_ID, String username, String password, String userPhone, String profileImage, String profileBio) {
-        this.userID = user_ID;
+    public Seller(Long sellerID, String username, String password, String userPhone, String profileImage, String profileBio) {
+        this.sellerID = sellerID;
         this.username = username;
         this.userPhone = userPhone;
         this.password = password;

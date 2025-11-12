@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.seller.SellerService;
+import com.team2.spartanslist.shopper.Shopper;
 import com.team2.spartanslist.shopper.ShopperService;
 
 import lombok.RequiredArgsConstructor;
@@ -23,12 +25,20 @@ public class ReviewService {
 
     /** method to create a review
      * @param review the review to create
+     * note : this review contains a offer and author that only has an ID defined.
+     * we use this id to get the relevants object and set it to the review
      * @return
      */
     public Review createReview(Review review) {
         if (reviewRepository.existsById(review.getReviewID())){
             throw new IllegalStateException("Review already created.");
         }
+        Shopper author = shopperService.getShopper(review.getAuthor().getShopperID());
+        Offer offer = offerService.getOfferById(review.getOffer().getOfferID());
+
+        review.setAuthor(author);
+        review.setOffer(offer);
+
         return reviewRepository.save(review);
     }
 
@@ -95,4 +105,21 @@ public class ReviewService {
     public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
         return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
     }
+
+    /** method to reply to a review 
+     * @param reviewID the id of the review to reply to
+     * @param nReview review object with reply only
+     * @return
+     */
+    public Review replyToReview(Long reviewID, Review nReview){
+        Review review = reviewRepository.findById(reviewID).orElseThrow(() -> new IllegalStateException("Review with ID:" + reviewID + " could not be found."));
+        review.setReply(nReview.getReply());
+        return reviewRepository.save(review);
+    }
+
+    /*
+    public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
+        return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
+    }
+    */
 }

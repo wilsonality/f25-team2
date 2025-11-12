@@ -1,13 +1,12 @@
 package com.team2.spartanslist.shopper;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-
 import com.team2.spartanslist.cart.Cart;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -38,5 +37,5 @@ public class Shopper {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cartID")
-    private Cart cart = new Cart();
+    private Cart cart;
 }

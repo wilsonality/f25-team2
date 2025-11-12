@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
+@Table(name = "Orders")
 @Data
-@Table(name = "Order")
-public class Order {
+public class Order{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderID;
@@ -30,8 +30,8 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "shopperID", nullable = false)
     private Shopper shopper;
-
-    @Column(nullable = false)
+    
+    @Column
     private int status;
     /**
      * 1 = requested
@@ -39,5 +39,21 @@ public class Order {
      * 3 = rejected
      * 4 = completed
      */
+
+
+     /* Constructors */
+
+
+    public Order(Offer offer, Shopper shopper, int status) {
+        this.offer = offer;
+        this.shopper = shopper;
+        this.status = status;
+    }
+    public Order(Long orderID, Offer offer, Shopper shopper, int status) {
+        this.orderID = orderID;
+        this.offer = offer;
+        this.shopper = shopper;
+        this.status = status;
+    }
 
 }

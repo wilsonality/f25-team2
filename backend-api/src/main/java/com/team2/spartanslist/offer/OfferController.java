@@ -24,7 +24,9 @@ public class OfferController{
 
     /** endpoint to add an offer
      * 
-     * @param offer the offer are going to add
+     * @param offer the offer to add
+     * note : the offer's seller is empty, except for a sellerID.
+     * we look up this ID in the service
      * @return
      */
     @PostMapping

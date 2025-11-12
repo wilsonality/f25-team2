@@ -1,25 +1,30 @@
 package com.team2.spartanslist.order;
 
-
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.ShopperService;
 
 import lombok.RequiredArgsConstructor;
 
 
+@Transactional
 @Service
 @RequiredArgsConstructor
 public class OrderService {
     @Autowired
     private final OrderRepository orderRepository;
+    @Autowired
     private final ShopperService shopperService;
+    @Autowired
     private final OfferService offerService;
+    @Autowired
+    private final SellerService sellerService;
 
     /** method to create an order 
      * @param order to create
@@ -67,7 +72,7 @@ public class OrderService {
      * @return
      */
     public List<Order> getOrdersBySeller(Long sellerID){
-        return orderRepository.findByOffer_Seller_SellerID(sellerID);
+        return orderRepository.findByOffer_Seller(sellerService.getSellerById(sellerID));
     }
 
     /** method to get orders by shopper
@@ -90,7 +95,7 @@ public class OrderService {
      * @return
     */
     public List<Order> getOrdersbySellerAndStatus(Long sellerID, int status){
-        return orderRepository.findByOffer_Seller_SellerIDAndStatus(sellerID, status);
+        return orderRepository.findByOffer_SellerAndStatus(sellerService.getSellerById(sellerID), status);
     }
 
 
