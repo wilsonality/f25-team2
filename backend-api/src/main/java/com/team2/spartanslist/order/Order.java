@@ -1,4 +1,4 @@
-package order;
+package com.team2.spartanslist.order;
 
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.shopper.Shopper;
