@@ -1,4 +1,4 @@
-package com.team2.spartanslist.order;
+package order;
 
 import java.util.List;
 

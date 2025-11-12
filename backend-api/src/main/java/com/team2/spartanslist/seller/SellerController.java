@@ -1,12 +1,20 @@
 package com.team2.spartanslist.seller;
 
+import java.util.List;
+
+import org.hibernate.JDBCException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.spartanslist.shopper.Shopper;
+
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -15,16 +23,24 @@ import lombok.RequiredArgsConstructor;
 public class SellerController{
     private final SellerService sellerService;
 
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        Seller newSeller = new Seller();
+        model.addAttribute(newSeller);
+        return "seller-registration-form";
+    } 
+
     /** endpoint to add a seller
      * @param seller the seller to be added
      * @param model
      * @return
      */
     @PostMapping
-    public Object createSeller(Model model, Seller seller){
-        String pageTitle = String.format("View %s's profile",seller.getUsername());
-        model.addAttribute("seller", seller);
+    public String createSeller(Model model, Seller newSeller) {
+        String pageTitle = String.format("View %s's profile", newSeller.getUsername());
+        model.addAttribute("seller", newSeller);
         model.addAttribute("title", pageTitle);
+        sellerService.createSeller(newSeller);
         return "seller-details";
     }
 
