@@ -31,6 +31,10 @@ public class OfferService {
             throw new IllegalStateException("Offer already created");
         }
 
+        if (offer.getOfferImagePath() == null){
+            offer.setOfferImagePath("default.jpg");
+        }
+
         Seller seller = sellerService.getSellerById(offer.getSeller().getSellerID());
         offer.setSeller(seller);
         return offerRepository.save(offer);
@@ -49,7 +53,7 @@ public class OfferService {
         offer.setTitle(nOffer.getTitle());
         offer.setDescription(nOffer.getDescription());
         offer.setAvailability(nOffer.getAvailability());
-        offer.setOffer_image(nOffer.getOffer_image());
+        offer.setOfferImagePath(nOffer.getOfferImagePath());
         offer.setPrice(nOffer.getPrice());
         offer.setPayment(nOffer.getPayment());
 

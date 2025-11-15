@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/offers")
+@RequestMapping("/offers")
 public class OfferController{
     private final OfferService offerService;
 
@@ -30,8 +30,18 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public ResponseEntity<Offer> createOffer(@Valid @RequestBody Offer offer){
-        return ResponseEntity.ok(offerService.createOffer(offer));
+    public Object createOffer(Model model, Offer offer){
+        offerService.createOffer(offer);
+        model.addAttribute("offer", offer);
+        model.addAttribute("title", "Brwose Offers ");
+        return "redirect:/seller/seller-offer-details";
+    }
+
+    @GetMapping("/create")
+    public Object createOfferForm(Model model){
+        model.addAttribute("newOffer", new Offer());
+        model.addAttribute("title", "Post a new offer!");
+        return "seller/seller-create-offer";
     }
 
     /** endpoint to update an offer
@@ -41,8 +51,8 @@ public class OfferController{
      * @return
      */
 
-    @PutMapping("/{offerID}")
-    public ResponseEntity<Offer> updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer){
+    @PostMapping("/{offerID}")
+    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer){
         return ResponseEntity.ok(offerService.updateOffer(offerID, nOffer));
     }
 
@@ -52,7 +62,7 @@ public class OfferController{
      * @return
      */
     @GetMapping("/{offerID}")
-    public ResponseEntity<Offer> getOfferById(@PathVariable Long offerID){
+    public Object getOfferById(@PathVariable Long offerID){
         return ResponseEntity.ok(offerService.getOfferById(offerID));
     }
 
@@ -64,7 +74,7 @@ public class OfferController{
      * @return all offers
      */
     @DeleteMapping ("/{offerID}")
-    public ResponseEntity<List<Offer>> deleteOffer(Long offerID){
+    public Object deleteOffer(Long offerID){
         offerService.deleteOffer(offerID);
         return ResponseEntity.ok(offerService.getAllOffers());
     }
@@ -75,7 +85,7 @@ public class OfferController{
      * @return all offers
      */
     @GetMapping
-    public ResponseEntity<List<Offer>> getAllOffers(){
+    public Object getAllOffers(){
         return ResponseEntity.ok(offerService.getAllOffers());
     }
 
@@ -84,7 +94,7 @@ public class OfferController{
      * @return
      */
     @GetMapping("/availability/{availability}")
-    public ResponseEntity<List<Offer>> findByAvailability(@PathVariable String availability){
+    public Object findByAvailability(@PathVariable String availability){
         return ResponseEntity.ok(offerService.findByAvailability(availability));
     }
 
@@ -93,7 +103,7 @@ public class OfferController{
      * @return
      */
     @GetMapping("/seller/{sellerID}")
-    public ResponseEntity<List<Offer>> findBySeller(@PathVariable Long sellerID){
+    public Object findBySeller(@PathVariable Long sellerID){
         return ResponseEntity.ok(offerService.findBySeller(sellerID));
     }
 
@@ -103,8 +113,9 @@ public class OfferController{
      * @return 
      */
     @GetMapping("/seller/{sellerID}/availability/{availability}")
-    public ResponseEntity<List<Offer>> findByAvailabilityAndSeller(@PathVariable Long sellerID, @PathVariable String availability){
-        return ResponseEntity.ok(offerService.findByAvailabilityAndSeller(availability, sellerID));
+    public Object findByAvailabilityAndSeller(Model model, @PathVariable Long sellerID, @PathVariable String availability){
+        List<Offer> offers = offerService.findByAvailabilityAndSeller(availability, sellerID);
+        return "browse-offers";
     }
 
     
