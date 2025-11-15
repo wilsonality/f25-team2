@@ -55,12 +55,11 @@ public class SellerController{
          * @return
          */
         @PostMapping
-        public String createSeller(Model model, Seller newSeller) {
-            String pageTitle = String.format("View %s's profile", newSeller.getUsername());
-            model.addAttribute("seller", newSeller);
-            model.addAttribute("title", pageTitle);
+        public String createSeller(Seller newSeller) {
             sellerService.createSeller(newSeller);
-            return "seller-details";
+            Long sellerID = newSeller.getSellerID();
+
+            return "redirect:/api/sellers/" + sellerID + "/profile";
         }
     
     // Get endpoints
@@ -80,13 +79,14 @@ public class SellerController{
          * @param sellerID id of the seller to get
          * @return
          */
-        @GetMapping("/{sellerID}")
+        @GetMapping("/{sellerID}/profile")
         public Object getSellerById(Model model, @PathVariable Long sellerID){
             Seller seller = sellerService.getSellerById(sellerID);
             String pageTitle = String.format("View %s's profile",seller.getUsername());
             model.addAttribute("seller", seller);
             model.addAttribute("title", pageTitle);
-            return "seller-details";
+
+            return "seller/seller-profile";
         }
 
         @GetMapping("/seller/{userPhone}")

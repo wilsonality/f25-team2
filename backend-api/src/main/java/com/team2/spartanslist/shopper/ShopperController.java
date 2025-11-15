@@ -26,6 +26,7 @@ public class ShopperController {
         public String showRegisterForm(Model model) {
             Shopper newShopper = new Shopper();
             model.addAttribute(newShopper);
+
             return "/shopper/shopper-registration-form";
         } 
 
@@ -46,22 +47,26 @@ public class ShopperController {
          * @param shopperID
          * @return the shopper
          */
-        @GetMapping("/{shopperID}") 
-        public Shopper getShopper(@PathVariable Long shopperID) {
-            return shopperService.getShopper(shopperID);
+        @GetMapping("/{shopperID}/profile") 
+        public String getShopper(Model model, @PathVariable Long shopperID) {
+            Shopper shopper = shopperService.getShopper(shopperID);
+            model.addAttribute("shopper", shopper);
+
+            return "/shopper/shopper-profile";
         }
 
     // Add endpoints
         /**
          * Endpoint to add a shopper into the table
          * 
-         * @param shopper
+         * @param the shopper from the form information
          */
         @PostMapping
         public String createShopper(Shopper newShopper) {
             shopperService.createShopper(newShopper);
             Long shopperID = newShopper.getShopperID();
-            return "redirect:/shopper/" + shopperID;
+
+            return "redirect:/api/shoppers/" + shopperID + "/profile";
         }
 
     // Update endpoints
