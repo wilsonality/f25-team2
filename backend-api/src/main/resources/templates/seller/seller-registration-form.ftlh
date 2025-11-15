@@ -5,11 +5,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
-	<title>Seller Registration</title>
+	<title>${title}</title>
 </head>
 
 <!--  -->
-
 <body>
 	<main>
         <h1>Register New Seller</h1>

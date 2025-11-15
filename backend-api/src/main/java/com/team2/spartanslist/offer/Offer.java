@@ -35,8 +35,8 @@ public class Offer {
     @Column(nullable = false)
     private String description;
     
-    private String offer_image;
-    private int type;
+    private String offerImagePath;
+    private String type;
     private int price;
     private String payment;
     private int numPurchased;
@@ -45,25 +45,25 @@ public class Offer {
      * Constructors
      */
 
-    public Offer(Seller seller, String title, String availability, String description, String offer_image, int type, int price, String payment, int numPurchased) {
+    public Offer(Seller seller, String title, String availability, String description, String offerImagePath, String type, int price, String payment, int numPurchased) {
         this.seller = seller;
         this.title = title;
         this.availability = availability;
         this.description = description;
-        this.offer_image = offer_image;
+        this.offerImagePath = offerImagePath;
         this.type = type;
         this.price = price;
         this.payment = payment;
         this.numPurchased = numPurchased;
     }
 
-    public Offer(Long offerID, Seller seller, String title, String availability, String description, String offer_image, int type, int price, String payment, int numPurchased) {
+    public Offer(Long offerID, Seller seller, String title, String availability, String description, String offerImagePath, int type, int price, String payment, int numPurchased) {
         this.offerID = offerID;
         this.seller = seller;
         this.title = title;
         this.availability = availability;
         this.description = description;
-        this.offer_image = offer_image;
+        this.offerImagePath = offerImagePath;
         this.type = type;
         this.price = price;
         this.payment = payment;
