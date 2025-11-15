@@ -118,6 +118,20 @@ public class SellerController{
         // model.addAttribute("offers", offers);
         return "redirect:/sellers/" + seller.getSellerID();
     }
+    // Add and delete endpoints
+        /** endpoint to add a seller
+         * 
+         * @param seller the seller to be added
+         * @param model
+         * @return
+         */
+        @PostMapping
+        public String createSeller(Seller newSeller) {
+            sellerService.createSeller(newSeller);
+            Long sellerID = newSeller.getSellerID();
+
+            return "redirect:/api/sellers/" + sellerID + "/profile";
+        }
     
     /** endpoint to update a seller
      * 
