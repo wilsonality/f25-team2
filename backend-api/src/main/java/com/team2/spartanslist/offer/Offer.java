@@ -30,7 +30,7 @@ public class Offer {
     private String title;
 
     @Column(nullable = false)
-    private String availability;
+    private boolean availability;
 
     @Column(nullable = false)
     private String description;
@@ -45,7 +45,7 @@ public class Offer {
      * Constructors
      */
 
-    public Offer(Seller seller, String title, String availability, String description, String offerImagePath, String type, int price, String payment, int numPurchased) {
+    public Offer(Seller seller, String title, boolean availability, String description, String offerImagePath, String type, int price, String payment, int numPurchased) {
         this.seller = seller;
         this.title = title;
         this.availability = availability;
@@ -57,7 +57,7 @@ public class Offer {
         this.numPurchased = numPurchased;
     }
 
-    public Offer(Long offerID, Seller seller, String title, String availability, String description, String offerImagePath, int type, int price, String payment, int numPurchased) {
+    public Offer(Long offerID, Seller seller, String title, boolean availability, String description, String offerImagePath, String type, int price, String payment, int numPurchased) {
         this.offerID = offerID;
         this.seller = seller;
         this.title = title;

@@ -8,7 +8,9 @@ import org.springframework.stereotype.Repository;
 import com.team2.spartanslist.seller.Seller;
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Long>{
-    List<Offer> findByAvailability(String availability);
-    List<Offer> findByAvailabilityAndSeller(String availability, Seller seller);
+    List<Offer> findByAvailability(boolean availability);
+    List<Offer> findByAvailabilityAndSeller(boolean availability, Seller seller);
     List<Offer> findBySeller(Seller seller);
+    List<Offer> findTop3ByAvailabilityTrueAndSeller(Seller seller);
+    List<Offer> findByType(String type);
 }
