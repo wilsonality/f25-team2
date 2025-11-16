@@ -115,9 +115,21 @@ public class OfferController{
     @GetMapping("/seller/{sellerID}/availability/{availability}")
     public Object findByAvailabilityAndSeller(Model model, @PathVariable Long sellerID, @PathVariable String availability){
         List<Offer> offers = offerService.findByAvailabilityAndSeller(availability, sellerID);
+        model.addAttribute("offers", offers);
+        String pageTitle = String.format("All Offers By %s", offers.get(0).getSeller().getUsername());  
+        model.addAttribute("title", pageTitle);
         return "browse-offers";
     }
 
+    /** endpoint to get all offers of a type
+     * @param type type of the offer
+     * @return
+     */
+    @GetMapping("/type/{type}")
+    public Object findByType(@PathVariable String type){
+        return ResponseEntity.ok(offerService.findByType(type));
+    }
+    
     
 
 }

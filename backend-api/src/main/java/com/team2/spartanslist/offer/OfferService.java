@@ -52,7 +52,7 @@ public class OfferService {
 
         offer.setTitle(nOffer.getTitle());
         offer.setDescription(nOffer.getDescription());
-        offer.setAvailability(nOffer.getAvailability());
+        offer.setAvailability(nOffer.isAvailability());
         offer.setOfferImagePath(nOffer.getOfferImagePath());
         offer.setPrice(nOffer.getPrice());
         offer.setPayment(nOffer.getPayment());
@@ -89,7 +89,7 @@ public class OfferService {
      * @param availability availability of the offers
      * @return
      */
-    public List<Offer> findByAvailability(String availability){
+    public List<Offer> findByAvailability(boolean availability){
         return offerRepository.findByAvailability(availability);
     }
 
@@ -98,7 +98,7 @@ public class OfferService {
      * @param sellerID id of the seller
      * @return 
      */
-    public List<Offer> findByAvailabilityAndSeller(String availability, Long sellerID){
+    public List<Offer> findByAvailabilityAndSeller(boolean availability, Long sellerID){
         Seller seller = sellerService.getSellerById(sellerID);
         return offerRepository.findByAvailabilityAndSeller(availability, seller);
     }
@@ -110,5 +110,22 @@ public class OfferService {
     public List<Offer> findBySeller(Long sellerID){
         Seller seller = sellerService.getSellerById(sellerID);
         return offerRepository.findBySeller(seller);
+    }
+
+    /** method to get three available offers of a seller 
+     * @param sellerID the id of the seller
+     * @return
+    */
+    public List<Offer> findByAvailableAndSellerLimitThree(Long sellerID){
+        Seller seller = sellerService.getSellerById(sellerID);
+        return offerRepository.findTop3ByAvailabilityTrueAndSeller( seller);
+    }
+
+    /** method to get offers of a type
+     * @param type type of the offer ("item" or "service")
+     * @return
+     */
+    public List<Offer> findByType(String type){
+        return offerRepository.findByType(type);
     }
 }

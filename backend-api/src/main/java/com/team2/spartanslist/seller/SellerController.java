@@ -58,7 +58,7 @@ public class SellerController{
     public String getAllSellers(Model model){
         model.addAttribute("sellers", sellerService.getAllSellers());
         model.addAttribute("title", "View All Sellers");
-        return "sellers-list";
+        return "seller/sellers-list";
     }
 
     /** endpoint to delete a seller
@@ -90,7 +90,7 @@ public class SellerController{
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
         
-        List<Offer> offers = offerService.findBySeller(seller.getSellerID());
+        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(seller.getSellerID());
         model.addAttribute("offers", offers);
         return "seller/seller-details";
     }
