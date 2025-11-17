@@ -27,16 +27,15 @@ public class OfferService {
      */
     
     public Offer createOffer(Offer offer){
-        if (offerRepository.existsById(offer.getOfferID())){
-            throw new IllegalStateException("Offer already created");
-        }
+        System.out.println("DEBUG ::: ENTERING OFFER SERVICE");
+        System.out.println("DEBUG :: TRYING TO SAVE OFFER: " + offer);
 
         if (offer.getOfferImagePath() == null){
             offer.setOfferImagePath("default.jpg");
+            System.out.println("DEBUG :: SAVED OFFER IMAGE PATH");
         }
 
-        Seller seller = sellerService.getSellerById(offer.getSeller().getSellerID());
-        offer.setSeller(seller);
+        System.out.println("DEBUG ::: SAVING OFFER TO REPOSITORY");
         return offerRepository.save(offer);
     }
 

@@ -44,9 +44,9 @@ public class SellerController{
     @PostMapping
     public String createSeller(Model model, Seller newSeller) {
         String pageTitle = String.format("View %s's profile", newSeller.getUsername());
+        sellerService.createSeller(newSeller);
         model.addAttribute("seller", newSeller);
         model.addAttribute("title", pageTitle);
-        sellerService.createSeller(newSeller);
         return "seller/seller-details";
     }
 

@@ -15,6 +15,7 @@
 <body>
 	<main>
         <h1>${title}</h1>
+        <p>Post a new offer to your profile</p>
 		
 		<form id="newOffer" action="/offers" method="post">
 			<label for="title">Offer Title</label><br>
@@ -27,31 +28,34 @@
                 <option value="service">Service</option>
                 <option value="item">Item</option>
             </select>
+            <br><br>
 
             <label for="description">Description</label><br>
 			<input type="text" id="description" name="description" required><br>
             <br>
 
-            <label for="description">Availability</label><br>
-			<input type="text" id="availability" name="availability" placeholder="Available/Unavailable" required><br>
-            <br>
+            <label for="availability">Availability</label>
+            <select name="availability" id="availability" required>
+                <option value="true">Available Now</option>
+                <option value="false">Unavailable</option>
+            </select>
+            <br><br>
 
             <label for="price">Price</label><br>
 			<input type="number" step="1" min="0" max="9999999999" id="price" name="price" placeholder="0"><br>
             <br>
 
-            <label for="price">Payment</label><br>
-			<input type="number" step="1" min="0" max="9999999999" id="price" name="price" placeholder="0" required><br>
+            <label for="payment">Payment</label><br>
+			<input type="text" step="1" min="0" max="9999999999" id="payment" name="payment" placeholder="Cash"><br>
             <br>
 
             <label for="profileImage">Offer Image</label><br>
-			<input type="file" id="offerImage" name="profileImage"><br>
+			<input type="file" id="offerImage" name="offerImagePath"><br>
             <p>Max Size: 10MB</p>
             <br>
 
-            <label for="payment">Payment Method</label><br>
-			<input type="text" id="payment" name="payment" required><br>
-            <br>
+            <input type="hidden" name="sellerID" value=1>
+            <input type="hidden" name="numPurchased" value="0">
 
 			<button type="submit">Post Offer</button>
 			<a href="/sellers/1">Cancel</a>

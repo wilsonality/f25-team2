@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>${title}</title>
-    <!-- <link rel="icon" href="/page/pawprint.jpg" type="image/x-icon"> -->
     <!-- <link rel="stylesheet" type="text/css" href="backend-api/src/main/resources/static/css/styles.css"> -->
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -44,10 +43,10 @@
             <ul class="offers-list">
                 <#list offers as offer>
                 <li class="offer-item">
-                    <a href="api/offers/${offer.getOfferID()}">
+                    <a href="offers/${offer.getOfferID()}">
                         <img src="backend-api/src/main/resources/static/offer-pictures/eraser.jpeg" alt="" class="offer-picture">
                         <h3>${offer.getTitle()}</h3>
-                        <p>Availability: ${offer.getAvailability()}</p>
+                        <p>Availability: ${offer.isAvailability()}</p>
                         <p>Purchased: ${offer.getNumPurchased()}</p>
                     </a>
                 </li>

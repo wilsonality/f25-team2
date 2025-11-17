@@ -1,13 +1,15 @@
+/* global */
+
+ul{
+  list-style-type: none;
+}
+
 /* seller profile */
 main.seller-profile{
   section.seller-about{
     background-color: pink;
   }
-  section.seller-offers-preview{
-    
-  }
 }
-
 
 
 
