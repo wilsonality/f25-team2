@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="/css/styles.css">
 	<title>${title}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
 
 <!--  -->
@@ -13,7 +16,7 @@
 	<main>
         <h1>Register New Seller</h1>
 		
-		<form id="newSeller" action="/api/sellers" method="post">
+		<form id="newSeller" action="/sellers" method="post">
 			<label for="username">Username</label><br>
 			<input type="text" id="username" name="username" maxlength="16" required><br>
             <br>
