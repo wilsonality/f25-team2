@@ -10,13 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- begin nav Bar -->
-    <ul class="navigation open-sans-bold">
-         <li>
-            <a href="/sellers/home" class="navlink">HOME</a>
-         </li>
-      </ul>
-<!-- end nav bar -->
+    
 
 <!-- begin seller profile -->
     <main class="seller-profile">
