@@ -36,6 +36,14 @@
 </nav>
 </#macro>
 
+<#macro shoppernav>
+<nav>
+		<a href="/shoppers/myprofile">My Profile</a>
+		<a href="/"><img src="../images/icons/logout_black_20pt.svg" alt="Log Out"></a>
+</nav>
+</#macro>
+
+
 <#macro guestnav>
 <nav>
    <ul class="navigation open-sans-bold">

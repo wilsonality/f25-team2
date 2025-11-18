@@ -1,3 +1,4 @@
+<#import "../macros.ftlh" as macros>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 </head>
 
 <body>
-	<#include "/navbars/shopper-nav.html">
+	 <@macros.shoppernav/>
 
 	<main>
         <div class="profile">
@@ -26,10 +27,13 @@
 				<div class="analytics_preview">
 					<p>Bio: <span>${shopper.profileBio}</span></p>
 					<p>Items Purchased: <span>Placeholder</span></p>
-					<a href="manage_profile.html"><button>Edit Profile</button></a>
+					<a href="/shoppers/updateForm"><button>Edit Profile</button></a>
 				</div>
 			</section>
-
+			<hr>
+			
+			<!---
+			<p>Hard Coded</p>
 			<div class="profile_features">
 				<div class="review_preview">
 					<h2>REVIEWS MADE</h2>
@@ -64,6 +68,7 @@
 						</a>
 					</div>
 			</div>
+			-->
 		</div>
 	</main>
 

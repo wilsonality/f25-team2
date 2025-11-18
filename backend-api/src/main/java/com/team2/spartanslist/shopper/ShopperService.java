@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team2.spartanslist.seller.Seller;
+
 @Service
 public class ShopperService {
     @Autowired 
@@ -22,9 +24,15 @@ public class ShopperService {
         return shopperRepository.save(newShopper);
     }
 
-    public Shopper updateShopper(Long shopperID, Shopper updatedShopper) {
-        shopperRepository.save(updatedShopper);
-        return getShopper(shopperID);
+    public Shopper updateShopper(Long shopperToUpdateID, Shopper updatedShopper) {
+        Shopper shopperToUpdate = shopperRepository.findById(shopperToUpdateID).orElseThrow();
+
+        shopperToUpdate.setUsername(updatedShopper.getUsername());
+        shopperToUpdate.setUserPhone(updatedShopper.getUserPhone());
+        shopperToUpdate.setProfileImage(updatedShopper.getProfileImage());
+        shopperToUpdate.setProfileBio(updatedShopper.getProfileBio());
+
+        return shopperRepository.save(shopperToUpdate);
     }
 
     public Shopper getShopperByUsername(String username) {

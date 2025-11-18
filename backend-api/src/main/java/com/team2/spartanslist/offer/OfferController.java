@@ -166,6 +166,15 @@ public class OfferController{
         return ResponseEntity.ok(offerService.findByAvailability(availability));
     }
 
+
+    /*
+     * Redirect for nav
+     */
+    @GetMapping("/myoffers") 
+    public String getMyoffers() {
+        return "/offers/seller/" + Global.sellerID;
+    }
+    
     /** endpoint to get all offers of a seller
      * @param sellerID seller to get offers for
      * @return
