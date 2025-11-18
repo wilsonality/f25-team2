@@ -1,0 +1,32 @@
+.orders_container{
+
+	.order-item {
+		border: 1px solid black;
+		background-color: whitesmoke;
+		margin: 5px;
+		width: auto;
+		height: auto;
+		display: flex;
+	}
+
+	.order ul {
+	list-style-type: none;
+	padding: 1em;
+	margin: 0;
+	}
+	.order li{
+		display: inline;
+	}
+
+	.order_name{
+		font-weight: 700;
+	}
+
+	.order_time{
+		font-style: italic;
+	}
+
+	.order button {
+    	margin: 0 1em;
+	}
+}

@@ -1,0 +1,20 @@
+.offers-list{
+    background-color: pink;
+}
+
+li.offer-item{
+    border-radius: 2px;
+    border: 3px lightpink solid;
+    background-color: floralwhite;
+    padding: 2em;
+    .offer-title{
+        
+    }
+}
+
+.offer-summary{
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    background-color: lightpink;
+}

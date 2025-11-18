@@ -1,4 +1,4 @@
-<#import "../macros.ftlh" as macros>
+<#import "./macros.ftlh" as macros>
 
 <!DOCTYPE html>
 <html lang="en">

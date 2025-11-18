@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team2.spartanslist.order.Order;
+import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
 
@@ -26,6 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class OfferController{
     private final OfferService offerService;
     private final SellerService sellerService;
+    private final OrderService orderService;
 
     @GetMapping("/create")
     public Object createOfferForm(Model model){
@@ -76,6 +79,14 @@ public class OfferController{
         // return "error";
     }
 
+    @GetMapping("/{offerID}/update")
+    public Object updateOfferForm(Model model, @PathVariable Long offerID){
+        Offer offer = offerService.getOfferById(offerID);
+        model.addAttribute("offer", offer);
+        model.addAttribute("orders", orderService.getOrdersBySeller(offerID));
+        model.addAttribute("title", "Update Your Offer");
+        return "seller/seller-update-offer";
+    }
     
     /** endpoint to update an offer
      * 
@@ -97,6 +108,29 @@ public class OfferController{
     @GetMapping("/{offerID}")
     public Object getOfferById(@PathVariable Long offerID){
         return ResponseEntity.ok(offerService.getOfferById(offerID));
+    }
+
+    /** endpoint to get an offer (seller view)
+     * 
+     * @param offerID the id of the offer to get
+     * @return
+     */
+    @GetMapping("/{offerID}/seller")
+    public Object getOfferByIdSeller(Model model, @PathVariable Long offerID){
+        Offer offer = offerService.getOfferById(offerID);
+        if (offer == null){
+            model.addAttribute("error", "Sorry, this offer could not be found.");
+            return "error";
+        }
+        String pageTitle = String.format("View Offer: %s", offer.getTitle());
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("offer", offer);
+        model.addAttribute("seller", offer.getSeller());
+        List<Order> requests = orderService.getOrdersByOffer(offerID);
+        if (requests != null){
+            model.addAttribute("requests", requests);
+        }
+        return "seller/seller-view-offer";
     }
 
     /** endpoint to delete an offer
@@ -136,8 +170,13 @@ public class OfferController{
      * @return
      */
     @GetMapping("/seller/{sellerID}")
-    public Object findBySeller(@PathVariable Long sellerID){
-        return ResponseEntity.ok(offerService.findBySeller(sellerID));
+    public Object findBySeller(Model model, @PathVariable Long sellerID){
+        List<Offer> offers = offerService.findBySeller(sellerID);
+        String pageTitle = String.format("All Offers By %s", offers.get(0).getSeller().getUsername());
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("seller", sellerService.getSellerById(sellerID));
+        model.addAttribute("offers", offers);
+        return "seller/seller-view-offers";
     }
 
     /** endpoint to get available offers of a seller
