@@ -5,7 +5,8 @@
 <head>
     <@macros.header title="${title}"/>
 </head>
-<body>
+<body class="open-sans-bold">
+    <@macros.sellernav/>
     <h2>View All Offers By Seller ${seller.getUsername()}</h2>
     <#if offers??>
     <ul class="offers-list">

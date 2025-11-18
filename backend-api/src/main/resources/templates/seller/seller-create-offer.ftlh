@@ -49,7 +49,7 @@
 			<input type="text" step="1" min="0" max="9999999999" id="payment" name="payment" placeholder="Cash"><br>
             <br>
 
-            <label for="profileImage">Offer Image</label><br>
+            <label for="offerImage">Offer Image</label><br>
 			<input type="file" id="offerImage" name="offerImagePath"><br>
             <p>Max Size: 10MB</p>
             <br>

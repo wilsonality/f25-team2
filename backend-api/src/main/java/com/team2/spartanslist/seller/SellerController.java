@@ -45,7 +45,9 @@ public class SellerController{
     public String createSeller(Model model, Seller newSeller) {
         String pageTitle = String.format("View %s's profile", newSeller.getUsername());
         sellerService.createSeller(newSeller);
-        model.addAttribute("seller", newSeller);
+        // look up the new seller
+        Seller seller = sellerService.getSellerByPhone(newSeller.getUserPhone());
+        model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
         return "seller/seller-details";
     }
@@ -98,6 +100,7 @@ public class SellerController{
     /** endpoint to find a seller by phone
      * note : honestly this should not be available to the users,
      *  but it creates a page regardless
+     * i'm redirecting to the getbyID url to simplify
      * @param model
      * @param userPhone
      * @return
@@ -105,15 +108,15 @@ public class SellerController{
     @GetMapping("/seller/phone/{userPhone}")
     public Object getSellerByPhone(Model model, @PathVariable String userPhone){
         Seller seller = sellerService.getSellerByPhone(userPhone);
-        if (seller == null){
-            return "redirect:/sellers?error=seller%20not%20found";
-        }
-        String pageTitle = String.format("View %s's profile",seller.getUsername());
-        model.addAttribute("seller", seller);
-        model.addAttribute("title", pageTitle);
-        List<Offer> offers = offerService.findBySeller(seller.getSellerID());
-        model.addAttribute("offers", offers);
-        return "seller/seller-details";
+        // if (seller == null){
+        //     return "redirect:/sellers?error=seller%20not%20found";
+        // }
+        // String pageTitle = String.format("View %s's profile",seller.getUsername());
+        // model.addAttribute("seller", seller);
+        // model.addAttribute("title", pageTitle);
+        // List<Offer> offers = offerService.findBySeller(seller.getSellerID());
+        // model.addAttribute("offers", offers);
+        return "redirect:/sellers/" + seller.getSellerID();
     }
     
     /** endpoint to update a seller
@@ -123,9 +126,10 @@ public class SellerController{
      * @return
      */
     @PostMapping("/{sellerID}")
-    public Object updateSeller(Model model, @PathVariable Long sellerID, Seller nSeller){
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
+        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
         sellerService.updateSeller(sellerID, nSeller);
-        return "seller/seller-details";
+        return "redirect:/sellers/" + sellerID;
     }
 
     /** endpoint to seller update form
@@ -135,6 +139,10 @@ public class SellerController{
      */
     @GetMapping("/updateForm/{sellerID}")
     public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
+        Seller seller = sellerService.getSellerById(sellerID);
+        String pageTitle = String.format("Edit Profile For %s.",seller.getUsername());
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("seller", seller);
         return "seller/seller-update";
     }
 

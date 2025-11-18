@@ -81,7 +81,9 @@ public class OfferService {
      * @return all offers
      */
     public List<Offer> getAllOffers() {
-        return offerRepository.findAll();
+        List<Offer> offers = offerRepository.findAll();
+        System.out.println("getAllOffers() returned " + offers.size() + " offers");
+        return offers;
     }
 
     /** method to see all available offers

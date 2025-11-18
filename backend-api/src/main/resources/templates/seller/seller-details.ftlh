@@ -15,7 +15,7 @@
             <h1>${seller.getUsername()}</h1>
             <p>Member since: Jan 01 1970</p>
             <p>Description: ${seller.getProfileBio()}</p>
-            <a href="/sellers/updateForm/{seller.getSellerID()}">
+            <a href="/sellers/updateForm/${seller.getSellerID()}">
                 <button>Edit Profile</button>
             </a>
 
