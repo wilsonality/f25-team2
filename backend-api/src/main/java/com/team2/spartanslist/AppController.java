@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.seller.SellerService;
+import com.team2.spartanslist.shopper.ShopperService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -18,6 +20,12 @@ import lombok.RequiredArgsConstructor;
 public class AppController {
     @Autowired
     private final OfferService offerService;
+    @Autowired
+    private final SellerService sellerService;
+    @Autowired
+    private final ShopperService shopperService;
+
+     
 
     @GetMapping({"", "/", "/home"})
     public String redirectToLanding(Model model) {
@@ -29,19 +37,30 @@ public class AppController {
 
     @GetMapping("/login")
     public Object showLogInPage(Model model){
+       String username = new String();
+       String password = new String();
+
         model.addAttribute("title", "Sign In to Spartan's List");
+        model.addAttribute("username", username);
+        model.addAttribute("password", password);
         return "log-in";
     }
 
+    // Verification todo. Just matches username for now.
     @PostMapping("/login/seller")
-    public Object verifySeller(Model model){
-        // TODO security config/login implementation
+    public Object verifySeller(String username, String password) {
+        Long sellerID = sellerService.getSellerByUsername(username).getSellerID();
+        Global.sellerID = sellerID;
+
         return "redirect:/sellers/home";
     }
 
     @PostMapping("/login/shopper")
-    public Object verifyShopper(Model model){
-        return "redirect:/shopper/home";
+    public Object verifyShopper(String username, String password) {
+        Long shopperID = shopperService.getShopperByUsername(username).getShopperID();
+        Global.shopperID = shopperID;
+
+        return "redirect:/shoppers/myprofile";
     }
     
 }

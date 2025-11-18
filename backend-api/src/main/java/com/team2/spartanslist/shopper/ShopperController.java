@@ -8,32 +8,44 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.spartanslist.Global;
+
 @Controller
-@RequestMapping("/api/shoppers")
+@RequestMapping("/shoppers")
 public class ShopperController {
     @Autowired
     private ShopperService shopperService;
 
     // Show forms endpoints
         /**
-         * Endpoint to show the registration form
+         * Show registration form
+         * 
+         * @return shopper registration view
          */
         @GetMapping("/register")
         public String showRegisterForm(Model model) {
             Shopper newShopper = new Shopper();
             model.addAttribute(newShopper);
+
             return "/shopper/shopper-registration-form";
         } 
 
+        @GetMapping("/updateForm")
+        public String showUpdateForm(Model model) {
+            Shopper shopperToUpdate = shopperService.getShopper(Global.shopperID);
+            model.addAttribute("shopper", shopperToUpdate);
+
+            return "/shopper/shopper-update-form";
+        }
+
     // Get endpoints
         /** 
-         * Endpoint to get all shoppers
+         * Get all shoppers
          * 
-         * @return a list of all shoppers
+         * @return list of all shoppers
          */
         @GetMapping
         public List<Shopper> getAllShoppers() {
@@ -41,39 +53,55 @@ public class ShopperController {
         }
 
         /**
-         * Endpoint to get shopper by ID
+         * Redirect for navbar buttons
+         * 
+         * @return your specific profile
+         */
+
+         @GetMapping("/myprofile")
+         public String getProfile() {
+            return "redirect:/shoppers/" + Global.shopperID;
+         }
+
+        /**
+         * Get a shopper by their ID
          * 
          * @param shopperID
-         * @return the shopper
+         * @return a shopper
          */
         @GetMapping("/{shopperID}") 
-        public Shopper getShopper(@PathVariable Long shopperID) {
-            return shopperService.getShopper(shopperID);
+        public String getShopper(Model model, @PathVariable Long shopperID) {
+            Shopper shopper = shopperService.getShopper(shopperID);
+            model.addAttribute("shopper", shopper);
+
+            return "/shopper/shopper-profile";
         }
+
 
     // Add endpoints
         /**
-         * Endpoint to add a shopper into the table
+         * Add a shopper into the table
          * 
-         * @param shopper
+         * @param Shopper
          */
         @PostMapping
         public String createShopper(Shopper newShopper) {
             shopperService.createShopper(newShopper);
-            Long shopperID = newShopper.getShopperID();
-            return "redirect:/shopper/" + shopperID;
+
+            Global.shopperID = newShopper.getShopperID();    
+            return "redirect:/shoppers/myprofile";
         }
 
     // Update endpoints
         /**
-         * Endpoint to update a shopper
+         * Update a shopper profile
          * 
          * @param shopperID
          * @param updatedShopper
-         * @return the page to the updated shopper
          */
-        @PutMapping("/update/{user_ID}")
-        public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
-            return shopperService.updateShopper(shopperID, updatedShopper);
+        @PostMapping("/update")
+        public String updateShopper(Shopper updatedShopper) {
+            shopperService.updateShopper(Global.shopperID, updatedShopper);
+            return "redirect:/shoppers/myprofile";
         }
 }

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.seller.Seller;
@@ -165,6 +166,15 @@ public class OfferController{
         return ResponseEntity.ok(offerService.findByAvailability(availability));
     }
 
+
+    /*
+     * Redirect for nav
+     */
+    @GetMapping("/myoffers") 
+    public String getMyoffers() {
+        return "/offers/seller/" + Global.sellerID;
+    }
+    
     /** endpoint to get all offers of a seller
      * @param sellerID seller to get offers for
      * @return

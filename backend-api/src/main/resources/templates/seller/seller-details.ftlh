@@ -29,6 +29,7 @@
             </div>
         </section>
         <section class="seller-offers-preview">
+            <h2>Offers</h2>
             <ul class="offers-list">
                 <#list offers as offer>
                 <li class="offer-item">
