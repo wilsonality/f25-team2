@@ -1,0 +1,17 @@
+.shopper-log-in{
+    background-color: lightblue;
+}
+
+.seller-log-in{
+    background-color: lightpink;
+}
+
+main.log-in{
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+    padding: 2em;
+    section{
+        padding: 2em;
+    }
+}

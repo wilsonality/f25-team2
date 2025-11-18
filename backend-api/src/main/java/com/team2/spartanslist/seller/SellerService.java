@@ -24,13 +24,20 @@ public class SellerService {
 
     public Seller updateSeller(Long id, Seller nSeller){
         Seller seller = sellerRepository.findById(id).orElseThrow();
-
+        
+        // NEW CODE - properly update fields
         seller.setUsername(nSeller.getUsername());
         seller.setUserPhone(nSeller.getUserPhone());
-        seller.setProfileImage(nSeller.getProfileImage());
+        seller.setProfileImagePath(nSeller.getProfileImagePath());
         seller.setProfileBio(nSeller.getProfileBio());
-
+        // Keep existing password
+        
         return sellerRepository.save(seller);
+        
+        // OLD CODE - this was the bug:
+        // Seller seller = sellerRepository.findById(id).orElseThrow();
+        // nSeller.setPassword(seller.getPassword());
+        // return sellerRepository.save(seller);  // <-- saved OLD seller, not nSeller!
     }
 
     public List<Seller> deleteSeller(Long sellerID){

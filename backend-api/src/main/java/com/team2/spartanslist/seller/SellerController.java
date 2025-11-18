@@ -2,126 +2,167 @@ package com.team2.spartanslist.seller;
 
 import java.util.List;
 
-import org.hibernate.JDBCException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.order.Order;
+import com.team2.spartanslist.order.OrderService;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/api/sellers")
+@RequestMapping("/sellers")
 public class SellerController{
+    @Autowired
     private final SellerService sellerService;
+    @Autowired
+    private final OfferService offerService;
+    @Autowired
+    private final OrderService orderService;
 
-    // Show forms endpoints
-        /**
-         * Endpoint to show seller registration form
-         * 
-         * @param model
-         * @return
-         */
-        @GetMapping("/register")
-        public String showRegisterForm(Model model) {
-            Seller newSeller = new Seller();
-            model.addAttribute(newSeller);
-            return "/seller/seller-registration-form";
-        } 
+    @GetMapping("/register")
+    public String showRegisterForm(Model model) {
+        Seller newSeller = new Seller();
+        model.addAttribute("newSeller", newSeller);
+        model.addAttribute("title", "Seller Registration");
+        return "seller-registration-form";
+    }
 
-        /** endpoint to show seller update form
-         * @param model
-         * @param sellerID
-         * @return
-         */
-        @GetMapping("/updateForm/{sellerID}")
-        public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
-            return "seller-update";
+    /** endpoint to add a seller
+     * @param seller the seller to be added
+     * @param model
+     * @return
+     */
+    @PostMapping
+    public String createSeller(Model model, Seller newSeller) {
+        String pageTitle = String.format("View %s's profile", newSeller.getUsername());
+        sellerService.createSeller(newSeller);
+        // look up the new seller
+        Seller seller = sellerService.getSellerByPhone(newSeller.getUserPhone());
+        model.addAttribute("seller", seller);
+        model.addAttribute("title", pageTitle);
+        return "seller/seller-details";
+    }
+
+    /** endpoint to get all sellers
+     * @param model
+     * @return
+     */
+    @GetMapping
+    public String getAllSellers(Model model){
+        model.addAttribute("sellers", sellerService.getAllSellers());
+        model.addAttribute("title", "View All Sellers");
+        return "seller/sellers-list";
+    }
+
+    /** endpoint to delete a seller
+     * @param model
+     * @param sellerID the id of the seller to be deleted
+     * @return
+     */
+    @GetMapping("/delete/{sellerID}")
+    public Object deleteSeller(Model model, @PathVariable Long sellerID){
+        model.addAttribute("sellers", sellerService.getAllSellers());
+        model.addAttribute("title", "View All Sellers");
+        return "sellers-list";
+    }
+
+    //  TODO : add a follow count by counting mail lists relations tied to seller
+
+    /** endpoint to get a seller by id
+     * @param model
+     * @param sellerID id of the seller to get
+     * @return
+     */
+    @GetMapping("/{sellerID}")
+    public String getSellerById(Model model, @PathVariable Long sellerID){
+        Seller seller = sellerService.getSellerById(sellerID);
+        if (seller == null){
+            return "redirect:/sellers?error=seller%20not%20found";
         }
+        String pageTitle = String.format("View %s's profile",seller.getUsername());
+        model.addAttribute("seller", seller);
+        model.addAttribute("title", pageTitle);
+        
+        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(seller.getSellerID());
+        model.addAttribute("offers", offers);
+        return "seller/seller-details";
+    }
 
-    // Add and delete endpoints
-        /** endpoint to add a seller
-         * 
-         * @param seller the seller to be added
-         * @param model
-         * @return
-         */
-        @PostMapping
-        public String createSeller(Model model, Seller newSeller) {
-            String pageTitle = String.format("View %s's profile", newSeller.getUsername());
-            model.addAttribute("seller", newSeller);
-            model.addAttribute("title", pageTitle);
-            sellerService.createSeller(newSeller);
-            return "seller-details";
-        }
+    /** endpoint to find a seller by phone
+     * note : honestly this should not be available to the users,
+     *  but it creates a page regardless
+     * i'm redirecting to the getbyID url to simplify
+     * @param model
+     * @param userPhone
+     * @return
+     */
+    @GetMapping("/seller/phone/{userPhone}")
+    public Object getSellerByPhone(Model model, @PathVariable String userPhone){
+        Seller seller = sellerService.getSellerByPhone(userPhone);
+        // if (seller == null){
+        //     return "redirect:/sellers?error=seller%20not%20found";
+        // }
+        // String pageTitle = String.format("View %s's profile",seller.getUsername());
+        // model.addAttribute("seller", seller);
+        // model.addAttribute("title", pageTitle);
+        // List<Offer> offers = offerService.findBySeller(seller.getSellerID());
+        // model.addAttribute("offers", offers);
+        return "redirect:/sellers/" + seller.getSellerID();
+    }
     
-    // Get endpoints
-        /** endpoint to get all sellers
-         * @param model
-         * @return
-         */
-        @GetMapping
-        public Object getAllSellers(Model model){
-            model.addAttribute("sellers", sellerService.getAllSellers());
-            model.addAttribute("title", "View All Sellers");
-            return "sellers-list";
-        }
+    /** endpoint to update a seller
+     * 
+     * @param sellerID the id of the seller to be updated
+     * @param nSeller the new details of the seller
+     * @return
+     */
+    @PostMapping("/{sellerID}")
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
+        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
+        sellerService.updateSeller(sellerID, nSeller);
+        return "redirect:/sellers/" + sellerID;
+    }
 
-        /** endpoint to get a seller by id
-         * 
-         * @param sellerID id of the seller to get
-         * @return
-         */
-        @GetMapping("/{sellerID}")
-        public Object getSellerById(Model model, @PathVariable Long sellerID){
-            Seller seller = sellerService.getSellerById(sellerID);
-            String pageTitle = String.format("View %s's profile",seller.getUsername());
-            model.addAttribute("seller", seller);
-            model.addAttribute("title", pageTitle);
-            return "seller-details";
-        }
+    /** endpoint to seller update form
+     * @param model
+     * @param sellerID
+     * @return
+     */
+    @GetMapping("/updateForm/{sellerID}")
+    public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
+        Seller seller = sellerService.getSellerById(sellerID);
+        String pageTitle = String.format("Edit Profile For %s.",seller.getUsername());
+        model.addAttribute("title", pageTitle);
+        model.addAttribute("seller", seller);
+        return "seller/seller-update";
+    }
 
-        @GetMapping("/seller/{userPhone}")
-        public Object getSellerByPhone(Model model, @PathVariable String userPhone){
-            Seller seller = sellerService.getSellerByPhone(userPhone);
-            String pageTitle = String.format("View %s's profile",seller.getUsername());
-            model.addAttribute("seller", seller);
-            model.addAttribute("title", pageTitle);
-            return "seller-details";
-        }
+    /** endpoint to see seller's homepage
+     * @param model
+     * @return
+     */
+    @GetMapping("/home")
+    public Object showSellerHome(Model model) {
+        Seller seller = sellerService.getSellerById(1L);
 
+        String pageTitle = String.format("Welcome, %s.",seller.getUsername());
+        model.addAttribute("seller", seller);
+        model.addAttribute("title", pageTitle);
+        
+        List<Offer> offers = offerService.findBySeller(seller.getSellerID());
+        model.addAttribute("offers", offers);
 
-    // Update Endpoints
-        /** endpoint to update a seller
-         * 
-         * @param sellerID the id of the seller to be updated
-         * @param nSeller the new details of the seller
-         * @return
-         */
-        @PostMapping("/{sellerID}")
-        public Object updateSeller(@PathVariable Long sellerID, Seller nSeller){
-            sellerService.updateSeller(sellerID, nSeller);
-            return "seller-details";
-        }
-
-        /** endpoint to delete a seller
-         * 
-         * @param model
-         * @param sellerID the id of the seller to be deleted
-         * @return
-         */
-        @GetMapping("/delete/{sellerID}")
-        public Object deleteSeller(Model model, @PathVariable Long sellerID){
-            model.addAttribute("sellers", sellerService.getAllSellers());
-            model.addAttribute("title", "View All Sellers");
-            return "sellers-list";
-        }
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(seller.getSellerID(), 1);
+        model.addAttribute("requests", orders);
+        return "seller/seller-home";
+    }
 }

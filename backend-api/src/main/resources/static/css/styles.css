@@ -1,5 +1,24 @@
+/* global */
 
-/* fonts */
+ul{
+  list-style-type: none;
+}
+
+/* navigation */
+
+ul.navigation{
+  display: flex;
+  gap: 3em;
+}
+
+
+
+/* text styling */
+
+.grayed{
+  color: gray;
+}
+
 .open-sans{
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
