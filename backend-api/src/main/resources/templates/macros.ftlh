@@ -43,7 +43,6 @@
 </nav>
 </#macro>
 
-
 <#macro guestnav>
 <nav>
    <ul class="navigation open-sans-bold">

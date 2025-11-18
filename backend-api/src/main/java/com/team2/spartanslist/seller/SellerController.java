@@ -138,7 +138,18 @@ public class SellerController{
         return "redirect:/sellers/" + seller.getSellerID();
     }
 
-
+    /** endpoint to update a seller
+     * 
+     * @param sellerID the id of the seller to be updated
+     * @param nSeller the new details of the seller
+     * @return
+     */
+    @PostMapping("/{sellerID}")
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
+        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
+        sellerService.updateSeller(sellerID, nSeller);
+        return "redirect:/sellers/" + sellerID;
+    }
 
     /** endpoint to seller update form
      * @param model
@@ -153,21 +164,6 @@ public class SellerController{
         model.addAttribute("seller", seller);
         return "seller/seller-update";
     }
-
-    /** endpoint to update a seller
-     * 
-     * @param sellerID the id of the seller to be updated
-     * @param nSeller the new details of the seller
-     * @return
-     */
-    @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
-        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
-        sellerService.updateSeller(sellerID, nSeller);
-        return "redirect:/sellers/" + sellerID;
-    }
-
-    
 
     /** endpoint to see seller's homepage
      * @param model

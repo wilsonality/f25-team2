@@ -62,4 +62,5 @@ public class AppController {
 
         return "redirect:/shoppers/myprofile";
     }
+    
 }
