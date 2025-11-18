@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/api/shoppers")
+@RequestMapping("/shoppers")
 public class ShopperController {
     @Autowired
     private ShopperService shopperService;
@@ -54,6 +54,7 @@ public class ShopperController {
 
             return "/shopper/shopper-profile";
         }
+
 
     // Add endpoints
         /**
