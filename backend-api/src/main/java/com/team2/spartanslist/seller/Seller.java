@@ -27,7 +27,7 @@ public class Seller {
     @Column(nullable = false)
     private String userPhone;
     
-    private String profileImagePath;
+    private String profileImage;
     private String profileBio;
 
 
@@ -40,14 +40,14 @@ public class Seller {
         this.username = username;
         this.userPhone = userPhone;
         this.password = password;
-        this.profileImagePath = profileImagePath;
+        this.profileImage = profileImage;
         this.profileBio = profileBio;
     }
     public Seller (String username, String password, String userPhone, String profileImage, String profileBio) {
         this.username = username;
         this.userPhone = userPhone;
         this.password = password;
-        this.profileImagePath = profileImagePath;
+        this.profileImage = profileImage;
         this.profileBio = profileBio;
     }
 }

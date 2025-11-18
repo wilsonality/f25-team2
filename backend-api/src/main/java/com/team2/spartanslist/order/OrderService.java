@@ -60,20 +60,11 @@ public class OrderService {
         return orderRepository.findById(orderID).orElseThrow(() -> new IllegalStateException("Order not found"));
     }
 
-    /** method to get all orders
+    /** method to get all reviews
      * @return
      */
     public List<Order> getAllOrders() {
         return orderRepository.findAll();
-    }
-
-    /** method to get orders by offer
-     * @param offerID offer to get orders for
-     * @return
-     * 
-     */
-    public List<Order> getOrdersByOffer(Long offerID){
-        return orderRepository.findByOffer(offerService.getOfferById(offerID));
     }
 
     /** method to get orders by seller 

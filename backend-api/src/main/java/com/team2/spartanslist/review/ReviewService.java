@@ -117,5 +117,9 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    // TODO: endpoint for getting the three top rated completed reviews, this is for displaying a profile
+    /*
+    public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
+        return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
+    }
+    */
 }
