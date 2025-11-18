@@ -3,4 +3,8 @@ main.seller-profile{
   section.seller-about{
     background-color: pink;
   }
+
+  .profile_shopper {
+    background-color: lightblue;
+  }
 }

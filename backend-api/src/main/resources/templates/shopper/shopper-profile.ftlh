@@ -4,10 +4,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
-	<link rel="stylesheet" href="profile.css">
-	<link rel="stylesheet" href="shopper_profile.css">
+	<link rel="stylesheet" href="/css/styles.css">
+	<link rel="stylesheet" href="/css/profile.css">
 
 	<title>My Profile</title>
 	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
@@ -17,7 +15,7 @@
 	 <@macros.shoppernav/>
 
 	<main>
-        <div class="profile">
+        <div class="profile_shopper">
             <section class="user_info">
 				<img src="${shopper.profileImage}" alt="profile picture" class="user_photo">
 				<h3>Spartan Shopper</h3>
