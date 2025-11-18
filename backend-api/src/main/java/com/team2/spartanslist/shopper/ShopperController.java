@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.spartanslist.Global;
+
 @Controller
 @RequestMapping("/shoppers")
 public class ShopperController {
@@ -42,12 +44,23 @@ public class ShopperController {
         }
 
         /**
+         * Endpoint to get your profile
+         * 
+         * @return your profile
+         */
+
+         @GetMapping("/myprofile")
+         public String getProfile() {
+            return "redirect:/shoppers/" + Global.shopperID;
+         }
+
+        /**
          * Endpoint to get shopper by ID
          * 
          * @param shopperID
          * @return the shopper
          */
-        @GetMapping("/{shopperID}/profile") 
+        @GetMapping("/{shopperID}") 
         public String getShopper(Model model, @PathVariable Long shopperID) {
             Shopper shopper = shopperService.getShopper(shopperID);
             model.addAttribute("shopper", shopper);
@@ -65,9 +78,9 @@ public class ShopperController {
         @PostMapping
         public String createShopper(Shopper newShopper) {
             shopperService.createShopper(newShopper);
-            Long shopperID = newShopper.getShopperID();
 
-            return "redirect:/api/shoppers/" + shopperID + "/profile";
+            Global.shopperID = newShopper.getShopperID();    
+            return "redirect:/shoppers/myprofile";
         }
 
     // Update endpoints

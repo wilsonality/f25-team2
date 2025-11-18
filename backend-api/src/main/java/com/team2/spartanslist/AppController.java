@@ -10,13 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
-import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
+import com.team2.spartanslist.shopper.ShopperService;
 
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import com.team2.spartanslist.Global;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,6 +22,8 @@ public class AppController {
     private final OfferService offerService;
     @Autowired
     private final SellerService sellerService;
+    @Autowired
+    private final ShopperService shopperService;
 
      
 
@@ -47,16 +46,20 @@ public class AppController {
         return "log-in";
     }
 
+    // Verification todo. Just matches username for now.
     @PostMapping("/login/seller")
     public Object verifySeller(String username, String password) {
         Long sellerID = sellerService.getSellerByUsername(username).getSellerID();
         Global.sellerID = sellerID;
 
-        return "redirect:/sellers/" + Global.sellerID;
+        return "redirect:/sellers/home";
     }
 
     @PostMapping("/login/shopper")
-    public Object verifyShopper(Model model){
-        return "redirect:/shoppers/home";
+    public Object verifyShopper(String username, String password) {
+        Long shopperID = shopperService.getShopperByUsername(username).getShopperID();
+        Global.shopperID = shopperID;
+
+        return "redirect:/shoppers/myprofile";
     }
 }

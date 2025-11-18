@@ -51,11 +51,14 @@ public class SellerController{
     public String createSeller(Model model, Seller newSeller) {
         String pageTitle = String.format("View %s's profile", newSeller.getUsername());
         sellerService.createSeller(newSeller);
+
         // look up the new seller
         Seller seller = sellerService.getSellerByPhone(newSeller.getUserPhone());
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
-        return "seller/seller-details";
+
+        Global.sellerID = newSeller.getSellerID();
+        return "redirect:/sellers/myprofile";
     }
 
     /** endpoint to get all sellers
@@ -103,7 +106,12 @@ public class SellerController{
         return "seller/seller-details";
     }
 
-    @GetMapping("/myprofie")
+    /**
+     * Endpoint to get to your specific profile for the navbar.
+     * 
+     * @return your profile
+     */
+    @GetMapping("/myprofile")
     public String getProfile() {
         return "redirect:/sellers/" + Global.sellerID;
     }
