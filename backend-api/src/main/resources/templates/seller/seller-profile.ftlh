@@ -1,15 +1,10 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../styles.css">
-	<link rel="stylesheet" href="provider_styles.css">
-	<link rel="stylesheet" href="../customer-prototype/profile.css">
-	<title>${title}</title>
-	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
-</head>
+<#import "../macros.ftlh" as macros>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <@macros.header title="${title}"/>
+</head>
 <body>
 	<#include "/navbars/seller-nav.html">
 

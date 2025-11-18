@@ -4,16 +4,21 @@ ul{
   list-style-type: none;
 }
 
-/* seller profile */
-main.seller-profile{
-  section.seller-about{
-    background-color: pink;
-  }
+/* navigation */
+
+ul.navigation{
+  display: flex;
+  gap: 3em;
 }
 
 
 
-/* fonts */
+/* text styling */
+
+.grayed{
+  color: gray;
+}
+
 .open-sans{
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;

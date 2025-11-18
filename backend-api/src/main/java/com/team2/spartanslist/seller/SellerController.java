@@ -140,10 +140,10 @@ public class SellerController{
 
     /** endpoint to see seller's homepage
      * @param model
-     * 
+     * @return
      */
     @GetMapping("/home")
-    public String showSellerHome(Model model) {
+    public Object showSellerHome(Model model) {
         Seller seller = sellerService.getSellerById(1L);
 
         String pageTitle = String.format("Welcome, %s.",seller.getUsername());
