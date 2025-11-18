@@ -14,7 +14,7 @@
 	<main>
         <h1>Register New Shopper</h1>
 		
-		<form id="newShopper" action="/api/shoppers" method="post">
+		<form id="newShopper" action="/shoppers" method="post">
 			<label for="username">Username</label><br>
 			<input type="text" id="username" name="username" maxlength="16" required><br>
             <br>

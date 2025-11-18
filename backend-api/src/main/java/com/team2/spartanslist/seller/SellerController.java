@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
@@ -28,12 +29,17 @@ public class SellerController{
     @Autowired
     private final OrderService orderService;
 
+
+    /** endpoint to show the seller registration form
+     * 
+     * @return
+     */
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         Seller newSeller = new Seller();
         model.addAttribute("newSeller", newSeller);
         model.addAttribute("title", "Seller Registration");
-        return "seller-registration-form";
+        return "/seller/seller-registration-form";
     }
 
     /** endpoint to add a seller
@@ -97,6 +103,11 @@ public class SellerController{
         return "seller/seller-details";
     }
 
+    @GetMapping("/myprofie")
+    public String getProfile() {
+        return "redirect:/sellers/" + Global.sellerID;
+    }
+
     /** endpoint to find a seller by phone
      * note : honestly this should not be available to the users,
      *  but it creates a page regardless
@@ -105,7 +116,7 @@ public class SellerController{
      * @param userPhone
      * @return
      */
-    @GetMapping("/seller/phone/{userPhone}")
+    @GetMapping("/phone/{userPhone}")
     public Object getSellerByPhone(Model model, @PathVariable String userPhone){
         Seller seller = sellerService.getSellerByPhone(userPhone);
         // if (seller == null){
@@ -118,33 +129,8 @@ public class SellerController{
         // model.addAttribute("offers", offers);
         return "redirect:/sellers/" + seller.getSellerID();
     }
-    // Add and delete endpoints
-        /** endpoint to add a seller
-         * 
-         * @param seller the seller to be added
-         * @param model
-         * @return
-         */
-        @PostMapping
-        public String createSeller(Seller newSeller) {
-            sellerService.createSeller(newSeller);
-            Long sellerID = newSeller.getSellerID();
 
-            return "redirect:/api/sellers/" + sellerID + "/profile";
-        }
-    
-    /** endpoint to update a seller
-     * 
-     * @param sellerID the id of the seller to be updated
-     * @param nSeller the new details of the seller
-     * @return
-     */
-    @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
-        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
-        sellerService.updateSeller(sellerID, nSeller);
-        return "redirect:/sellers/" + sellerID;
-    }
+
 
     /** endpoint to seller update form
      * @param model
@@ -160,13 +146,28 @@ public class SellerController{
         return "seller/seller-update";
     }
 
+    /** endpoint to update a seller
+     * 
+     * @param sellerID the id of the seller to be updated
+     * @param nSeller the new details of the seller
+     * @return
+     */
+    @PostMapping("/{sellerID}")
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
+        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
+        sellerService.updateSeller(sellerID, nSeller);
+        return "redirect:/sellers/" + sellerID;
+    }
+
+    
+
     /** endpoint to see seller's homepage
      * @param model
      * @return
      */
     @GetMapping("/home")
     public Object showSellerHome(Model model) {
-        Seller seller = sellerService.getSellerById(1L);
+        Seller seller = sellerService.getSellerById(Global.sellerID);
 
         String pageTitle = String.format("Welcome, %s.",seller.getUsername());
         model.addAttribute("seller", seller);
@@ -179,4 +180,6 @@ public class SellerController{
         model.addAttribute("requests", orders);
         return "seller/seller-home";
     }
+
+    
 }

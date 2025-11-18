@@ -56,4 +56,8 @@ public class SellerService {
     public List<Seller> getAllSellers(){
         return sellerRepository.findAll();
     }
+
+    public Seller getSellerByUsername(String username) {
+        return sellerRepository.findByUsername(username);
+    }
 }

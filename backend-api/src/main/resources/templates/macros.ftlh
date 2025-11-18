@@ -24,10 +24,10 @@
             <a href="/sellers/home" class="navlink">home</a>
          </li>
          <li>
-            <a href="/sellers/1">view profile</a>
+            <a href="/sellers/myprofile">view profile</a>
          </li>
          <li>
-            <a href="/offers/seller/1">view my offers</a>
+            <a href="/offers/myoffers">view my offers</a>
          </li>
          <li>
             <a href="/home">log out</a>
