@@ -6,7 +6,7 @@
     <@macros.header title="${offer.getTitle()}"/>
     <link rel="stylesheet" type="text/css" href="/css/offer.css">
 </head>
-<body class="open-sans-bold">
+<body>
     <@macros.sellernav/>
     <main>
         <section class="offer-summary">

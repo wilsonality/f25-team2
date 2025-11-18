@@ -9,4 +9,9 @@
 main.log-in{
     display: flex;
     flex-direction: column;
+    gap: 5em;
+    padding: 2em;
+    section{
+        padding: 2em;
+    }
 }

@@ -5,7 +5,7 @@
 <head>
     <@macros.header title="${title}"/>
 </head>
-<body>
+<body class="open-sans">
     <@macros.guestnav/>
     <section class="welcome-msg">
         <h1>Welcome to Spartan's List</h1>
@@ -14,10 +14,10 @@
     </section>
     <section class="guest-browse-offers">
         <h3>Check Out Some Offers</h3>
-        <#if offers??>
+        <#if offers?? && (offers?size > 0)>
         <ul class="offers-list">
             <#list offers as offer>
-            <a href="/offers/${offer.getOfferID()}">
+            <a href="/login">
                 <li class="offer-item">
                     <p class="open-sans-bold">${offer.getTitle()}</p>
                     <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
@@ -26,6 +26,8 @@
             </#list>
             </a>
         </ul>
+        <#else>
+        <p>No offers available at this time.</p>
         </#if>
     </section>
     
