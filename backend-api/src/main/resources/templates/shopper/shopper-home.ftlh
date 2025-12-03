@@ -18,7 +18,7 @@
 
 	<main>
         <#list offers as offer>
-            <a href="">
+            <a href="/shoppers/offer/${offer.offerID}">
                 <div style="border: 1px solid black;">
                     <p>${offer.title}</p>
                     <p>${offer.description}</p>

@@ -2,6 +2,7 @@ package com.team2.spartanslist.review;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+
+import com.team2.spartanslist.Global;
+import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.shopper.ShopperService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +27,25 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/reviews")
 public class ReviewController {
+    @Autowired
     private final ReviewService reviewService;
+    @Autowired
+    ShopperService shopperService;
+    @Autowired 
+    OfferService offerService;
 
     /** endpoint to add an review
      * @param review the review to add
      * @return the offer of the review
      */
     @PostMapping
-    public ResponseEntity<Review> creatReview(@Valid @RequestBody Review review){
+    public ResponseEntity<Review> createReview(Review review, Long offerID){
+        Shopper author = shopperService.getShopper(Global.shopperID);
+        Offer offer = offerService.getOfferById(offerID);
+
+        review.setAuthor(author);
+        review.setOffer(offer);
+
         return ResponseEntity.ok(reviewService.createReview(review));
     }
 

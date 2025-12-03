@@ -15,6 +15,8 @@ import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferRepository;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.review.Review;
+import com.team2.spartanslist.review.ReviewService;
 import com.team2.spartanslist.seller.SellerRepository;
 import com.team2.spartanslist.seller.SellerService;
 
@@ -25,6 +27,8 @@ public class ShopperController {
     private ShopperService shopperService;
     @Autowired
     private OfferService offerService;
+    @Autowired
+    private ReviewService reviewService;
 
     // Show forms endpoints
         /**
@@ -90,6 +94,20 @@ public class ShopperController {
             model.addAttribute("offers", offers);
 
             return "/shopper/shopper-home";
+        }
+
+        @GetMapping("/offer/{offerID}")
+        public String getOffer(Model model, @PathVariable Long offerID) {
+            Offer offer = offerService.getOfferById(offerID);
+            List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
+            Review newReview = new Review();
+
+            model.addAttribute("offer", offer);
+            model.addAttribute("reviews", reviews);
+            model.addAttribute(newReview);
+            model.addAttribute("shopper", Global.shopperID);
+
+            return "/shopper/shopper-view-offer";
         }
 
 
