@@ -38,6 +38,7 @@
 
 <#macro shoppernav>
 <nav>
+      <a href="/shoppers/home">Home</a>
 		<a href="/shoppers/myprofile">My Profile</a>
 		<a href="/"><img src="../images/icons/logout_black_20pt.svg" alt="Log Out"></a>
 </nav>

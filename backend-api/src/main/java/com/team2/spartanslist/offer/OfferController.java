@@ -211,7 +211,4 @@ public class OfferController{
     public Object findByType(@PathVariable String type){
         return ResponseEntity.ok(offerService.findByType(type));
     }
-    
-    
-
 }

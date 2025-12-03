@@ -82,7 +82,6 @@ public class OfferService {
      */
     public List<Offer> getAllOffers() {
         List<Offer> offers = offerRepository.findAll();
-        System.out.println("getAllOffers() returned " + offers.size() + " offers");
         return offers;
     }
 

@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/offer.css">
 </head>
 <body>
-    <@macros.sellernav/>
+    <@macros.shoppernav/>
     <main>
         <section class="offer-summary">
             <div class="offer-left">
@@ -25,22 +25,6 @@
                 </#if>
             </div>
         </section>
-        <section>
-            <!-- <#if requests??>
-                <h3>orders for this offer</h3>
-                <ul class="orders-list">
-                    <#list request as requests>
-                        <li class="request-item">
-                            <p>${request.getShopper().getUserName()}</p>
-                            <p>${request.getOffer().getTitle()}</p>
-                        </li>
-                    </#list>
-                </ul>
-            </#if> -->
-        </section>
-        <a href="/offers/${offer.getOfferID()}/update">
-            <button>edit offer</button>
-        </a>
     </main>
 </body>
 </html>
