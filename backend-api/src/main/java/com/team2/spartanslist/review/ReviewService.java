@@ -30,14 +30,18 @@ public class ReviewService {
      * @return
      */
     public Review createReview(Review review) {
+        
         if (reviewRepository.existsById(review.getReviewID())){
             throw new IllegalStateException("Review already created.");
         }
+        
+        /*
         Shopper author = shopperService.getShopper(review.getAuthor().getShopperID());
         Offer offer = offerService.getOfferById(review.getOffer().getOfferID());
 
         review.setAuthor(author);
         review.setOffer(offer);
+        */
 
         return reviewRepository.save(review);
     }
