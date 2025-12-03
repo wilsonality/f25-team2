@@ -92,6 +92,14 @@ public class ShopperController {
             return "/shopper/shopper-home";
         }
 
+        @GetMapping("/offer/{offerID}")
+        public String getOffer(Model model, @PathVariable Long offerID) {
+            Offer offer = offerService.getOfferById(offerID);
+            model.addAttribute("offer", offer);
+
+            return "/shopper/shopper-view-offer";
+        }
+
 
     // Add endpoints
         /**
