@@ -12,12 +12,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team2.spartanslist.Global;
+import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.offer.OfferRepository;
+import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.seller.SellerRepository;
+import com.team2.spartanslist.seller.SellerService;
 
 @Controller
 @RequestMapping("/shoppers")
 public class ShopperController {
     @Autowired
     private ShopperService shopperService;
+    @Autowired
+    private OfferService offerService;
 
     // Show forms endpoints
         /**
@@ -75,6 +82,14 @@ public class ShopperController {
             model.addAttribute("shopper", shopper);
 
             return "/shopper/shopper-profile";
+        }
+
+        @GetMapping("/home")
+        public String getOffers(Model model) {
+            List<Offer> offers = offerService.getAllOffers();
+            model.addAttribute("offers", offers);
+
+            return "/shopper/shopper-home";
         }
 
 
