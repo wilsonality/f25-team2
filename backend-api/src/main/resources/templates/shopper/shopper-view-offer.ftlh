@@ -13,7 +13,7 @@
             <div class="offer-left">
                 <img src="" alt="" class="offer-picture">
                 <h3>${offer.getTitle()}</h3>
-                <!-- <p>OfferID: ${offer.getOfferID()}</p> -->
+                <p>OfferID: ${offer.getOfferID()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                 <p>Purchased: ${offer.getNumPurchased()}</p>
             </div>
