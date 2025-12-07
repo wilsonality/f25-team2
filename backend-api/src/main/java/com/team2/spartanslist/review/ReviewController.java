@@ -39,14 +39,16 @@ public class ReviewController {
      * @return the offer of the review
      */
     @PostMapping
-    public ResponseEntity<Review> createReview(Review review, Long offerID){
+    public String createReview(Review review, Long offerID){
         Shopper author = shopperService.getShopper(Global.shopperID);
         Offer offer = offerService.getOfferById(offerID);
 
         review.setAuthor(author);
         review.setOffer(offer);
 
-        return ResponseEntity.ok(reviewService.createReview(review));
+        reviewService.createReview(review);
+
+        return "redirect:/shoppers/offer/" + offerID;
     }
 
     /** endpoint to update a review
@@ -75,7 +77,7 @@ public class ReviewController {
     @PostMapping("/{reviewID}")
     public ResponseEntity<List<Review>> deleteReview(@PathVariable Long reviewID){
         reviewService.deleteReview(reviewID);
-        return ResponseEntity.ok(reviewService.getAllReviews());
+        return ResponseEntity.ok(reviewService.getAllReviews());    
     }
 
     /** endpoint to get all reviews
