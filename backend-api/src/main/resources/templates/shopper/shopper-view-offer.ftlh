@@ -25,11 +25,12 @@
                 </#if>
             </div>
         </section>
+        <hr>
         <section>
             <h2>Reviews</h2>
             <form id="newReview" action="/api/reviews" method="post">
                 <div class="make_review_container">
-                <textarea class="review_text_box" name="content" id="content" rows="14" cols="10" wrap="soft"></textarea><br>
+                <textarea class="review_text_box" name="content" id="content" rows="5" cols="50" wrap="soft"></textarea><br>
 
                 <label for="stars" name="review">⭐️</label>
                 <input type="radio" name="rating" id="rating" value="1">
@@ -47,11 +48,21 @@
 
                 <button type="submit">Add Review</button>
             </form>
-        </div>   
+        </section> 
+        <hr>
+        <section>
             <#list reviews as review>
-                <p>${review.author.username}</p>
-                <p>${review.content}</p>
-                <p>${review.rating}</p> 
+                <div style="border-bottom: 0.5px solid black">
+                    <h4>${review.author.username}</h4>
+                    <p>${review.content}</p>
+                    <p>${review.rating}/5</p>
+
+                    <#if review.author.shopperID == shopperID>
+                    <form id="deleteReview" action="/api/reviews/${review.reviewID}" method="post">
+                        <button type="submit">Delete Review</button>
+                    </form>
+                    </#if>
+                </div>
             </#list>
         </section>
     </main>

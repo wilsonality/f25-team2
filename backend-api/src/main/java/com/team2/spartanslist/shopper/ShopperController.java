@@ -105,7 +105,7 @@ public class ShopperController {
             model.addAttribute("offer", offer);
             model.addAttribute("reviews", reviews);
             model.addAttribute(newReview);
-            model.addAttribute("shopper", Global.shopperID);
+            model.addAttribute("shopperID", Global.shopperID);
 
             return "/shopper/shopper-view-offer";
         }
