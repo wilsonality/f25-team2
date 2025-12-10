@@ -40,4 +40,8 @@ public class CartService {
 
       return offers;
     }
+
+    public Object deleteFromCart(Long offerID) {
+      return cartRepository.deleteFromCart(Global.shopperID, offerID);
+    }
 }

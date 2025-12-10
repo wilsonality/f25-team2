@@ -24,6 +24,10 @@
                     <p>${offer.description}</p>
                     <p>$ ${offer.price}</p>
                     <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
+
+					<form id="deleteFromCart" action="/cart/delete/${offer.offerID}" method="post">
+                    <button type="submit">Delete From Cart</button>
+                	</form>
                 </div>
             </a>
         </#list>
