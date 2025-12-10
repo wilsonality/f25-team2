@@ -16,7 +16,12 @@
                 <p>OfferID: ${offer.getOfferID()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                 <p>Purchased: ${offer.getNumPurchased()}</p>
+
+                <form id="addToCart" action="/addToCart/${offer.offerID}" method="post">
+                    <button type="submit">Add To Cart</button>
+                </form>
             </div>
+
             <div class="offer-right">
                 <p>Description: ${offer.getDescription()}</p>
                 <#if offer.getPrice()??>
