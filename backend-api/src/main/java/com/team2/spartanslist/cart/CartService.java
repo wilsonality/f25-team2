@@ -33,7 +33,7 @@ public class CartService {
       List<Long> offerIDs = cartRepository.findOfferIDsByShopperID(Global.shopperID);
       List<Offer> offers = new ArrayList<>();
 
-      for (Long offerID : offerIDs ) {
+      for (Long offerID : offerIDs) {
         Offer offer = offerRepository.findById(offerID).orElse(null);
         offers.add(offer);
       }
