@@ -3,15 +3,15 @@ package com.team2.spartanslist.cart;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 
-@RestController
+@Controller
 public class CartController {
     @Autowired
     private CartService cartService;
@@ -22,7 +22,9 @@ public class CartController {
     }
 
     @PostMapping("/addToCart/{offerID}")
-    public Cart addToCart(@PathVariable Long offerID) {
-        return cartService.addToCart(Global.shopperID, offerID);
+    public String addToCart(@PathVariable Long offerID) {
+        cartService.addToCart(Global.shopperID, offerID);
+
+        return "redirect:/shoppers/cart";
     }
 }

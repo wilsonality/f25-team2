@@ -17,13 +17,16 @@
 	 <@macros.shoppernav/>
 
 	<main>
-		<#list offers as offer>
-			<p>${offer}</p>
-			<p>a</p>
-		</#list>
-
-
-       <p>Cart</p>
+		 <#list offers as offer>
+            <a href="/shoppers/offer/${offer.offerID}">
+                <div style="border: 1px solid black;">
+                    <p>${offer.title}</p>
+                    <p>${offer.description}</p>
+                    <p>$ ${offer.price}</p>
+                    <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
+                </div>
+            </a>
+        </#list>
 	</main>
 
 	<footer>

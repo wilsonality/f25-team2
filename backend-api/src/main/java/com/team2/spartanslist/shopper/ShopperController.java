@@ -117,15 +117,12 @@ public class ShopperController {
             return "/shopper/shopper-view-offer";
         }
 
-        /*
-        @GetMapping("/car")
-        public Object showCart(Model model) {
-            Shopper shopper = shopperService.getShopper(Global.shopperID);
-            Cart cart = shopper.getCart();
-           
-            return cart;
+        @GetMapping("/cart")
+        public Object getCart(Model model) {
+            model.addAttribute("offers", cartService.getCart());
+            return "/shopper/shopper-cart";
         }
-        */
+
 
 
     // Add endpoints
