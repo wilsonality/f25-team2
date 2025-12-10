@@ -18,6 +18,8 @@ import com.team2.spartanslist.cart.CartService;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferRepository;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.order.OrderRepository;
+import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.review.Review;
 import com.team2.spartanslist.review.ReviewService;
 import com.team2.spartanslist.seller.SellerRepository;
@@ -36,6 +38,8 @@ public class ShopperController {
     private CartService cartService;
     @Autowired
     private CartRepository cartRepository;
+    @Autowired
+    private OrderService orderService;
 
     // Show forms endpoints
         /**
@@ -120,6 +124,8 @@ public class ShopperController {
         @GetMapping("/cart")
         public Object getCart(Model model) {
             model.addAttribute("offers", cartService.getCart());
+            model.addAttribute("orders", orderService.getOrdersByShopper(Global.shopperID));
+
             return "/shopper/shopper-cart";
         }
 

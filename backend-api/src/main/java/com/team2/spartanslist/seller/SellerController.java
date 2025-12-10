@@ -182,6 +182,7 @@ public class SellerController{
 
         List<Order> orders = orderService.getOrdersbySellerAndStatus(seller.getSellerID(), 1);
         model.addAttribute("requests", orders);
+
         return "seller/seller-home";
     }
 

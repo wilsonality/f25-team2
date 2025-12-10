@@ -2,6 +2,7 @@ package com.team2.spartanslist.order;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.team2.spartanslist.Global;
+import com.team2.spartanslist.cart.CartService;
+import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.shopper.ShopperService;
+
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -18,11 +24,22 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/api/orders")
 public class OrderController {
+    @Autowired
     private final OrderService orderService;
+    @Autowired
+    OfferService offerService;
+    @Autowired
+    ShopperService shopperService;
+    @Autowired
+    CartService cartService;
 
-    @PostMapping
-    public ResponseEntity<Order> createOrder(@Valid @RequestBody Order order, Long shopperID, Long offerID){
-        return ResponseEntity.ok(orderService.createOrder(order, shopperID, offerID));
+    @PostMapping("/{offerID}")
+    public String createOrder(@PathVariable Long offerID){
+        Order order = new Order();
+        ResponseEntity.ok(orderService.createOrder(order, offerID));
+        cartService.deleteFromCart(offerID);
+
+        return "redirect:/shoppers/cart";
     }
 
     @GetMapping
