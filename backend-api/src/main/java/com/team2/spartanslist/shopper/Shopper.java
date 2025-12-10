@@ -34,8 +34,4 @@ public class Shopper {
     
     private String profileImage;
     private String profileBio;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cartID")
-    private Cart cart;
 }

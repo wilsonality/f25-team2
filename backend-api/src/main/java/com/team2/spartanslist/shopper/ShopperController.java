@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team2.spartanslist.Global;
+import com.team2.spartanslist.cart.Cart;
+import com.team2.spartanslist.cart.CartRepository;
+import com.team2.spartanslist.cart.CartService;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferRepository;
 import com.team2.spartanslist.offer.OfferService;
@@ -29,6 +32,10 @@ public class ShopperController {
     private OfferService offerService;
     @Autowired
     private ReviewService reviewService;
+    @Autowired
+    private CartService cartService;
+    @Autowired
+    private CartRepository cartRepository;
 
     // Show forms endpoints
         /**
@@ -109,6 +116,16 @@ public class ShopperController {
 
             return "/shopper/shopper-view-offer";
         }
+
+        /*
+        @GetMapping("/car")
+        public Object showCart(Model model) {
+            Shopper shopper = shopperService.getShopper(Global.shopperID);
+            Cart cart = shopper.getCart();
+           
+            return cart;
+        }
+        */
 
 
     // Add endpoints

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 
 @RestController
@@ -15,13 +16,13 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("/{shopperID}/cart/{offerID}")
-    public Cart addToCart(@PathVariable Long shopperID, @PathVariable Long offerID) {
-        return cartService.addToCart(shopperID, offerID);
+    @GetMapping("/getCart")
+    public List<Offer> getCart() {
+        return cartService.getCart();
     }
 
-    @GetMapping("/{shopperID}/cart")
-    public List<Offer> getCart(@PathVariable Long shopperID) {
-        return cartService.getCart(shopperID);
+    @PostMapping("/addToCart/{offerID}")
+    public Cart addToCart(@PathVariable Long offerID) {
+        return cartService.addToCart(Global.shopperID, offerID);
     }
 }
