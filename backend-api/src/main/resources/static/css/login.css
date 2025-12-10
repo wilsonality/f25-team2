@@ -6,6 +6,10 @@
     background-color: lightpink;
 }
 
+form.register{
+    background-color: lavender;
+}
+
 main.log-in{
     display: flex;
     flex-direction: column;

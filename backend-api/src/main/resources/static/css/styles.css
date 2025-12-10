@@ -4,6 +4,11 @@ ul{
   list-style-type: none;
 }
 
+button{
+  padding: 0.75em 0.5em;
+  font-family: "Open Sans", sans-serif;
+}
+
 /* navigation */
 
 ul.navigation{
@@ -11,12 +16,29 @@ ul.navigation{
   gap: 3em;
 }
 
-
+form{
+  padding: 1em 2em;
+  margin: 0em 2em;
+}
 
 /* text styling */
 
+body{
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+}
+
 .grayed{
   color: gray;
+}
+
+.center{
+  text-align: center;
+}
+
+.underline{
+  text-decoration: underline solid 2px;
 }
 
 .open-sans{

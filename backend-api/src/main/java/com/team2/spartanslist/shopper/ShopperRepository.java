@@ -5,4 +5,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ShopperRepository extends JpaRepository<Shopper, Long> {
+    Shopper findByUserPhone(String userPhone);
 }

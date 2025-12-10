@@ -6,7 +6,7 @@
     <@macros.header title="Please Log In"/>
 </head>
 <body>
-    <@macros.guestnav/>
+    <@macros.navbar/>
     <main class="log-in open-sans-bold">
         <section class="shopper-log-in">
             <h3>Shopper Log In</h3>

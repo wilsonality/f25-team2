@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="/css/offer.css">
 </head>
 <body>
-    <@macros.sellernav/>
+    <@macros.navbar/>
     <main>
         <section class="offer-summary">
             <div class="offer-left">

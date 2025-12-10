@@ -6,7 +6,7 @@
     <@macros.header title="${title}"/>
 </head>
 <body>
-    <@macros.sellernav/>
+    <@macros.navbar/>
     <main class="open-sans">
         <h2>welcome ${seller.getUsername()}</h2>
 

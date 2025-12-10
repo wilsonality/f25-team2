@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/api/shoppers")
@@ -51,17 +53,20 @@ public class ShopperController {
             return shopperService.getShopper(shopperID);
         }
 
-    // Add endpoints
         /**
          * Endpoint to add a shopper into the table
          * 
          * @param shopper
          */
         @PostMapping
-        public String createShopper(Shopper newShopper) {
-            shopperService.createShopper(newShopper);
-            Long shopperID = newShopper.getShopperID();
-            return "redirect:/shopper/" + shopperID;
+        public String createShopper(Model model, Shopper newShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
+            Shopper shopper = shopperService.createShopper(newShopper);
+
+            Shopper check = shopperService.getShopperByPhone(newShopper.getUserPhone());
+            if (check != null){
+                return "redirect:/shopper/register?error=failed%20to%20create%20shopper%20account";
+            }
+            return "redirect:/shopper/" + String.valueOf(shopper.getShopperID());
         }
 
     // Update endpoints

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
@@ -33,7 +35,7 @@ public class SellerController{
         Seller newSeller = new Seller();
         model.addAttribute("newSeller", newSeller);
         model.addAttribute("title", "Seller Registration");
-        return "seller-registration-form";
+        return "seller/seller-registration-form";
     }
 
     /** endpoint to add a seller
@@ -42,14 +44,14 @@ public class SellerController{
      * @return
      */
     @PostMapping
-    public String createSeller(Model model, Seller newSeller) {
-        String pageTitle = String.format("View %s's profile", newSeller.getUsername());
-        sellerService.createSeller(newSeller);
-        // look up the new seller
-        Seller seller = sellerService.getSellerByPhone(newSeller.getUserPhone());
-        model.addAttribute("seller", seller);
-        model.addAttribute("title", pageTitle);
-        return "seller/seller-details";
+    public String createSeller(Model model, Seller newSeller, @RequestParam(required = false)MultipartFile sellerPicture) {
+        Seller seller = sellerService.createSeller(newSeller, sellerPicture);
+        // check for unique phone
+        Seller check = sellerService.getSellerByPhone(newSeller.getUserPhone());
+        if (check == null){
+            return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
+        }
+        return "redirect:/sellers/" + seller.getSellerID(); 
     }
 
     /** endpoint to get all sellers
@@ -108,14 +110,6 @@ public class SellerController{
     @GetMapping("/seller/phone/{userPhone}")
     public Object getSellerByPhone(Model model, @PathVariable String userPhone){
         Seller seller = sellerService.getSellerByPhone(userPhone);
-        // if (seller == null){
-        //     return "redirect:/sellers?error=seller%20not%20found";
-        // }
-        // String pageTitle = String.format("View %s's profile",seller.getUsername());
-        // model.addAttribute("seller", seller);
-        // model.addAttribute("title", pageTitle);
-        // List<Offer> offers = offerService.findBySeller(seller.getSellerID());
-        // model.addAttribute("offers", offers);
         return "redirect:/sellers/" + seller.getSellerID();
     }
     
@@ -126,9 +120,9 @@ public class SellerController{
      * @return
      */
     @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller){
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
         System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
-        sellerService.updateSeller(sellerID, nSeller);
+        sellerService.updateSeller(sellerID, nSeller, sellerPicture);
         return "redirect:/sellers/" + sellerID;
     }
 

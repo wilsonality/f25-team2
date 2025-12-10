@@ -3,14 +3,16 @@ package com.team2.spartanslist.cart;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.team2.spartanslist.offer.Offer;
 
-@RestController
+@Controller
+@RequestMapping("/carts")
 public class CartController {
     @Autowired
     private CartService cartService;

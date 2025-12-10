@@ -26,4 +26,8 @@ public class ShopperService {
         shopperRepository.save(updatedShopper);
         return getShopper(shopperID);
     }
+
+    public Shopper getShopperByPhone(String userPhone){
+        return shopperRepository.findByUserPhone(userPhone);
+    }
 }
