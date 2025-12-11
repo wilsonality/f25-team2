@@ -1,5 +1,10 @@
 /* global */
 
+h1, h2 {
+  font-family: "Comic Relief", system-ui;
+}
+
+
 ul{
   list-style-type: none;
 }
