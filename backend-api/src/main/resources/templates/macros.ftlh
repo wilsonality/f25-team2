@@ -22,7 +22,7 @@
 <#macro navbar>
 <nav>
    <ul class="navigation comic-bold">
-      <#if !(shopper?? || seller??)>
+      <#if !(user??)>
           <li>
             <a href="/home" class="navlink">home</a>
          </li>
@@ -32,7 +32,7 @@
          <li>
             <a href="/register">register</a>
          </li>
-      <#elseif (seller??)>
+      <#elseif (user.getSellerID()) ??>
          <li>
             <a href="/sellers/home" class="navlink">home</a>
          </li>
@@ -48,7 +48,8 @@
          <li>
             <a href="/logout">log out</a>
          </li>
-      <#elseif (shopper??)>
+      </#if>
+      <#if (user.getShopperID()) ??>
          <li>
             <a href="/shoppers/home">home</a>
          </li>

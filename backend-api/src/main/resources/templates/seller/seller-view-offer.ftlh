@@ -5,7 +5,7 @@
 <head>
     <@macros.header title="View ${offer.getTitle()}"/>
 </head>
-<body class="open-sans-bold">
+<body>
     <@macros.navbar/>
     <main class="offer-details">
         <section class="offer-summary">
@@ -41,6 +41,8 @@
                         </li>
                     </#list>
                 </ul>
+            <#else>
+                <p>Hmm.. You don't have any orders yet. Check back later once someone requests your offer.</p>
             </#if>
         </section>
         

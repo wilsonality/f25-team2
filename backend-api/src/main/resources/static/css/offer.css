@@ -1,5 +1,4 @@
 .offers-list{
-    background-color: pink;
     display: flex;
     flex-wrap: wrap;
 
@@ -16,7 +15,8 @@ li.offer-item{
 }
 
 li.offer-item:hover{
-    border: 3px firebrick solid;
+    border: 3px palevioletred solid;
+    border-bottom: 3px solid black;
     background-color: antiquewhite;
     scale: 1.05;
 }
@@ -39,12 +39,15 @@ main.offer-details{
 
 img.offer-picture{
     border: black 2px solid;
-    max-width: 400px;
+    width: 400px;
     max-height: 400px;
+    object-fit: cover;
 }
 
 img.offer-preview{
     border: black 2px solid;
-    max-width: 200px;
-    max-height: 400px;
+    width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    margin: auto;
 }

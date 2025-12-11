@@ -26,6 +26,7 @@
                                 <h3>${offer.getTitle()}</h3>
                                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                                 <p>Purchased: ${offer.getNumPurchased()}</p>
+                                
                             </a>
                         </li>
                 </#list>

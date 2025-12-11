@@ -4,22 +4,29 @@
 <html lang="en">
 <head>
     <@macros.header title="${offer.getTitle()}"/>
-    <link rel="stylesheet" type="text/css" href="/css/offer.css">
 </head>
 <body>
-    <@macros.shoppernav/>
-    <main>
+    <@macros.navbar/>
+    <main class="offer-details">
         <section class="offer-summary">
             <div class="offer-left">
-                <img src="" alt="" class="offer-picture">
+                <#if offer.getOfferImagePath()??>
+                <img src="${offer.getOfferImagePath()}" alt="" class="offer-picture">
+                <#else>
+                <img src="/offer-pictures/eraser.jpeg" alt="" class="offer-picture">
+                </#if>
                 <h3>${offer.getTitle()}</h3>
                 <p>OfferID: ${offer.getOfferID()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
-                <p>Purchased: ${offer.getNumPurchased()}</p>
-
+                <#if (incart ?? && incart)>
                 <form id="addToCart" action="/addToCart/${offer.offerID}" method="post">
-                    <button type="submit">Add To Cart</button>
+                    <button type="submit" id="add-cart">Add To Cart</button>
                 </form>
+                <#elseif (!incart)>
+                <form id="addToCart" action="/addToCart/${offer.offerID}" method="post">
+                    <button type="submit" id="remove-cart">Add To Cart</button>
+                </form>
+                </#if>
             </div>
 
             <div class="offer-right">

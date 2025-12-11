@@ -30,7 +30,7 @@ public class SecurityConfig {
             session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
         )
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/", "/home", "/css/**", "/js/**", "/images/**", "/register", "/login", "/login/**").permitAll()
+            .requestMatchers("/", "/home", "/css/**", "/js/**", "/seller-pictures/**", "/shopper-pictures/**", "/offer-pictures/**", "/register", "/login", "/login/**").permitAll()
             .requestMatchers(HttpMethod.POST, "/sellers", "/shoppers").permitAll()
             .requestMatchers(HttpMethod.POST, "/offers/**", "/sellers/**").hasRole("SELLER")
             .requestMatchers(HttpMethod.POST, "/shoppers/**").hasRole("SHOPPER")

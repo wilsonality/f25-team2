@@ -18,24 +18,26 @@
 
 	<main>
 		<h3>Cart</h3>
-		 <#list offers as offer>
-            <a href="/shoppers/offer/${offer.offerID}">
-                <div style="border-bottom: 1px solid black;">
-                    <p>${offer.title}</p>
-                    <p>${offer.description}</p>
-                    <p>$ ${offer.price}</p>
-                    <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
-
-					<form id="deleteFromCart" action="/cart/delete/${offer.offerID}" method="post">
-                    <button type="submit">Delete From Cart</button>
-                	</form>
-
-					<form id="order" action="/api/orders/${offer.offerID}" method="post">
-                    <button type="submit">Request</button>
-                	</form>
-                </div>
-            </a>
-        </#list>
+		<ul class="offers-list">
+			<#list offers as offer>
+			   <a href="/shoppers/offer/${offer.offerID}">
+				   <li class="offer-item">
+					   <p>${offer.title}</p>
+					   <p>${offer.description}</p>
+					   <p>$ ${offer.price}</p>
+					   <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
+   
+					   <form id="deleteFromCart" action="/cart/delete/${offer.offerID}" method="post">
+					   <button type="submit">Delete From Cart</button>
+					   </form>
+   
+					   <form id="order" action="/api/orders/${offer.offerID}" method="post">
+					   <button type="submit">Request</button>
+					   </form>
+					</li>
+			   </a>
+		   </#list>
+		</ul>
 		<hr>
 		<h3>Orders</h3>	
 		<#list orders as order>
