@@ -65,4 +65,19 @@ public class Order{
         this.status = status;
     }
 
+    public String getStatusAsString() {
+        switch (status) {
+            case 1:
+                return "requested";
+            case 2:
+                return "accepted";
+            case 3:
+                return "rejected";
+            case 4:
+                return "completed";                    
+            default:
+                return "error";
+        }
+    }
+
 }
