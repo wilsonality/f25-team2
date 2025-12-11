@@ -10,7 +10,7 @@ li.offer-item{
     background-color: floralwhite;
     padding: 2em;
     margin: 1em 3em;
-    width: 300px;
+    width: 200px;
     transition: all 0.2s ease;
 }
 
@@ -46,8 +46,16 @@ img.offer-picture{
 
 img.offer-preview{
     border: black 2px solid;
-    width: 200px;
-    max-height: 200px;
+    width: 150px;
+    max-height: 150px;
+    object-fit: cover;
+    margin: auto;
+}
+
+img.offer-icon{
+    border: black 2px solid;
+    width: 100px;
+    max-height: 100px;
     object-fit: cover;
     margin: auto;
 }

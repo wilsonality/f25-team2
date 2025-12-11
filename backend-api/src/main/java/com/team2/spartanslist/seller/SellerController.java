@@ -245,5 +245,24 @@ public class SellerController{
         return "seller/seller-home";
     }
 
+    /** endpoint to see all orders */
+    @GetMapping("/myorders")
+    public Object showSellerOrders(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("seller", user);
+
+        model.addAttribute("title", "Manage Your Orders");
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(user.getSellerID(), 1);
+        if (orders.size() != 0){
+            model.addAttribute("orders", orders);
+        }
+        return "seller/manage-orders";
+    }
+
     
 }

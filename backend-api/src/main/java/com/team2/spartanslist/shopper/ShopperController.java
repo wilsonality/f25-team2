@@ -169,9 +169,21 @@ public class ShopperController {
         }
 
         @GetMapping("/cart")
-        public Object getCart(Model model) {
-            model.addAttribute("offers", cartService.getCart());
-            model.addAttribute("orders", orderService.getOrdersByShopper(Global.shopperID));
+        public Object getCart(Model model, Authentication auth) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
+
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            model.addAttribute("user", user);
+
+            String pageTitle = String.format("%s's Cart",user.getUsername());
+            model.addAttribute("title", pageTitle);
+
+            // model.addAttribute("offers", cartService.getCart(user));
+            model.addAttribute("cartitems", cartService.getCart(user));
+            model.addAttribute("orders", orderService.getOrdersByShopper(user.getShopperID()));
 
             return "/shopper/shopper-cart";
         }

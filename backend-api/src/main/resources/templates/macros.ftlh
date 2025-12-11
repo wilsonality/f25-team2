@@ -43,6 +43,9 @@
             <a href="/offers/myoffers">view my offers</a>
          </li>
          <li>
+            <a href="/sellers/myorders">view my orders</a>
+         </li>
+         <li>
             <a href="/offers/create">create an offer</a>
          </li>
          <li>

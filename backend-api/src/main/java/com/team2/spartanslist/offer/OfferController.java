@@ -228,6 +228,7 @@ public class OfferController{
         }
 
         Seller seller = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("user", seller);
         Long sellerID = seller.getSellerID();
 
         model.addAttribute("title", "View Your Offers");

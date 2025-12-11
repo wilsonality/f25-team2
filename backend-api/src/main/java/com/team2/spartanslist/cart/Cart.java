@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.shopper.Shopper;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
@@ -28,9 +30,9 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "shopperID", nullable = false)
-    private Long shopperID;
+    private Shopper shopper;
 
-    @ManyToMany
+    @ManyToOne
     @JoinColumn(name = "offerID", nullable = false)
-    private Long offerID;
+    private Offer offer;
 }
