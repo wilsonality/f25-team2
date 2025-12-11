@@ -129,6 +129,12 @@ public class ShopperController {
             return "/shopper/shopper-cart";
         }
 
+        @GetMapping("/mysubscriptions")
+        public String getMySubscriptions() {
+
+        return "redirect:/mailinglist/subscriptions/" + Global.shopperID;
+        }
+
 
 
     // Add endpoints

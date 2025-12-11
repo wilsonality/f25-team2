@@ -22,11 +22,7 @@ public class MailingList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mailingListID;
 
-    @ManyToOne
-    @JoinColumn(name="sellerID",nullable = false)
-    private Seller seller;
-
-    @ManyToOne
-    @JoinColumn(name="shopperID",nullable = false)
-    private Shopper shopper;
+    private Long shopperID;
+    private Long sellerID;
+   
 }
