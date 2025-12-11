@@ -1,0 +1,7 @@
+.navigation li{
+    transition: all 0.2s ease;
+}
+
+.navigation li:hover{
+    scale: 1.05;
+}

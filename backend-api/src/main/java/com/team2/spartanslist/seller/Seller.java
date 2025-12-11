@@ -39,7 +39,7 @@ public class Seller {
     @Column(updatable = false)
     private LocalDate joinDate;
 
-
+    
     /*
      * Constructors
      */

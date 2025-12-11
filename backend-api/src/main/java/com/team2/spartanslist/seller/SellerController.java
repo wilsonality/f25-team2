@@ -18,6 +18,8 @@ import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
+import com.team2.spartanslist.mailing_list.MailingList;
+import com.team2.spartanslist.mailing_list.MailingListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +33,8 @@ public class SellerController{
     private final OfferService offerService;
     @Autowired
     private final OrderService orderService;
+    @Autowired
+    private final MailingListService mailingListService;
 
 
     /** endpoint to show the seller registration form
@@ -52,14 +56,14 @@ public class SellerController{
      */
     @PostMapping
     public String createSeller(Model model, Seller newSeller, @RequestParam(required = false)MultipartFile sellerPicture) {
-        Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         // check for unique phone
         Seller check = sellerService.getSellerByPhone(newSeller.getUserPhone());
         if (check == null){
             return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
         }
+
+        Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         
-        Global.sellerID = newSeller.getSellerID();
         return "redirect:/sellers/myprofile"; 
     }
 
@@ -104,8 +108,10 @@ public class SellerController{
         Seller seller = sellerService.getSellerByPhone(auth.getName());
         Long sellerID = seller.getSellerID();
 
+
         String pageTitle = String.format("View %s's profile",seller.getUsername());
         model.addAttribute("seller", seller);
+        model.addAttribute("author", true);
         model.addAttribute("title", pageTitle);
         
         List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(sellerID);
@@ -113,6 +119,8 @@ public class SellerController{
 
         List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
         model.addAttribute("requests", orders);
+
+        // calculating analytics
         return "seller/seller-details";
     }
 
@@ -159,8 +167,17 @@ public class SellerController{
      * @return
      */
     @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
-        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, Authentication auth, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        // make sure users can only update their profiles
+        if (user.getSellerID() != sellerID){
+            return "redirect:/403";
+        }
+
         sellerService.updateSeller(sellerID, nSeller, sellerPicture);
         return "redirect:/sellers/" + sellerID;
     }
@@ -170,12 +187,18 @@ public class SellerController{
      * @param sellerID
      * @return
      */
-    @GetMapping("/updateForm/{sellerID}")
-    public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
-        Seller seller = sellerService.getSellerById(sellerID);
-        String pageTitle = String.format("Edit Profile For %s.",seller.getUsername());
+    @GetMapping("/updateprofile")
+    public Object showSellerUpdateForm(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        String pageTitle = String.format("Edit %s's Profile'",user.getUsername());
         model.addAttribute("title", pageTitle);
-        model.addAttribute("seller", seller);
+        model.addAttribute("seller", user);
         return "seller/seller-update";
     }
 

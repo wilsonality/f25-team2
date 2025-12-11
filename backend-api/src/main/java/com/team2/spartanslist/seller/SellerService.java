@@ -24,8 +24,8 @@ public class SellerService {
     @Autowired
     private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/seller-pictures";
-    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/seller-pictures";
+    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/seller-pictures/";
+    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/seller-pictures/";
 
 
     /** method to add a new seller

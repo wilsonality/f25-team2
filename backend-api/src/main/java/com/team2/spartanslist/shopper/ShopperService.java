@@ -19,8 +19,8 @@ public class ShopperService {
     @Autowired
     private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
-    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/shopper-pictures";
-    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/shopper-pictures";
+    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/shopper-pictures/";
+    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/shopper-pictures/";
 
     public List<Shopper> getAllShoppers() {
         return shopperRepository.findAll();

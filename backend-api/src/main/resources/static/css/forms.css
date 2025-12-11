@@ -9,7 +9,7 @@ main.log-in{
 }
 
 form{
-    padding: 1em 2em;
+    padding: 2em 3em;
     margin: 0em 2em;
 
     input{
@@ -19,12 +19,31 @@ form{
     p{
         font-size: large;
     }
+    select{
+        padding: 0.5em;
+        display: block;
+    }
+
+    textarea{
+        display: block;
+        margin-bottom: 2em;
+    }
+}
+
+label{
+    display: block;
+    margin-top: 2em;
 }
 
 
-form.register{
+form.create{
     background-color: lavender;
 }
+
+form.edit{
+    background-color: lightblue;
+}
+
 
 /* specific elems */
 

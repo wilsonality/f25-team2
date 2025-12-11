@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,10 +34,18 @@ public class OfferController{
     private final OrderService orderService;
 
     @GetMapping("/create")
-    public Object createOfferForm(Model model){
+    public Object createOfferForm(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        model.addAttribute("seller", user);
         model.addAttribute("newOffer", new Offer());
         model.addAttribute("title", "Post a new offer!");
-        return "seller/seller-create-offer";
+        return "seller/create-offer";
     }
 
     
@@ -50,8 +59,9 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public Object createOffer(Model model, @ModelAttribute Offer newOffer, @RequestParam Long sellerID, @RequestParam(required = false) MultipartFile offerPicture){
-        Seller seller = sellerService.getSellerById(sellerID);
+    public Object createOffer(Model model, Offer newOffer, Authentication auth, @RequestParam(required = false) MultipartFile offerPicture){
+        Seller seller = sellerService.getSellerByPhone(auth.getName());
+        System.out.println("pulling seller " + seller);
         newOffer.setSeller(seller);
         Offer offer = offerService.createOffer(newOffer, offerPicture);
 
@@ -60,8 +70,21 @@ public class OfferController{
     }
 
     @GetMapping("/{offerID}/update")
-    public Object updateOfferForm(Model model, @PathVariable Long offerID){
+    public Object updateOfferForm(Model model, @PathVariable Long offerID, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("seller", user);
+
         Offer offer = offerService.getOfferById(offerID);
+
+        // if user not the author
+        if (user.getSellerID() != offer.getSeller().getSellerID()){
+            return "redirect:/403";
+        }
+
         model.addAttribute("offer", offer);
         model.addAttribute("orders", orderService.getOrdersBySeller(offerID));
         model.addAttribute("title", "Update Your Offer");

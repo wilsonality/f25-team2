@@ -5,8 +5,9 @@
    <link rel="stylesheet" type="text/css" href="/css/offer.css">
    <link rel="stylesheet" type="text/css" href="/css/order.css">
    <link rel="stylesheet" type="text/css" href="/css/cart.css">
+   <link rel="stylesheet" type="text/css" href="/css/profiles.css">
    <link rel="stylesheet" type="text/css" href="/css/forms.css">
-   <link rel="stylesheet" type="text/css" href="/css/guest.css">
+   <link rel="stylesheet" type="text/css" href="/css/navbar.css">
    <title>${title}</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

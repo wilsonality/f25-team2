@@ -24,8 +24,8 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private final SellerService sellerService;
 
-    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/offer-pictures";
-    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/offer-pictures";
+    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/offer-pictures/";
+    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/offer-pictures/";
 
     /** method to create an offer
      * @param offer the offer to create

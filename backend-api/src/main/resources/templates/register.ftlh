@@ -9,7 +9,7 @@
 	<main class="register ">
         <section class="shopper-register">
             <h1 class="center underline">Register as a New Shopper</h1>
-            <form id="newShopper" action="/shoppers" method="post" class="register" enctype="multipart/form-data">
+            <form id="newShopper" action="/shoppers" method="post" class="create" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
                 <br>
@@ -36,7 +36,7 @@
         </section>
         <section class="seller-register">
             <h1 class="center underline">Register as a New Seller</h1>
-            <form id="newSeller" action="/sellers" method="post" class="register" enctype="multipart/form-data">
+            <form id="newSeller" action="/sellers" method="post" class="create" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
                 <br>
@@ -57,8 +57,8 @@
                 <textarea rows="5" cols="50" id="profileBio" name="profileBio" required></textarea><br>
                 <br>
 
-                <button type="submit">Register</button>
-                <a href="/home">Cancel</a>
+                <button type="submit" class="create">Register</button>
+                <a href="/home"><button class="delete">Cancel</button></a>
             </form>
         </section>
         

@@ -7,16 +7,19 @@
 </head>
 <body>
     <@macros.navbar/>
-<!-- begin seller profile -->
-    <main class="seller-profile">
-        <!-- about the seller -->
-        <section class="seller-about">
-            <p> Spartan Seller</p>
+    <main class="profile">
+        <section class="about seller-left center">
+            <#if seller.getProfileImagePath()??>
+                <img src="${seller.getProfileImagePath()}" alt="" class="profile-image pulse">
+            <#else>
+                <img src="/seller-pictures/default.jpg" alt="" class="profile-image pulse">
+            </#if>
             <h1>${seller.getUsername()}</h1>
-            <p>Member since: Jan 01 1970</p>
+            <p>Spartan Seller</p>
+            <p>Member since: ${seller.getJoinDate()}</p>
             <p>Description: ${seller.getProfileBio()}</p>
-            <a href="/sellers/updateForm/${seller.getSellerID()}">
-                <button>Edit Profile</button>
+            <a href="/sellers/updateprofile">
+                <button class="edit">Edit Profile</button>
             </a>
 
             <div class="analytics">
@@ -28,8 +31,9 @@
 					<p>Follow Count: <span>NULL</span></p>
             </div>
         </section>
-        <section class="seller-offers-preview">
+        <section class="seller-right">
             <h2>Offers</h2>
+            <#if offers??>
             <ul class="offers-list">
                 <#list offers as offer>
                 <li class="offer-item">
@@ -42,6 +46,14 @@
                 </li>
                 </#list>
             </ul>
+            <#else>
+            <p>Hmm... No offers to show here.</p>
+                <#if author ??>
+                <a href="/offers/create">
+                    <button class="create">Post an Offer Here</button>
+                </a>
+                </#if>
+            </#if>
         </section>
     </main>
     

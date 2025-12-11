@@ -11,13 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
 </head>
 <body>
-<!-- Begin Nav Bar -->
-    <ul class="navigation open-sans-bold">
-         <li>
-            <!-- <a href="/home" class="navlink">HOME</a> -->
-         </li>
-      </ul>
-<!-- End Nav Bar -->
 
     <main class="page-container"">
         <h1 class="space-mono-bold">${title}</h1>
