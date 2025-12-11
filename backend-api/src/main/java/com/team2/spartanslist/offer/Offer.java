@@ -1,5 +1,10 @@
 package com.team2.spartanslist.offer;
 
+import java.beans.ConstructorProperties;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.team2.spartanslist.seller.Seller;
 
 import jakarta.persistence.Column;
@@ -36,11 +41,21 @@ public class Offer {
     private String description;
     
     private String offerImagePath;
+
     private String type;
+
     private int price;
+
     private String payment;
+
     @Column(nullable = false, columnDefinition = "integer default 0")
     private int numPurchased = 0;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime postDate;
+
+
 
     /*
      * Constructors

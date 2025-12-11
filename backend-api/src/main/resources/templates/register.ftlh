@@ -9,7 +9,7 @@
 	<main>
         <section class="shopper-register">
             <h1 class="center">Register as a New Shopper</h1>
-            <form id="newShopper" action="/api/shoppers" method="post" class="register">
+            <form id="newShopper" action="/api/shoppers" method="post" class="register" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
                 <br>
@@ -36,7 +36,7 @@
         </section>
         <section class="seller-register">
             <h1 class="center">Register as a New Seller</h1>
-            <form id="newSeller" action="/sellers" method="post" class="register">
+            <form id="newSeller" action="/sellers" method="post" class="register" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
                 <br>

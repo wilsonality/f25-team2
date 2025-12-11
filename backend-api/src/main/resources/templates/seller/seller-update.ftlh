@@ -6,7 +6,7 @@
     <@macros.header title="${title}"/>
 </head>
 <body class="open-sans-bold">
-    <form action="/sellers/${seller.getSellerID()}" method="post">
+    <form action="/sellers/${seller.getSellerID()}" method="post" enctype="multipart/form-data">
             <img src="../images/jane_doe.jpg" alt="" class="user_photo">
             <h3>Spartan Seller</h3>
             <label for="user_name">Edit Username:</label>
