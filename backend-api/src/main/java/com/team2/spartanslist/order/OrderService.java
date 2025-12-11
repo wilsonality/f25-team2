@@ -34,8 +34,8 @@ public class OrderService {
      * @return
     */
     
-    public Order createOrder(Order order, Long offerID){
-        order.setShopper(shopperService.getShopper(Global.shopperID));
+    public Order createOrder(Order order, Long offerID, Long shopperID){
+        order.setShopper(shopperService.getShopper(shopperID));
         order.setOffer(offerService.getOfferById(offerID));
         order.setStatus(1);
 
@@ -49,6 +49,16 @@ public class OrderService {
     public Order updateOrder(Long orderID, Order order){
         Order o = orderRepository.findById(orderID).orElseThrow(() -> new IllegalStateException("Order not found"));
         o.setStatus(order.getStatus());
+        return orderRepository.save(o);
+    }
+
+    /** method to change order status
+     * @param orderID id of order to update
+     * @return
+     */
+    public Order changeStatus(Long orderID, int status){
+        Order o = orderRepository.findById(orderID).orElseThrow(() -> new IllegalStateException("Order not found"));
+        o.setStatus(status);
         return orderRepository.save(o);
     }
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
