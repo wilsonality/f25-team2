@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.team2.spartanslist.Global;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
+import com.team2.spartanslist.review.Review;
+import com.team2.spartanslist.review.ReviewService;
 import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
 
@@ -31,12 +35,21 @@ public class OfferController{
     private final OfferService offerService;
     private final SellerService sellerService;
     private final OrderService orderService;
+    private final ReviewService reviewService;
 
     @GetMapping("/create")
-    public Object createOfferForm(Model model){
+    public Object createOfferForm(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        model.addAttribute("seller", user);
         model.addAttribute("newOffer", new Offer());
         model.addAttribute("title", "Post a new offer!");
-        return "seller/seller-create-offer";
+        return "seller/create-offer";
     }
 
     
@@ -50,8 +63,9 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public Object createOffer(Model model, @ModelAttribute Offer newOffer, @RequestParam Long sellerID, @RequestParam(required = false) MultipartFile offerPicture){
-        Seller seller = sellerService.getSellerById(sellerID);
+    public Object createOffer(Model model, Offer newOffer, Authentication auth, @RequestParam(required = false) MultipartFile offerPicture){
+        Seller seller = sellerService.getSellerByPhone(auth.getName());
+        System.out.println("pulling seller " + seller);
         newOffer.setSeller(seller);
         Offer offer = offerService.createOffer(newOffer, offerPicture);
 
@@ -60,12 +74,24 @@ public class OfferController{
     }
 
     @GetMapping("/{offerID}/update")
-    public Object updateOfferForm(Model model, @PathVariable Long offerID){
+    public Object updateForm(Model model, @PathVariable Long offerID, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("seller", user);
+
         Offer offer = offerService.getOfferById(offerID);
+
+        // if user not the author
+        if (user.getSellerID() != offer.getSeller().getSellerID()){
+            return "redirect:/403";
+        }
+
         model.addAttribute("offer", offer);
-        model.addAttribute("orders", orderService.getOrdersBySeller(offerID));
-        model.addAttribute("title", "Update Your Offer");
-        return "seller/seller-update-offer";
+        model.addAttribute("title", "Update Offer");
+        return "seller/update-offer";
     }
     
     /** endpoint to update an offer
@@ -76,41 +102,76 @@ public class OfferController{
      */
 
     @PostMapping("/{offerID}")
-    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, @RequestParam(required = false) MultipartFile offerPicture){
-        return ResponseEntity.ok(offerService.updateOffer(offerID, nOffer, offerPicture));
+    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, Authentication auth, @RequestParam(required = false) MultipartFile offerPicture){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        Offer existing = offerService.getOfferById(offerID);
+        // make sure users can only update their offers
+        if (user.getSellerID() != existing.getSeller().getSellerID()){
+            return "redirect:/403";
+        }
+
+        Offer offer = offerService.updateOffer(offerID, nOffer, offerPicture);
+        return "redirect:/offers/" + offerID;
     }
 
     /** endpoint to get an offer
+     * checks kind of user viewing, checks if author is viewing
      * 
      * @param offerID the id of the offer to get
-     * @return
+     * @return offer details, author details, reviews, orders (if author)
      */
     @GetMapping("/{offerID}")
-    public Object getOfferById(@PathVariable Long offerID){
-        return ResponseEntity.ok(offerService.getOfferById(offerID));
-    }
-
-    /** endpoint to get an offer (seller view)
-     * 
-     * @param offerID the id of the offer to get
-     * @return
-     */
-    @GetMapping("/{offerID}/seller")
-    public Object getOfferByIdSeller(Model model, @PathVariable Long offerID){
+    public Object getOfferById(Model model, @PathVariable Long offerID, Authentication auth){
         Offer offer = offerService.getOfferById(offerID);
         if (offer == null){
             model.addAttribute("error", "Sorry, this offer could not be found.");
             return "error";
         }
+
         String pageTitle = String.format("View Offer: %s", offer.getTitle());
         model.addAttribute("title", pageTitle);
         model.addAttribute("offer", offer);
         model.addAttribute("seller", offer.getSeller());
-        List<Order> requests = orderService.getOrdersByOffer(offerID);
-        if (requests != null){
-            model.addAttribute("requests", requests);
+        // if user is seller
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
+            Seller user = sellerService.getSellerByPhone(auth.getName());
+
+            // if user is author of this offer
+            if (user.getUserPhone() == auth.getName()){
+                model.addAttribute("author", true);
+                List<Order> orders = orderService.getOrdersByOffer(offerID);
+                if (orders.size() > 0){
+                    model.addAttribute("requests", orders);
+                }
+
+                List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
+                if (reviews.size() > 0){
+                    model.addAttribute("reviews", reviews);
+                }
+            }
+            return "seller/seller-view-offer";
+        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SHOPPER"))){
+            
+            return "shopper/shopper-view-offer";
         }
-        return "seller/seller-view-offer";
+
+        return "shopper/shopper-view-offer";
+    }
+
+    /** endpoint to see delete confirm page
+     * 
+     * @param offerID the id of the offer to delete
+     * @return all offers
+     */
+    @GetMapping ("{offerID}/delete")
+    public Object deletePage(Long offerID){
+        offerService.deleteOffer(offerID);
+        return ResponseEntity.ok(offerService.getAllOffers());
     }
 
     /** endpoint to delete an offer
@@ -120,7 +181,7 @@ public class OfferController{
      * @param offerID the id of the offer to delete
      * @return all offers
      */
-    @GetMapping ("delete/{offerID}")
+    @PostMapping ("{offerID}/delete")
     public Object deleteOffer(Long offerID){
         offerService.deleteOffer(offerID);
         return ResponseEntity.ok(offerService.getAllOffers());

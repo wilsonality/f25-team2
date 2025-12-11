@@ -5,12 +5,13 @@
    <link rel="stylesheet" type="text/css" href="/css/offer.css">
    <link rel="stylesheet" type="text/css" href="/css/order.css">
    <link rel="stylesheet" type="text/css" href="/css/cart.css">
-   <link rel="stylesheet" type="text/css" href="/css/login.css">
-   <link rel="stylesheet" type="text/css" href="/css/guest.css">
+   <link rel="stylesheet" type="text/css" href="/css/profiles.css">
+   <link rel="stylesheet" type="text/css" href="/css/forms.css">
+   <link rel="stylesheet" type="text/css" href="/css/navbar.css">
    <title>${title}</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </#macro>
 
 <#macro extrastyling>
@@ -20,7 +21,7 @@
 
 <#macro navbar>
 <nav>
-   <ul class="navigation open-sans-bold">
+   <ul class="navigation comic-bold">
       <#if !(shopper?? || seller??)>
           <li>
             <a href="/home" class="navlink">home</a>
@@ -45,7 +46,23 @@
             <a href="/offers/create">create an offer</a>
          </li>
          <li>
-            <a href="/home">log out</a>
+            <a href="/logout">log out</a>
+         </li>
+      <#elseif (shopper??)>
+         <li>
+            <a href="/shoppers/home">home</a>
+         </li>
+         <li>
+            <a href="/shoppers/myprofile">view profile</a>
+         </li>
+         <li>
+            <a href="/cart">view my cart</a>
+         </li>
+         <li>
+            <a href="/ml">view mailing list</a>
+         </li>
+         <li>
+            <a href="/logout">log out</a>
          </li>
       </#if>
       </ul>
@@ -58,13 +75,5 @@
 		<a href="/shoppers/myprofile">My Profile</a>
       <a href="/shoppers/cart">Cart</a>
 		<a href="/"><img src="../images/icons/logout_black_20pt.svg" alt="Log Out"></a>
-</nav>
-</#macro>
-
-<#macro guestnav>
-<nav>
-   <ul class="navigation open-sans-bold">
-        
-      </ul>
 </nav>
 </#macro>

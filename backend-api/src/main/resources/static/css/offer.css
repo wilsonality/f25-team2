@@ -1,5 +1,8 @@
 .offers-list{
     background-color: pink;
+    display: flex;
+    flex-wrap: wrap;
+
 }
 
 li.offer-item{
@@ -7,14 +10,41 @@ li.offer-item{
     border: 3px lightpink solid;
     background-color: floralwhite;
     padding: 2em;
-    .offer-title{
-        
-    }
+    margin: 1em 3em;
+    width: 300px;
+    transition: all 0.2s ease;
+}
+
+li.offer-item:hover{
+    border: 3px firebrick solid;
+    background-color: antiquewhite;
+    scale: 1.05;
+}
+
+/* offer details */
+
+main.offer-details{
+    display: flex;
+    flex-direction: column;
 }
 
 .offer-summary{
     display: flex;
-    align-items: center;
     gap: 3em;
     background-color: lightpink;
+    padding: 2em;
+    margin: 0em 4em;
+}
+
+
+img.offer-picture{
+    border: black 2px solid;
+    max-width: 400px;
+    max-height: 400px;
+}
+
+img.offer-preview{
+    border: black 2px solid;
+    max-width: 200px;
+    max-height: 400px;
 }

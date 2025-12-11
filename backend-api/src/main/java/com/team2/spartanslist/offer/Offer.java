@@ -56,7 +56,7 @@ public class Offer {
     private int numPurchased = 0;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDateTime postDate;
 
 

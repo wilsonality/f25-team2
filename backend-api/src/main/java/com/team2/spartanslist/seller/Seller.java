@@ -22,7 +22,7 @@ public class Seller {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long sellerID;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)
@@ -39,7 +39,7 @@ public class Seller {
     @Column(updatable = false)
     private LocalDate joinDate;
 
-
+    
     /*
      * Constructors
      */

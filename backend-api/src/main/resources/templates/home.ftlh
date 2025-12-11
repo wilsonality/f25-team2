@@ -13,18 +13,18 @@
                 Spartan's List is the solution for Spartans who need something from their community and Spartans who have something to offer. We want to bring Spartans together to support each other.</p>
         </section>
         <section class="guest-browse-offers">
-            <h3>Check Out Some Offers</h3>
+            <h2>Check Out Some Offers</h2>
             <#if offers?? && (offers?size > 0)>
             <ul class="offers-list">
                 <#list offers as offer>
                 <a href="/login">
                     <li class="offer-item">
-                        <p class="open-sans-bold">${offer.getTitle()}</p>
+                        <h3 class="open-sans-bold">${offer.getTitle()}</h3>
                         <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                         <p class="grayed">${offer.getDescription()}</p>
                     </li>
-                </#list>
                 </a>
+                </#list>
             </ul>
             <#else>
             <p>No offers available at this time.</p>

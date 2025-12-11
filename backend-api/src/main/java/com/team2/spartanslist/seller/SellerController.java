@@ -3,6 +3,7 @@ package com.team2.spartanslist.seller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,8 @@ import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
+import com.team2.spartanslist.mailing_list.MailingList;
+import com.team2.spartanslist.mailing_list.MailingListService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +33,8 @@ public class SellerController{
     private final OfferService offerService;
     @Autowired
     private final OrderService orderService;
+    @Autowired
+    private final MailingListService mailingListService;
 
 
     /** endpoint to show the seller registration form
@@ -51,14 +56,14 @@ public class SellerController{
      */
     @PostMapping
     public String createSeller(Model model, Seller newSeller, @RequestParam(required = false)MultipartFile sellerPicture) {
-        Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         // check for unique phone
         Seller check = sellerService.getSellerByPhone(newSeller.getUserPhone());
         if (check == null){
             return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
         }
+
+        Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         
-        Global.sellerID = newSeller.getSellerID();
         return "redirect:/sellers/myprofile"; 
     }
 
@@ -87,6 +92,38 @@ public class SellerController{
 
     //  TODO : add a follow count by counting mail lists relations tied to seller
 
+    /** endpoint to get to your specific profile from navbar
+     * @param model
+     * @param sellerID id of the seller to get
+     * @return
+     */
+    @GetMapping("/myprofile")
+    public String getSellerProfile(Model model, Authentication auth){
+        
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Seller seller = sellerService.getSellerByPhone(auth.getName());
+        Long sellerID = seller.getSellerID();
+
+
+        String pageTitle = String.format("View %s's profile",seller.getUsername());
+        model.addAttribute("seller", seller);
+        model.addAttribute("author", true);
+        model.addAttribute("title", pageTitle);
+        
+        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(sellerID);
+        model.addAttribute("offers", offers);
+
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
+        model.addAttribute("requests", orders);
+
+        // calculating analytics
+        return "seller/seller-details";
+    }
+
     /** endpoint to get a seller by id
      * @param model
      * @param sellerID id of the seller to get
@@ -94,6 +131,8 @@ public class SellerController{
      */
     @GetMapping("/{sellerID}")
     public String getSellerById(Model model, @PathVariable Long sellerID){
+
+
         Seller seller = sellerService.getSellerById(sellerID);
         if (seller == null){
             return "redirect:/sellers?error=seller%20not%20found";
@@ -102,19 +141,9 @@ public class SellerController{
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
         
-        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(seller.getSellerID());
-        model.addAttribute("offers", offers);
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
+        model.addAttribute("requests", orders);
         return "seller/seller-details";
-    }
-
-    /**
-     * Endpoint to get to your specific profile for the navbar.
-     * 
-     * @return your profile
-     */
-    @GetMapping("/myprofile")
-    public String getProfile() {
-        return "redirect:/sellers/" + Global.sellerID;
     }
 
     /** endpoint to find a seller by phone
@@ -138,8 +167,17 @@ public class SellerController{
      * @return
      */
     @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
-        System.out.println("Updating seller " + sellerID + " with data: " + nSeller);
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, Authentication auth, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        // make sure users can only update their profiles
+        if (user.getSellerID() != sellerID){
+            return "redirect:/403";
+        }
+
         sellerService.updateSeller(sellerID, nSeller, sellerPicture);
         return "redirect:/sellers/" + sellerID;
     }
@@ -149,12 +187,18 @@ public class SellerController{
      * @param sellerID
      * @return
      */
-    @GetMapping("/updateForm/{sellerID}")
-    public Object showSellerUpdateForm(Model model, @PathVariable long sellerID){
-        Seller seller = sellerService.getSellerById(sellerID);
-        String pageTitle = String.format("Edit Profile For %s.",seller.getUsername());
+    @GetMapping("/updateprofile")
+    public Object showSellerUpdateForm(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        String pageTitle = String.format("Edit %s's Profile'",user.getUsername());
         model.addAttribute("title", pageTitle);
-        model.addAttribute("seller", seller);
+        model.addAttribute("seller", user);
         return "seller/seller-update";
     }
 
@@ -163,18 +207,27 @@ public class SellerController{
      * @return
      */
     @GetMapping("/home")
-    public Object showSellerHome(Model model) {
-        Seller seller = sellerService.getSellerById(Global.sellerID);
+    public Object showSellerHome(Model model, Authentication auth) {
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        
+        Seller user = sellerService.getSellerByPhone(auth.getName());
 
-        String pageTitle = String.format("Welcome, %s.",seller.getUsername());
-        model.addAttribute("seller", seller);
+        String pageTitle = String.format("Welcome, %s.",user.getUsername());
+        model.addAttribute("seller", user);
         model.addAttribute("title", pageTitle);
         
-        List<Offer> offers = offerService.findBySeller(seller.getSellerID());
-        model.addAttribute("offers", offers);
-
-        List<Order> orders = orderService.getOrdersbySellerAndStatus(seller.getSellerID(), 1);
-        model.addAttribute("requests", orders);
+        List<Offer> offers = offerService.findBySeller(user.getSellerID());
+        if (offers.size() != 0){
+            model.addAttribute("offers", offers);
+        }
+        
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(user.getSellerID(), 1);
+        if (orders.size() != 0){
+            model.addAttribute("requests", orders);
+        }
 
         return "seller/seller-home";
     }

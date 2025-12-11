@@ -1,5 +1,9 @@
 package com.team2.spartanslist.order;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.shopper.Shopper;
 
@@ -39,6 +43,11 @@ public class Order{
      * 3 = rejected
      * 4 = completed
      */
+
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime postDate;
 
 
      /* Constructors */

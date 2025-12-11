@@ -27,7 +27,7 @@ public class Shopper {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shopperID;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
     @Column(nullable = false)

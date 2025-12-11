@@ -93,14 +93,18 @@ public class OrderService {
      * @return
      */
     public List<Order> getOrdersByShopper(Long shopperID){
-        return orderRepository.findByShopper_ShopperID(shopperID);
+        return orderRepository.findByShopperID(shopperID);
     }
 
     /** method to get orders by shopper and status
+     * note : parameters are flipped but whatever
      * @param shopperID shopper to get orders for
      * @param status the status of the orders to get
      * @return
     */
+    public List<Order> getOrdersbyShopperIDAndStatus(Long shopperID, int status){
+        return orderRepository.findByStatusAndShopperID(status, shopperID);
+    }
 
     /** method to get unanswered orders for a seller 
      * @param sellerID seller to get orders for
