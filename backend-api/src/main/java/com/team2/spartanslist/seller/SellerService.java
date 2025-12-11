@@ -49,7 +49,7 @@ public class SellerService {
                     String fileExtension = ogFileName.substring(ogFileName.lastIndexOf(".")+1);
                     String fileName = "Seller" + String.valueOf(newSeller.getSellerID()) + "." + fileExtension;
 
-                    // save to the directory for run time
+                    // save to target directory for run time
                     Path targetPath = Paths.get(UPLOAD_DIR + fileName);
                     Files.createDirectories(targetPath.getParent());
                     Files.copy(sellerPicture.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
@@ -81,7 +81,6 @@ public class SellerService {
         
         existingSeller.setUsername(nSeller.getUsername());
         existingSeller.setUserPhone(nSeller.getUserPhone());
-        existingSeller.setProfileImagePath(nSeller.getProfileImagePath());
         existingSeller.setProfileBio(nSeller.getProfileBio());
         // Keep existing password
 

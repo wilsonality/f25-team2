@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
@@ -48,35 +49,13 @@ public class OfferController{
      * @return
      */
     @PostMapping
-    public Object createOffer(Model model, @ModelAttribute Offer newOffer, @RequestParam Long sellerID){
-        try {
-            System.out.println("DEBUG ::: SETTING SELLER BY SELLER ID " + sellerID);
-            newOffer.setSeller(sellerService.getSellerById(sellerID));
-            System.out.println("DEBUG ::: SETTING NUM PURCHASED TO ZERO");
-            newOffer.setNumPurchased(0);
-            // debugging
-            System.out.println("DEBUG ::: ENTERING OFFER CONTROLLER");
-            System.out.println("About to call getSellerById with: " + sellerID);
-            Seller seller = sellerService.getSellerById(sellerID);
-            System.out.println("DEBUG ::: RETRIEVED seller: " + seller);
+    public Object createOffer(Model model, @ModelAttribute Offer newOffer, @RequestParam Long sellerID, @RequestParam(required = false) MultipartFile offerPicture){
+        Seller seller = sellerService.getSellerById(sellerID);
+        newOffer.setSeller(seller);
+        Offer offer = offerService.createOffer(newOffer, offerPicture);
 
 
-            System.out.println("DEBUG ::: SAVING TO OFFER-SERVICE");
-            Offer saved = offerService.createOffer(newOffer);
-            System.out.println("DEBUG ::: SAVED TO OFFER-SERVICE");
-
-
-            model.addAttribute("offer", saved);
-            model.addAttribute("title", "View Offer");
-            System.out.println("DEBUG ::: REDIRECTING TO OFFER PAGE");
-            return "redirect:/offers/" + saved.getOfferID();
-        } catch (Exception e) {
-            model.addAttribute("title", "an error occured");
-            model.addAttribute("error", e.getMessage());
-            return "error";
-        }
-        // System.out.println("Received sellerID: " + sellerID);
-        // return "error";
+        return "redirect:/offers/" + offer.getOfferID();
     }
 
     @GetMapping("/{offerID}/update")
@@ -96,8 +75,8 @@ public class OfferController{
      */
 
     @PostMapping("/{offerID}")
-    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer){
-        return ResponseEntity.ok(offerService.updateOffer(offerID, nOffer));
+    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, @RequestParam(required = false) MultipartFile offerPicture)){
+        return ResponseEntity.ok(offerService.updateOffer(offerID, nOffer, offerPicture));
     }
 
     /** endpoint to get an offer

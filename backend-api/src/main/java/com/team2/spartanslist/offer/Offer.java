@@ -39,7 +39,8 @@ public class Offer {
     private String type;
     private int price;
     private String payment;
-    private int numPurchased;
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private int numPurchased = 0;
 
     /*
      * Constructors

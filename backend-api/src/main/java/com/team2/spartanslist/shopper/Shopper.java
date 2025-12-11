@@ -32,7 +32,7 @@ public class Shopper {
     @Column(nullable = false)
     private String userPhone;
     
-    private String profileImage;
+    private String profileImagePath;
     private String profileBio;
 
     @OneToOne(cascade = CascadeType.ALL)

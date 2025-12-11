@@ -1,10 +1,15 @@
 package com.team2.spartanslist.offer;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
@@ -19,6 +24,9 @@ public class OfferService {
     private final OfferRepository offerRepository;
     private final SellerService sellerService;
 
+    private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/offer-pictures";
+    private static final String SOURCE_DIR = "backend-api/target/main/resources/static/offer-pictures";
+
     /** method to create an offer
      * @param offer the offer to create
      * note : this offer contains a seller that only has an ID defined.
@@ -26,16 +34,45 @@ public class OfferService {
      * @return
      */
     
-    public Offer createOffer(Offer offer){
-        System.out.println("DEBUG ::: ENTERING OFFER SERVICE");
-        System.out.println("DEBUG :: TRYING TO SAVE OFFER: " + offer);
+    public Offer createOffer(Offer offer, MultipartFile offerPicture){
+        // save to db with no picture yet
+        Offer newOffer = offerRepository.save(offer);
 
-        if (offer.getOfferImagePath() == null){
-            offer.setOfferImagePath("default.jpg");
-            System.out.println("DEBUG :: SAVED OFFER IMAGE PATH");
+        if (offerPicture != null && !offerPicture.isEmpty()){
+            String ogFileName = offerPicture.getOriginalFilename();
+            try{
+                if (ogFileName != null && !ogFileName.isEmpty()){
+                    // rename file to Offer1.extension
+                    String fileExtension = ogFileName.substring(ogFileName.lastIndexOf(".") + 1);
+                    String fileName = "Offer" + String.valueOf(newOffer.getOfferID()) + "." + fileExtension;
+
+                    // save to target directory for run time
+                    Path targetPath = Paths.get(UPLOAD_DIR + fileName);
+                    Files.createDirectories(targetPath.getParent());
+                    Files.copy(offerPicture.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    // save to source directory for persistence
+                    Path sourcePath = Paths.get(SOURCE_DIR + fileName);
+                    Files.createDirectories(sourcePath.getParent());
+                    Files.copy(offerPicture.getInputStream(), sourcePath, StandardCopyOption.REPLACE_EXISTING);
+                    
+                    /** now it's saved, so update
+                     * newoffer to have this profile picture
+                     * we use webpath for convenience
+                     * now imgs just use src="offer.offerimagePath()"
+                    */
+
+                    String webPath = "/offer-pictures/" + fileName;
+
+                    newOffer.setOfferImagePath(webPath);
+
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
+        
 
-        System.out.println("DEBUG ::: SAVING OFFER TO REPOSITORY");
         return offerRepository.save(offer);
     }
 
@@ -46,17 +83,52 @@ public class OfferService {
      * @return saves updated offer to the repository
      */
 
-    public Offer updateOffer(Long offerID, Offer nOffer){
-        Offer offer = offerRepository.findById(offerID).orElseThrow(() -> new IllegalStateException("Offer with ID:" + offerID + " could not be found."));
+    public Offer updateOffer(Long offerID, Offer nOffer, MultipartFile offerPicture){
+        Offer existingOffer = offerRepository.findById(offerID).orElseThrow(() -> new IllegalStateException("Offer with ID:" + offerID + " could not be found."));
 
-        offer.setTitle(nOffer.getTitle());
-        offer.setDescription(nOffer.getDescription());
-        offer.setAvailability(nOffer.isAvailability());
-        offer.setOfferImagePath(nOffer.getOfferImagePath());
-        offer.setPrice(nOffer.getPrice());
-        offer.setPayment(nOffer.getPayment());
+        existingOffer.setTitle(nOffer.getTitle());
+        existingOffer.setDescription(nOffer.getDescription());
+        existingOffer.setAvailability(nOffer.isAvailability());
+        existingOffer.setPrice(nOffer.getPrice());
+        existingOffer.setPayment(nOffer.getPayment());
 
-        return offerRepository.save(offer);
+        if (offerPicture != null && !offerPicture.isEmpty()){
+            String ogFileName = offerPicture.getOriginalFilename();
+            try{
+                if (ogFileName != null && !ogFileName.isEmpty()){
+                    // rename file to Offer1.extension
+                    String fileExtension = ogFileName.substring(ogFileName.lastIndexOf(".") + 1);
+                    String fileName = "Offer" + String.valueOf(existingOffer.getOfferID()) + "." + fileExtension;
+
+                    // save to target directory for run time
+                    Path targetPath = Paths.get(UPLOAD_DIR + fileName);
+                    Files.createDirectories(targetPath.getParent());
+                    Files.copy(offerPicture.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
+
+                    // save to source directory for persistence
+                    Path sourcePath = Paths.get(SOURCE_DIR + fileName);
+                    Files.createDirectories(sourcePath.getParent());
+                    Files.copy(offerPicture.getInputStream(), sourcePath, StandardCopyOption.REPLACE_EXISTING);
+                    
+                    /** now it's saved, so update
+                     * newoffer to have this profile picture
+                     * we use webpath for convenience
+                     * now imgs just use src="offer.offerimagePath()"
+                    */
+
+                    String webPath = "/offer-pictures/" + fileName;
+
+                    existingOffer.setOfferImagePath(webPath);
+
+                }
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+        
+
+        return offerRepository.save(existingOffer);
     }
     
     /** method to get an offer by its id

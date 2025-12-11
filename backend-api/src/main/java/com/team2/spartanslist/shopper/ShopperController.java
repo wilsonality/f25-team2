@@ -60,8 +60,8 @@ public class ShopperController {
          */
         @PostMapping
         public String createShopper(Model model, Shopper newShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
-            Shopper shopper = shopperService.createShopper(newShopper);
-
+            Shopper shopper = shopperService.createShopper(newShopper, shopperPicture);
+            // check for unique phone
             Shopper check = shopperService.getShopperByPhone(newShopper.getUserPhone());
             if (check != null){
                 return "redirect:/shopper/register?error=failed%20to%20create%20shopper%20account";
@@ -78,7 +78,7 @@ public class ShopperController {
          * @return the page to the updated shopper
          */
         @PutMapping("/update/{user_ID}")
-        public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper) {
-            return shopperService.updateShopper(shopperID, updatedShopper);
+        public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
+            return shopperService.updateShopper(shopperID, updatedShopper, shopperPicture);
         }
 }
