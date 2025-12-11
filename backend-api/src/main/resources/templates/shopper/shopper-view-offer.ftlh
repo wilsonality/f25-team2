@@ -18,7 +18,12 @@
                 <h3>${offer.getTitle()}</h3>
                 <p>OfferID: ${offer.getOfferID()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
+<<<<<<< HEAD
                 <#if (incart ?? && incart)>
+=======
+                <p>Purchased: ${offer.getNumPurchased()}</p>
+                <a href="/sellers/${offer.getSeller().getSellerID()}"><p>Seller: ${offer.getSeller().getUsername()}</p></a>
+>>>>>>> 81f3c32c25eb3d8627b17d4103d0f944db6fab06
                 <form id="addToCart" action="/addToCart/${offer.offerID}" method="post">
                     <button type="submit" id="add-cart">Add To Cart</button>
                 </form>

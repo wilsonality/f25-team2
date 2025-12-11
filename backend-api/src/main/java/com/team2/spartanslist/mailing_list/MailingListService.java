@@ -23,26 +23,30 @@ public class MailingListService {
      * we use this id to get the seller and shopper object and set it to the Ml
      * @return
     */
-    public MailingList subscribe(MailingList mailingList) {
-        Seller seller = sellerService.getSellerById(mailingList.getSeller().getSellerID());
-        Shopper shopper = shopperService.getShopper(mailingList.getShopper().getShopperID());
-
-        mailingList.setSeller(seller);
-        mailingList.setShopper(shopper);
+    public MailingList subscribe(Long shopperID, Long sellerID) {
+        MailingList mailingList = new MailingList();
+        mailingList.setShopperID(shopperID);
+        mailingList.setSellerID(sellerID);
 
         return mailingListRepository.save(mailingList);
     }
 
     public void unsubscribe(Long shopperID, Long sellerID) {
-        Long mailingListID = mailingListRepository.getMailingListID(shopperID, shopperID);
+        Long mailingListID = mailingListRepository.findMailingListID(shopperID, shopperID);
         mailingListRepository.deleteById(mailingListID);
     }
 
-    public List<MailingList> getAllSubs(Long shopperID) {
-        return mailingListRepository.getAllSubs(shopperID);
+    public List<MailingList> getSubsByShopperID(Long shopperID) {
+        return mailingListRepository.findSubsByShopperID(shopperID);
     }
 
-    public List<MailingList> getSubscriptionStatus(Long shopperID, Long sellerID) {
-        return mailingListRepository.getSubscriptionStatus(shopperID, sellerID);
+    public boolean isSubscribed(Long shopperID, Long sellerID) {
+        List<MailingList> subs = mailingListRepository.findSubsByShopperIDAndSellerID(shopperID, sellerID);
+
+        if (!subs.isEmpty()) {
+            return true; 
+        }
+
+        return false;
     }
 }
