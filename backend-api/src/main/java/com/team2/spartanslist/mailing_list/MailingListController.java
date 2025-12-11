@@ -3,6 +3,7 @@ package com.team2.spartanslist.mailing_list;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,19 +32,15 @@ public class MailingListController {
      *   shopperID:
      * }
      */
-    @PostMapping("/subscribe/{shopperID}/{sellerID}")
+    @GetMapping("/subscribe/{shopperID}/{sellerID}")
     public MailingList subscribe(@PathVariable Long shopperID, @PathVariable Long sellerID ) {
-
-        if (mailingListService.isSubscribed(shopperID, sellerID)) {
-            return null;
-        }
-
         return mailingListService.subscribe(shopperID, sellerID);
     }
 
-    @GetMapping("/unsubscribe/{shopperID}/{sellerID}")
-    public void unsubscribe(@PathVariable Long shopperID, @PathVariable Long sellerID) {
+    @PostMapping("/unsubscribe/{shopperID}/{sellerID}")
+    public String unsubscribe(@PathVariable Long shopperID, @PathVariable Long sellerID) {
         mailingListService.unsubscribe(shopperID, shopperID);
+        return "redirect:/mailinglist/subscriptions/" + shopperID;
     }
 
 
@@ -51,7 +48,7 @@ public class MailingListController {
     @GetMapping("/subscriptions/{shopperID}")
     public String getAllSubs(Model model, @PathVariable Long shopperID) {
         model.addAttribute("subs", mailingListService.getSubsByShopperID(shopperID));
-        model.addAttribute("sellers", sellerService.getAllSellers());
+        model.addAttribute("shopperID", shopperID);
 
         return "/shopper/shopper-mailing-list";
     }

@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,12 @@ public class MailingList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long mailingListID;
 
-    private Long shopperID;
-    private Long sellerID;
+    @OneToOne
+    @JoinColumn(name = "shopperID", nullable = false)
+    private Shopper shopper;
+
+    @OneToOne
+    @JoinColumn(name = "sellerID", nullable = false)
+    private Seller seller;
    
 }

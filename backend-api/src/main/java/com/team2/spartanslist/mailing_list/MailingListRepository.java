@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.team2.spartanslist.shopper.Shopper;
+
 public interface MailingListRepository extends JpaRepository<MailingList, Long>{
     @Query(value = "SELECT mailing_listID FROM mailing_list m WHERE m.shopperID = ?1 AND m.sellerID = ?2", nativeQuery = true)
     public Long findMailingListID(Long shopperID, Long sellerID);
@@ -15,4 +17,6 @@ public interface MailingListRepository extends JpaRepository<MailingList, Long>{
 
     @Query(value = "SELECT * FROM mailing_list m WHERE m.shopperID = ?1 AND m.sellerID = ?2", nativeQuery = true)
     public List<MailingList> findSubsByShopperIDAndSellerID(Long shopperID, Long sellerID);
+
+    public List<MailingList> findByShopper(Shopper shopper);
 }

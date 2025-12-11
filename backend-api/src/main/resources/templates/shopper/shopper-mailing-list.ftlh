@@ -18,9 +18,13 @@
 
 	<main>
         <#list subs as sub>
-            <a href="/sellers/${sub.getSellerID()}">
+            <a href="/sellers/${sub.getSeller().getSellerID()}">
                 <div style="border-bottom: 1px solid black;">
-                    <p>${sub.sellerID}</p>
+                    <p>${sub.getSeller().getUsername()}</p>
+
+                    <form id="unsubscribe" action="/mailinglist/unsubscribe/${shopperID}/${sub.getSeller().getSellerID()}" method="post">
+                        <button type="submit">Unsubscribe</button>
+                    </form>					
                 </div>
             </a>
         </#list>
