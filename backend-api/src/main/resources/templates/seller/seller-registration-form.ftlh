@@ -31,7 +31,7 @@
             <br>
 
 			<button type="submit">Register</button>
-			<a href="/homepage_no_login">Cancel</a>
+			<a href="/">Cancel</a>
 		</form>
 	</main>
 </body>

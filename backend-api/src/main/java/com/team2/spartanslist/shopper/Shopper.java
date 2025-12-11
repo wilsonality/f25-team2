@@ -43,8 +43,7 @@ public class Shopper {
     @JoinColumn(name = "cartID")
     private Cart cart;
 
-
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDate joinDate;
 }

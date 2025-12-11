@@ -1,3 +1,4 @@
+<#import "../macros.ftlh" as macros>
 <!DOCTYPE html>
 <html lang="en-us">
 
@@ -8,14 +9,17 @@
 	<title>Shopper Registration</title>
 </head>
 
-<!--  -->
+ <@macros.guestnav/>
 
 <body>
     
 	<main>
         <h1>Register New Shopper</h1>
 		
-		<form id="newShopper" action="/api/shoppers" method="post">
+		<form id="newShopper" action="/shoppers" method="post">
+            
+
+
 			<label for="username">Username</label><br>
 			<input type="text" id="username" name="username" maxlength="16" required><br>
             <br>
@@ -37,7 +41,7 @@
             <br>
 
 			<button type="submit">Register</button>
-			<a href="/homepage_no_login">Cancel</a>
+			<a href="/">Cancel</a>
 		</form>
 	</main>
 </body>

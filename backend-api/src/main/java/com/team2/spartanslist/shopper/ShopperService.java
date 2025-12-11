@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.spartanslist.seller.Seller;
+
 @Service
 public class ShopperService {
     @Autowired 

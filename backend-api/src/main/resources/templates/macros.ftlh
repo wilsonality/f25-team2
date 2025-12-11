@@ -36,10 +36,10 @@
             <a href="/sellers/home" class="navlink">home</a>
          </li>
          <li>
-            <a href="/sellers/1">view profile</a>
+            <a href="/sellers/myprofile">view profile</a>
          </li>
          <li>
-            <a href="/offers/seller/1">view my offers</a>
+            <a href="/offers/myoffers">view my offers</a>
          </li>
          <li>
             <a href="/offers/create">create an offer</a>
@@ -49,6 +49,15 @@
          </li>
       </#if>
       </ul>
+</nav>
+</#macro>
+
+<#macro shoppernav>
+<nav>
+      <a href="/shoppers/home">Home</a>
+		<a href="/shoppers/myprofile">My Profile</a>
+      <a href="/shoppers/cart">Cart</a>
+		<a href="/"><img src="../images/icons/logout_black_20pt.svg" alt="Log Out"></a>
 </nav>
 </#macro>
 

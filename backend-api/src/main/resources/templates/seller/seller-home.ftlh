@@ -33,7 +33,7 @@
                 <#if requests??>
                     <#list requests as request>
                         <li class="request-item">
-                            <p>${request.getShopper().getUserName()}</p>
+                            <p>${request.getShopper().getUsername()}</p>
                             <p>${request.getOffer().getTitle()}</p>
                         </li>
                     </#list>

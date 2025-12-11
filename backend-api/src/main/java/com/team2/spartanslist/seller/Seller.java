@@ -36,7 +36,7 @@ public class Seller {
     private String profileBio;
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
+    @Column(updatable = false)
     private LocalDate joinDate;
 
 

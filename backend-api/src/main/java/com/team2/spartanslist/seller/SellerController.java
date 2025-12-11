@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
@@ -30,6 +31,11 @@ public class SellerController{
     @Autowired
     private final OrderService orderService;
 
+
+    /** endpoint to show the seller registration form
+     * 
+     * @return
+     */
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
         Seller newSeller = new Seller();
@@ -51,7 +57,9 @@ public class SellerController{
         if (check == null){
             return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
         }
-        return "redirect:/sellers/" + seller.getSellerID(); 
+        
+        Global.sellerID = newSeller.getSellerID();
+        return "redirect:/sellers/myprofile"; 
     }
 
     /** endpoint to get all sellers
@@ -99,6 +107,16 @@ public class SellerController{
         return "seller/seller-details";
     }
 
+    /**
+     * Endpoint to get to your specific profile for the navbar.
+     * 
+     * @return your profile
+     */
+    @GetMapping("/myprofile")
+    public String getProfile() {
+        return "redirect:/sellers/" + Global.sellerID;
+    }
+
     /** endpoint to find a seller by phone
      * note : honestly this should not be available to the users,
      *  but it creates a page regardless
@@ -107,12 +125,12 @@ public class SellerController{
      * @param userPhone
      * @return
      */
-    @GetMapping("/seller/phone/{userPhone}")
+    @GetMapping("/phone/{userPhone}")
     public Object getSellerByPhone(Model model, @PathVariable String userPhone){
         Seller seller = sellerService.getSellerByPhone(userPhone);
         return "redirect:/sellers/" + seller.getSellerID();
     }
-    
+
     /** endpoint to update a seller
      * 
      * @param sellerID the id of the seller to be updated
@@ -146,7 +164,7 @@ public class SellerController{
      */
     @GetMapping("/home")
     public Object showSellerHome(Model model) {
-        Seller seller = sellerService.getSellerById(1L);
+        Seller seller = sellerService.getSellerById(Global.sellerID);
 
         String pageTitle = String.format("Welcome, %s.",seller.getUsername());
         model.addAttribute("seller", seller);
@@ -157,6 +175,9 @@ public class SellerController{
 
         List<Order> orders = orderService.getOrdersbySellerAndStatus(seller.getSellerID(), 1);
         model.addAttribute("requests", orders);
+
         return "seller/seller-home";
     }
+
+    
 }

@@ -49,7 +49,7 @@ public class AppController {
         return "log-in";
     }
 
-    /** endpoint to login a user */
+    /** endpoint to login a seller */
     @PostMapping("/login/seller")
     public Object verifySeller(Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request){
         try {
@@ -70,6 +70,7 @@ public class AppController {
         }
     }
 
+    /** endpoint to login a shopper */
     @PostMapping("/login/shopper")
     public Object verifyShopper(Model model, @RequestParam String username, @RequestParam String password, HttpServletRequest request){
         try {

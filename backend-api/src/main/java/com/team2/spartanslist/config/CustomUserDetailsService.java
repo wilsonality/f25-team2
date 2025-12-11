@@ -23,9 +23,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     private ShopperService shopperService;
     
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String usernameOrPhone) throws UsernameNotFoundException {
         // Try to find as Seller first
-        Seller seller = sellerService.getSellerByPhone(username);
+        Seller seller = sellerService.getSellerByPhone(usernameOrPhone);
         if (seller != null) {
             return User.builder()
                 .username(seller.getUsername())
@@ -35,7 +35,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
         
         // Try to find as Shopper
-        Shopper shopper = shopperService.getShopperByPhone(username);
+        Shopper shopper = shopperService.getShopperByPhone(usernameOrPhone);
         if (shopper != null) {
             return User.builder()
                 .username(shopper.getUsername())
@@ -44,6 +44,6 @@ public class CustomUserDetailsService implements UserDetailsService {
                 .build();
         }
         
-        throw new UsernameNotFoundException("User not found: " + username);
+        throw new UsernameNotFoundException("User not found by username or phone: " + usernameOrPhone);
     }
 }

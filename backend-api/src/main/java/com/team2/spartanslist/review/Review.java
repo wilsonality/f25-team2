@@ -35,7 +35,6 @@ public class Review {
     @JoinColumn(name = "offerID")
     private Offer offer;
 
-    @Column(nullable = false)
     private LocalDate dateTime;
 
     private String content;

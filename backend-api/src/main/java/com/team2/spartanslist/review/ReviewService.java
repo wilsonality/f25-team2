@@ -25,20 +25,10 @@ public class ReviewService {
 
     /** method to create a review
      * @param review the review to create
-     * note : this review contains a offer and author that only has an ID defined.
-     * we use this id to get the relevants object and set it to the review
+     
      * @return
      */
     public Review createReview(Review review) {
-        if (reviewRepository.existsById(review.getReviewID())){
-            throw new IllegalStateException("Review already created.");
-        }
-        Shopper author = shopperService.getShopper(review.getAuthor().getShopperID());
-        Offer offer = offerService.getOfferById(review.getOffer().getOfferID());
-
-        review.setAuthor(author);
-        review.setOffer(offer);
-
         return reviewRepository.save(review);
     }
 

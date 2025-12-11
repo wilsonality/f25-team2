@@ -1,3 +1,4 @@
+<#import "../macros.ftlh" as macros>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,29 +12,28 @@
 	<title>My Profile</title>
 	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
 </head>
+
 <body>
-	<nav>
-		<a href="homepage_shopper.html">Spartan's List</a>
-		<a href="view_profile.html"><img src="../images/icons/profile_black_20pt.svg" alt="profile icon"></a>
-		<a href="shopper_cart.html"><img src="../images/icons/cart_black_20pt.svg"></a>
-		<a href="../homepage_no_login.html"><img src="../images/icons/logout_black_20pt.svg" alt=""></a>
-	</nav>
+	 <@macros.shoppernav/>
 
 	<main>
         <div class="profile">
             <section class="user_info">
-				<img src="../images/blue_user.jpg" alt="profile picture" class="user_photo">
+				<img src="${shopper.profileImage}" alt="profile picture" class="user_photo">
 				<h3>Spartan Shopper</h3>
-				<h2>Jimmy Dean</h2>
-				<p>Member Since: <span>09/25/2025</span></p>
+				<h2>${shopper.username}</h2>
+				<p>Member Since: <span>Placeholder</span></p>
 
 				<div class="analytics_preview">
-					<p>Bio: <span>Despite my given name, I love stationary!</span></p>
-					<p>Items Purchased: <span>12</span></p>
-					<a href="manage_profile.html"><button>Edit Profile</button></a>
+					<p>Bio: <span>${shopper.profileBio}</span></p>
+					<p>Items Purchased: <span>Placeholder</span></p>
+					<a href="/shoppers/updateForm"><button>Edit Profile</button></a>
 				</div>
 			</section>
-
+			<hr>
+			
+			<!---
+			<p>Hard Coded</p>
 			<div class="profile_features">
 				<div class="review_preview">
 					<h2>REVIEWS MADE</h2>
@@ -68,6 +68,7 @@
 						</a>
 					</div>
 			</div>
+			-->
 		</div>
 	</main>
 

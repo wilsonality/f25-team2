@@ -8,7 +8,7 @@
 <body>
     <h2>Something went wrong :/</h2>
     <#if error??>
-        <h3>Error Message:</h3>
+        <h3>Error Message: Are you logged in?</h3>
         <p>${error}</p>
     <#else>
         <p>We're not sure what happened.</p>

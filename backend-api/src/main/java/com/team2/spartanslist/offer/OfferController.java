@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.seller.Seller;
@@ -75,7 +76,7 @@ public class OfferController{
      */
 
     @PostMapping("/{offerID}")
-    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, @RequestParam(required = false) MultipartFile offerPicture)){
+    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, @RequestParam(required = false) MultipartFile offerPicture){
         return ResponseEntity.ok(offerService.updateOffer(offerID, nOffer, offerPicture));
     }
 
@@ -144,6 +145,15 @@ public class OfferController{
         return ResponseEntity.ok(offerService.findByAvailability(availability));
     }
 
+
+    /*
+     * Redirect for nav
+     */
+    @GetMapping("/myoffers") 
+    public String getMyoffers() {
+        return "/offers/seller/" + Global.sellerID;
+    }
+    
     /** endpoint to get all offers of a seller
      * @param sellerID seller to get offers for
      * @return
@@ -180,7 +190,4 @@ public class OfferController{
     public Object findByType(@PathVariable String type){
         return ResponseEntity.ok(offerService.findByType(type));
     }
-    
-    
-
 }

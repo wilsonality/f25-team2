@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.ShopperService;
@@ -33,12 +34,11 @@ public class OrderService {
      * @return
     */
     
-    public Order createOrder(Order order, Long shopperID, Long offerID){
-        if (orderRepository.existsById(order.getOrderID())){
-            throw new IllegalStateException("Order already created");
-        }
-        order.setShopper(shopperService.getShopper(shopperID));
+    public Order createOrder(Order order, Long offerID){
+        order.setShopper(shopperService.getShopper(Global.shopperID));
         order.setOffer(offerService.getOfferById(offerID));
+        order.setStatus(1);
+
         return orderRepository.save(order);
     }
     /** method to update an order
@@ -81,7 +81,7 @@ public class OrderService {
      * @return
      */
     public List<Order> getOrdersBySeller(Long sellerID){
-        return orderRepository.findByOffer_Seller(sellerService.getSellerById(sellerID));
+        return orderRepository.findByOffer_Seller(sellerID);
     }
 
     /** method to get orders by shopper
@@ -104,7 +104,7 @@ public class OrderService {
      * @return
     */
     public List<Order> getOrdersbySellerAndStatus(Long sellerID, int status){
-        return orderRepository.findByOffer_SellerAndStatus(sellerService.getSellerById(sellerID), status);
+        return orderRepository.findByOffer_SellerAndStatus(sellerID, status);
     }
 
 
