@@ -8,7 +8,7 @@
 <body>
     <@macros.navbar/>
     <main class="open-sans">
-        <h2>welcome ${seller.getUsername()}</h2>
+        <h2>Welcome ${seller.getUsername()}</h2>
 
         <section class="offers-box">
             <!-- show all offers -->

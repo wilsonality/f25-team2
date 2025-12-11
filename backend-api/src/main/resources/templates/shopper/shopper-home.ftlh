@@ -7,6 +7,7 @@
 <body>
     <@macros.navbar/>
 	<main class="open-sans">
+		<h2>Welcome ${shopper.getUsername()}</h2>
 		<section class="offers-box">
 			<#if offers??>
             <ul class="offers-list">

@@ -29,21 +29,6 @@ public class CartController {
     @Autowired
     private OfferService offerService;
 
-    @GetMapping("/cart")
-    public List<Cart> getCart(Model model, Authentication auth) {
-
-        // if user not signed in
-        if (auth == null || !auth.isAuthenticated()){
-            return null;
-        }
-
-        Shopper user = shopperService.getShopperByPhone(auth.getName());
-
-        List<Cart> cart = cartService.getCart(user);
-
-        return cart;
-    }
-
     @PostMapping("/addToCart/{offerID}")
     public String addToCart(@PathVariable Long offerID, Authentication auth) {
 

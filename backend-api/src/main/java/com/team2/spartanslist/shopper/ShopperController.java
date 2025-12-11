@@ -182,7 +182,7 @@ public class ShopperController {
             model.addAttribute("title", pageTitle);
 
             // model.addAttribute("offers", cartService.getCart(user));
-            model.addAttribute("cartitems", cartService.getCart(user));
+            model.addAttribute("items", cartService.getCart(user));
             model.addAttribute("orders", orderService.getOrdersByShopper(user.getShopperID()));
 
             return "/shopper/shopper-cart";

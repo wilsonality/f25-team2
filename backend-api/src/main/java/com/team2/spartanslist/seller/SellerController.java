@@ -58,13 +58,13 @@ public class SellerController{
     public String createSeller(Model model, Seller newSeller, @RequestParam(required = false)MultipartFile sellerPicture) {
         // check for unique phone
         Seller check = sellerService.getSellerByPhone(newSeller.getUserPhone());
-        if (check == null){
+        if (check != null){
             return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
         }
 
         Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         
-        return "redirect:/sellers/myprofile"; 
+        return "redirect:/login"; 
     }
 
     /** endpoint to get all sellers
