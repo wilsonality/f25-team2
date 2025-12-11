@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.team2.spartanslist.Global;
 import com.team2.spartanslist.cart.CartService;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.shopper.Shopper;
 import com.team2.spartanslist.shopper.ShopperService;
 
 import jakarta.validation.Valid;
@@ -34,10 +37,21 @@ public class OrderController {
     CartService cartService;
 
     @PostMapping("/{offerID}")
-    public String createOrder(@PathVariable Long offerID){
+    public String createOrder(@PathVariable Long offerID, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Shopper user = shopperService.getShopperByPhone(auth.getName());
+        Offer offer = offerService.getOfferById(offerID);
+
         Order order = new Order();
         ResponseEntity.ok(orderService.createOrder(order, offerID));
-        cartService.deleteFromCart(offerID);
+
+
+
+        cartService.deleteFromCart(user, offer);
 
         return "redirect:/shoppers/cart";
     }

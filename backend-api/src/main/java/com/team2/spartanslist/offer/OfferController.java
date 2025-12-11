@@ -17,12 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.spartanslist.Global;
+import com.team2.spartanslist.cart.CartService;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.review.Review;
 import com.team2.spartanslist.review.ReviewService;
 import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
+import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.shopper.ShopperService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +39,8 @@ public class OfferController{
     private final SellerService sellerService;
     private final OrderService orderService;
     private final ReviewService reviewService;
+    private final ShopperService shopperService;
+    private final CartService cartService;
 
     @GetMapping("/create")
     public Object createOfferForm(Model model, Authentication auth){
@@ -46,7 +51,7 @@ public class OfferController{
 
         Seller user = sellerService.getSellerByPhone(auth.getName());
 
-        model.addAttribute("seller", user);
+        model.addAttribute("user", user);
         model.addAttribute("newOffer", new Offer());
         model.addAttribute("title", "Post a new offer!");
         return "seller/create-offer";
@@ -80,7 +85,7 @@ public class OfferController{
             return "redirect:/login";
         }
         Seller user = sellerService.getSellerByPhone(auth.getName());
-        model.addAttribute("seller", user);
+        model.addAttribute("user", user);
 
         Offer offer = offerService.getOfferById(offerID);
 
@@ -102,7 +107,7 @@ public class OfferController{
      */
 
     @PostMapping("/{offerID}")
-    public Object updateOffer(@PathVariable Long offerID, @Valid @RequestBody Offer nOffer, Authentication auth, @RequestParam(required = false) MultipartFile offerPicture){
+    public Object updateOffer(@PathVariable Long offerID, Offer nOffer, Authentication auth, @RequestParam(required = false) MultipartFile offerPicture){
         // if user not signed in
         if (auth == null || !auth.isAuthenticated()){
             return "redirect:/login";
@@ -115,7 +120,9 @@ public class OfferController{
             return "redirect:/403";
         }
 
-        Offer offer = offerService.updateOffer(offerID, nOffer, offerPicture);
+        System.out.println("\n\nDEBUG ::: EXECUTING OFFERCONTROLLER.UPDATEOFFER()");
+
+        offerService.updateOffer(offerID, nOffer, offerPicture);
         return "redirect:/offers/" + offerID;
     }
 
@@ -140,6 +147,7 @@ public class OfferController{
         // if user is seller
         if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
             Seller user = sellerService.getSellerByPhone(auth.getName());
+            model.addAttribute("user", user);
 
             // if user is author of this offer
             if (user.getUserPhone() == auth.getName()){
@@ -156,7 +164,9 @@ public class OfferController{
             }
             return "seller/seller-view-offer";
         } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SHOPPER"))){
-            
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            model.addAttribute("user", user);
+            model.addAttribute("incart", false);
             return "shopper/shopper-view-offer";
         }
 
@@ -211,8 +221,23 @@ public class OfferController{
      * Redirect for nav
      */
     @GetMapping("/myoffers") 
-    public String getMyoffers() {
-        return "/offers/seller/" + Global.sellerID;
+    public String getSellerOffers(Model model, Authentication auth) {
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Seller seller = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("user", seller);
+        Long sellerID = seller.getSellerID();
+
+        model.addAttribute("title", "View Your Offers");
+
+        List<Offer> offers = offerService.findBySeller(sellerID);
+        model.addAttribute("offers", offers);
+
+        return "seller/seller-view-offers";
+
     }
     
     /** endpoint to get all offers of a seller

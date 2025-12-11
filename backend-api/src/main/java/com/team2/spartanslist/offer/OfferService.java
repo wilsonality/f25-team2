@@ -84,6 +84,7 @@ public class OfferService {
      */
 
     public Offer updateOffer(Long offerID, Offer nOffer, MultipartFile offerPicture){
+        System.out.println("\n\nDEBUG ::: EXECUTING OFFERSERVICE.UPDATEOFFER()\n\n\n");
         Offer existingOffer = offerRepository.findById(offerID).orElseThrow(() -> new IllegalStateException("Offer with ID:" + offerID + " could not be found."));
 
         existingOffer.setTitle(nOffer.getTitle());

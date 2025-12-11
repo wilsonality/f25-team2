@@ -18,24 +18,31 @@
 
 	<main>
 		<h3>Cart</h3>
-		 <#list offers as offer>
-            <a href="/shoppers/offer/${offer.offerID}">
-                <div style="border-bottom: 1px solid black;">
-                    <p>${offer.title}</p>
-                    <p>${offer.description}</p>
-                    <p>$ ${offer.price}</p>
-                    <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
+		<ul class="offers-list">
+			<#if items??>
+			<#list items as item>
+			   <a href="/shoppers/offer/${offer.offerID}">
+				   <li class="offer-item">
+						<p>${item.getOffer().getTitle()}</p>
+						<p class="grayed small">${item.getOffer().getDescription()}</p>
+					    <p>$ ${item.getOffer().getTitle()}</p>
+						<img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
 
-					<form id="deleteFromCart" action="/cart/delete/${offer.offerID}" method="post">
-                    <button type="submit">Delete From Cart</button>
-                	</form>
+						<form id="deleteFromCart" action="/cart/delete/${item.getOffer().getOfferID()}" method="post">
+						<button type="submit">Delete From Cart</button>
+						</form>
 
-					<form id="order" action="/api/orders/${offer.offerID}" method="post">
-                    <button type="submit">Request</button>
-                	</form>
-                </div>
-            </a>
-        </#list>
+						<form id="order" action="/api/orders/${offer.offerID}" method="post">
+							<button type="submit">Request</button>
+						</form>
+					</li>
+			   </a>
+		   </#list>
+		   <#else>
+		   <p>Your cart is empty.</p>
+		   <p class="grayed">That's kinda weird. Go find some offers you like and request them.</p>
+		   </#if>
+		</ul>
 		<hr>
 		<h3>Orders</h3>	
 		<#list orders as order>

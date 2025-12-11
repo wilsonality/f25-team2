@@ -9,7 +9,7 @@
     <@macros.navbar/>
     <main class="open-sans">
         <h1>Update Offer</h1>
-            <form id="newOffer" action="/offers/${offer.getOfferID()}" method="post" enctype="multipart/form-data" class="edit" >
+            <form action="/offers/${offer.getOfferID()}" method="post" enctype="multipart/form-data" class="edit" >
             <label for="title">Offer Title</label>
             <input type="text" id="title" name="title" value="${offer.getTitle()}">
 
@@ -55,10 +55,11 @@
             <button type="submit" class="edit">Save Changes</button>
             <a href="/offers"><button>Cancel Edit</button></a>
         </form>
-        <a href="/${offer.getOfferID()}">
-            <button class="center delete"></button>
-        </a>
-        
+        <section class="danger center-align">
+            <a href="/${offer.getOfferID()}">
+                <button class="delete">Delete Offer</button>
+            </a>
+        </section>
 	</main>
 </body>
 </html>

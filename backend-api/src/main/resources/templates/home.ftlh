@@ -19,6 +19,11 @@
                 <#list offers as offer>
                 <a href="/login">
                     <li class="offer-item">
+                        <#if offer.getOfferImagePath()??>
+                            <img src="${offer.getOfferImagePath()}" alt="" class="offer-preview">
+                        <#else>
+                            <img src="/offer-pictures/eraser.jpeg" alt="" class="offer-preview">
+                        </#if>
                         <h3 class="open-sans-bold">${offer.getTitle()}</h3>
                         <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                         <p class="grayed">${offer.getDescription()}</p>

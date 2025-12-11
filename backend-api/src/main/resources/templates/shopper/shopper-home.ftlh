@@ -7,13 +7,18 @@
 <body>
     <@macros.navbar/>
 	<main class="open-sans">
+		<h2>Welcome ${shopper.getUsername()}</h2>
 		<section class="offers-box">
 			<#if offers??>
             <ul class="offers-list">
                 <#list offers as offer>
                         <li class="offer-item">
-                            <a href="/offers/${offer.getOfferID()}/seller">
-                                <img src="backend-api/src/main/resources/static/offer-pictures/eraser.jpeg" alt="" class="offer-picture">
+                            <a href="/offers/${offer.getOfferID()}">
+                                <#if offer.getOfferImagePath()??>
+                                    <img src="${offer.getOfferImagePath()}" alt="" class="offer-preview">
+                                <#else>
+                                    <img src="/offer-pictures/eraser.jpeg" alt="" class="offer-preview">
+                                </#if>
                                 <h3>${offer.getTitle()}</h3>
                                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                                 <#if offer.getPrice()??>

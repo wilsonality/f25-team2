@@ -27,6 +27,7 @@ import com.team2.spartanslist.order.OrderRepository;
 import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.review.Review;
 import com.team2.spartanslist.review.ReviewService;
+import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerRepository;
 import com.team2.spartanslist.seller.SellerService;
 
@@ -86,8 +87,24 @@ public class ShopperController {
          */
 
          @GetMapping("/myprofile")
-         public String getProfile() {
-            return "redirect:/shoppers/" + Global.shopperID;
+         public String getShopperProfilie(Model model, Authentication auth) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
+
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            // Long shopperID = user.getShopperID();
+
+            String pageTitle = "View Your profile";
+            model.addAttribute("title", pageTitle);
+            model.addAttribute("user", user);
+            model.addAttribute("shopper", user);
+            model.addAttribute("author", true);
+
+            model.addAttribute("cart", null);
+            
+            return "shopper/shopper-details";
          }
 
         /**
@@ -118,8 +135,9 @@ public class ShopperController {
 
             Shopper user = shopperService.getShopperByPhone(auth.getName());
             model.addAttribute("shopper", user);
+            model.addAttribute("user", user);
 
-            String pageTitle = String.format("Welcome, %s.",user.getUsername());
+            String pageTitle = String.format("Welcome, %s",user.getUsername());
             model.addAttribute("title", pageTitle);
 
             List<Offer> offers = offerService.getAllOffers();
@@ -151,9 +169,21 @@ public class ShopperController {
         }
 
         @GetMapping("/cart")
-        public Object getCart(Model model) {
-            model.addAttribute("offers", cartService.getCart());
-            model.addAttribute("orders", orderService.getOrdersByShopper(Global.shopperID));
+        public Object getCart(Model model, Authentication auth) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
+
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            model.addAttribute("user", user);
+
+            String pageTitle = String.format("%s's Cart",user.getUsername());
+            model.addAttribute("title", pageTitle);
+
+            // model.addAttribute("offers", cartService.getCart(user));
+            model.addAttribute("items", cartService.getCart(user));
+            model.addAttribute("orders", orderService.getOrdersByShopper(user.getShopperID()));
 
             return "/shopper/shopper-cart";
         }

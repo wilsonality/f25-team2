@@ -8,7 +8,7 @@
 <body>
     <@macros.navbar/>
     <main class="open-sans">
-        <h2>welcome ${seller.getUsername()}</h2>
+        <h2>Welcome ${seller.getUsername()}</h2>
 
         <section class="offers-box">
             <!-- show all offers -->
@@ -26,6 +26,7 @@
                                 <h3>${offer.getTitle()}</h3>
                                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                                 <p>Purchased: ${offer.getNumPurchased()}</p>
+                                
                             </a>
                         </li>
                 </#list>

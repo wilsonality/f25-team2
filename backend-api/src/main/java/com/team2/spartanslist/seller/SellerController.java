@@ -58,13 +58,13 @@ public class SellerController{
     public String createSeller(Model model, Seller newSeller, @RequestParam(required = false)MultipartFile sellerPicture) {
         // check for unique phone
         Seller check = sellerService.getSellerByPhone(newSeller.getUserPhone());
-        if (check == null){
+        if (check != null){
             return "redirect:/sellers/register?error=failed%20to%20create%20seller%20account";
         }
 
         Seller seller = sellerService.createSeller(newSeller, sellerPicture);
         
-        return "redirect:/sellers/myprofile"; 
+        return "redirect:/login"; 
     }
 
     /** endpoint to get all sellers
@@ -105,12 +105,13 @@ public class SellerController{
             return "redirect:/login";
         }
 
-        Seller seller = sellerService.getSellerByPhone(auth.getName());
-        Long sellerID = seller.getSellerID();
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        Long sellerID = user.getSellerID();
 
 
-        String pageTitle = String.format("View %s's profile",seller.getUsername());
-        model.addAttribute("seller", seller);
+        String pageTitle = "View Your profile";
+        model.addAttribute("seller", user);
+        model.addAttribute("user", user);
         model.addAttribute("author", true);
         model.addAttribute("title", pageTitle);
         
@@ -130,13 +131,22 @@ public class SellerController{
      * @return
      */
     @GetMapping("/{sellerID}")
-    public String getSellerById(Model model, @PathVariable Long sellerID){
-
+    public String getSellerById(Model model, Authentication auth, @PathVariable Long sellerID){
 
         Seller seller = sellerService.getSellerById(sellerID);
         if (seller == null){
             return "redirect:/sellers?error=seller%20not%20found";
         }
+
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+
+        if (user.getSellerID() == sellerID){
+            return "redirect:/sellers/myprofile";
+        }
+
+        model.addAttribute("user", user);
+
+
         String pageTitle = String.format("View %s's profile",seller.getUsername());
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
@@ -198,6 +208,8 @@ public class SellerController{
 
         String pageTitle = String.format("Edit %s's Profile'",user.getUsername());
         model.addAttribute("title", pageTitle);
+        model.addAttribute("user", user);
+
         model.addAttribute("seller", user);
         return "seller/seller-update";
     }
@@ -217,6 +229,7 @@ public class SellerController{
 
         String pageTitle = String.format("Welcome, %s.",user.getUsername());
         model.addAttribute("seller", user);
+        model.addAttribute("user", user);
         model.addAttribute("title", pageTitle);
         
         List<Offer> offers = offerService.findBySeller(user.getSellerID());
@@ -230,6 +243,25 @@ public class SellerController{
         }
 
         return "seller/seller-home";
+    }
+
+    /** endpoint to see all orders */
+    @GetMapping("/myorders")
+    public Object showSellerOrders(Model model, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Seller user = sellerService.getSellerByPhone(auth.getName());
+        model.addAttribute("user", user);
+        model.addAttribute("seller", user);
+
+        model.addAttribute("title", "Manage Your Orders");
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(user.getSellerID(), 1);
+        if (orders.size() != 0){
+            model.addAttribute("orders", orders);
+        }
+        return "seller/manage-orders";
     }
 
     

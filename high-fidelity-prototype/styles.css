@@ -8,6 +8,11 @@ a {
 	background-color: rgba(250, 222, 251, 0.371);
 }
 
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
+
 body {
 	/* Skeleton layout for page */
 	display: grid;

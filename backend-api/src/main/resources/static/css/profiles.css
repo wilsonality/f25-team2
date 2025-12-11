@@ -19,5 +19,5 @@ img.profile-image{
   max-width: 200px;
   border-radius: 50%;
   border: 2px solid black;
-  margin: auto;
+  margin: 0 auto;
 }
