@@ -8,9 +8,6 @@
 
 <body>
 	 <@macros.navbar/>
-
-
-
 	<main>
 		<ul>
         <#list subs as sub>
