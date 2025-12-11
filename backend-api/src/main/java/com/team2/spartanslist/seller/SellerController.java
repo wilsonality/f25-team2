@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,10 @@ import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
 import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderService;
+import com.team2.spartanslist.review.Review;
+import com.team2.spartanslist.review.ReviewService;
+import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.shopper.ShopperService;
 import com.team2.spartanslist.mailing_list.MailingList;
 import com.team2.spartanslist.mailing_list.MailingListService;
 
@@ -34,6 +39,10 @@ public class SellerController{
     private final OrderService orderService;
     @Autowired
     private final MailingListService mailingListService;
+    @Autowired
+    private final ShopperService shopperService;
+    @Autowired
+    private final ReviewService reviewService;
 
 
     /** endpoint to show the seller registration form
@@ -131,28 +140,40 @@ public class SellerController{
      */
     @GetMapping("/{sellerID}")
     public String getSellerById(Model model, Authentication auth, @PathVariable Long sellerID){
-
         Seller seller = sellerService.getSellerById(sellerID);
         if (seller == null){
             return "redirect:/sellers?error=seller%20not%20found";
         }
-
-        Seller user = sellerService.getSellerByPhone(auth.getName());
-
-        if (user.getSellerID() == sellerID){
-            return "redirect:/sellers/myprofile";
-        }
-
-        model.addAttribute("user", user);
-
-
         String pageTitle = String.format("View %s's profile",seller.getUsername());
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
+
+        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(sellerID);
+        model.addAttribute("offers", offers);
         
         List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
         model.addAttribute("requests", orders);
-        return "seller/seller-details";
+
+        List<Review> reviews = reviewService.getReviewsBySellerOrderByRatingDescLimitThree(seller);
+        model.addAttribute("reviews", reviews);
+
+        // todo get analytics
+
+        if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
+            Seller user = sellerService.getSellerByPhone(auth.getName());
+            // if it's their own page, redirectt
+            if (user.getSellerID() == sellerID){
+                return "redirect:/sellers/myprofile";
+            }
+
+            model.addAttribute("user", user);
+        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SHOPPER"))){
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            model.addAttribute("user", user);
+            return "seller/seller-details";
+        }
+
+        return "/home";
     }
 
     /** endpoint to find a seller by phone
@@ -176,7 +197,7 @@ public class SellerController{
      * @return
      */
     @PostMapping("/{sellerID}")
-    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, Authentication auth, @RequestParam(required = false)MultipartFile sellerPicture, Model model){
+    public String updateSeller(@PathVariable Long sellerID, Seller nSeller, Authentication auth, @RequestParam(required = false)MultipartFile sellerPicture){
         // if user not signed in
         if (auth == null || !auth.isAuthenticated()){
             return "redirect:/login";
@@ -258,7 +279,11 @@ public class SellerController{
         model.addAttribute("title", "Manage Your Orders");
         List<Order> orders = orderService.getOrdersbySellerAndStatus(user.getSellerID(), 1);
         if (orders.size() != 0){
-            model.addAttribute("orders", orders);
+            model.addAttribute("requests", orders);
+        }
+        List<Order> pastorders = orderService.getOrdersbySellerAndNotStatus(user, 1);
+        if (pastorders.size() != 0){
+            model.addAttribute("pastorders", pastorders);
         }
         return "seller/manage-orders";
     }

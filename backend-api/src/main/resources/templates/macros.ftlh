@@ -8,6 +8,7 @@
    <link rel="stylesheet" type="text/css" href="/css/profiles.css">
    <link rel="stylesheet" type="text/css" href="/css/forms.css">
    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+   <link rel="stylesheet" type="text/css" href="/css/review.css">
    <title>${title}</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -60,7 +61,7 @@
             <a href="/shoppers/myprofile">view profile</a>
          </li>
          <li>
-            <a href="/cart">view my cart</a>
+            <a href="/shoppers/cart">view my cart</a>
          </li>
          <li>
             <a href="/ml">view mailing list</a>

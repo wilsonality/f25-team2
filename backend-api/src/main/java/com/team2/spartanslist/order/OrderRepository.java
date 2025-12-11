@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.team2.spartanslist.offer.Offer;
+import com.team2.spartanslist.seller.Seller;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Long>{
-    public Order findByStatus(int status);
+    public List<Order> findByStatus(int status);
+    public List<Order> findByOffer_SellerAndStatusIsNot(Seller seller, int status);
     public List<Order> findByOffer(Offer offer);
 
     // this one won't work, order has no sellerID

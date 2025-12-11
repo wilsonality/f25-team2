@@ -19,3 +19,14 @@ document.querySelectorAll("button.reject").forEach(btn => {
         });
     });
 });
+
+document.querySelectorAll("button.cancel").forEach(btn => {
+    btn.addEventListener("click", async () => {
+        const orderId = btn.dataset.orderId;
+        await fetch(`/api/orders/${orderId}`, {
+            method: "DELETE"
+        }).then(() => {
+            window.location.reload();
+        });
+    });
+});

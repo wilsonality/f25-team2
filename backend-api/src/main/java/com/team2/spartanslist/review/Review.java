@@ -1,6 +1,9 @@
 package com.team2.spartanslist.review;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.team2.spartanslist.offer.Offer;
@@ -35,7 +38,9 @@ public class Review {
     @JoinColumn(name = "offerID")
     private Offer offer;
 
-    private LocalDate dateTime;
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDateTime postDate;
 
     private String content;
     
@@ -48,22 +53,22 @@ public class Review {
      * Constructors
      */
 
-    public Review(Long reviewID, Shopper author, Offer offer, String content, LocalDate dateTime, int rating, String reply) {
+    public Review(Long reviewID, Shopper author, Offer offer, String content, LocalDateTime postDate, int rating, String reply) {
         this.reviewID = reviewID;
         this.author = author;
         this.offer = offer;
         this.content = content;
-        this.dateTime = dateTime;
+        this.postDate = postDate;
         this.content = content;
         this.rating = rating;
         this.reply = reply;
     }
 
-    public Review(Shopper author, Offer offer, String content, LocalDate dateTime, int rating, String reply) {
+    public Review(Shopper author, Offer offer, String content, LocalDateTime postDate, int rating, String reply) {
         this.author = author;
         this.offer = offer;
         this.content = content;
-        this.dateTime = dateTime;
+        this.postDate = postDate;
         this.content = content;
         this.rating = rating;
         this.reply = reply;

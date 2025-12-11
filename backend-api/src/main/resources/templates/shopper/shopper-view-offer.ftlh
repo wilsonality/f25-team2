@@ -41,43 +41,43 @@
         <hr>
         <section>
             <h2>Reviews</h2>
-            <form id="newReview" action="/reviews" method="post">
-                <div class="make_review_container">
+        <form id="newReview" action="/reviews/offer/${offer.getOfferID()}" method="post" class="create">
+                <label for="content">Review Content Here</label>
                 <textarea class="review_text_box" name="content" id="content" rows="5" cols="50" wrap="soft"></textarea><br>
+                <label for="stars" name="review">Rating (1-5 Stars)</label>
+                <input type="number" name="rating" id="rating">
 
-                <label for="stars" name="review">⭐️</label>
-                <input type="radio" name="rating" id="rating" value="1">
-                <label for="stars">1</label>
-                <input type="radio" name="rating" id="rating" value="2">
-                <label for="stars">2</label>
-                <input type="radio" name="rating" id="rating" value="3">
-                <label for="stars">3</label>
-                <input type="radio" name="rating" id="rating" value="4">
-                <label for="stars">4</label>
-                <input type="radio" name="rating" id="rating" value="5">
-                <label for="stars">5</label><br>
-
-                <input type="number" name="offerID" id="offerID" value="${offer.getOfferID()}" hidden>
-
-                <button type="submit">Add Review</button>
+                <button type="submit" class="create">Add Review</button>
             </form>
         </section> 
         <hr>
         <section>
-            <!-- if reviews ?? -->
-            <#list reviews as review>
-                <div style="border-bottom: 0.5px solid black">
-                    <h4>${review.author.username}</h4>
+            <h2>Reviews for this Offer</h2>
+            <#if reviews ??>
+            <ul class="reviews-list">
+                <#list reviews as review>
+                <li class="review-item">
+                    <img src="/seller-pictures/default.jpg" alt="" class="review-icon">
+                    <#if author ??>
+                        <p class="underline">You</p>
+                    <#else>
+                        <p class="underline">${review.author.username}</p>
+                    </#if>
+                    <a href="/offers/${review.offer.getOfferID()}">
+                        <h3>${review.getOffer().getTitle()}</h3>
+                    </a>
                     <p>${review.content}</p>
                     <p>${review.rating}/5</p>
-
-                    <#if review.author.shopperID == shopperID>
-                    <form id="deleteReview" action="/api/reviews/${review.reviewID}" method="post">
-                        <button type="submit">Delete Review</button>
+                    
+                    <#if review.author.shopperID == user.getShopperID()>
+                    <form id="deleteReview" action="/reviews/${review.reviewID}/delete" method="post">
+                        <button type="submit" class="delete">Delete Review</button>
                     </form>
                     </#if>
-                </div>
-            </#list>
+                </li>
+                </#list>
+            </ul>
+            </#if>
         </section>
     </main>
 </body>

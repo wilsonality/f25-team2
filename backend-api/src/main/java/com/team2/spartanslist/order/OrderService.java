@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.team2.spartanslist.Global;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.ShopperService;
 
@@ -123,6 +124,14 @@ public class OrderService {
     */
     public List<Order> getOrdersbySellerAndStatus(Long sellerID, int status){
         return orderRepository.findByOffer_SellerAndStatus(sellerID, status);
+    }
+    /** method to get answered orders for a seller 
+     * @param sellerID seller to get orders for
+     * @param status the status of the orders to get
+     * @return
+    */
+    public List<Order> getOrdersbySellerAndNotStatus(Seller seller, int status){
+        return orderRepository.findByOffer_SellerAndStatusIsNot(seller, status);
     }
 
 

@@ -18,9 +18,11 @@
             <p>Spartan Seller</p>
             <p>Member since: ${seller.getJoinDate()}</p>
             <p>Description: ${seller.getProfileBio()}</p>
+            <#if author ??>
             <a href="/sellers/updateprofile">
                 <button class="edit">Edit Profile</button>
             </a>
+            </#if>
 
             <div class="analytics">
                 <h2>Profile Analytics</h2>
@@ -52,6 +54,34 @@
             </ul>
             <#else>
             <p>Hmm... No offers to show here.</p>
+                <#if author ??>
+                <a href="/offers/create">
+                    <button class="create">Post an Offer Here</button>
+                </a>
+                </#if>
+            </#if>
+            <h2>Top Reviews</h2>
+            <#if reviews??>
+            <ul class="reviews-list">
+                <#list reviews as review>
+                <li class="review-item">
+                    <img src="/seller-pictures/default.jpg" alt="" class="review-icon">
+                    <a href="/offers/${review.offer.getOfferID()}">
+                        <h3>${review.getOffer().getTitle()}</h3>
+                    </a>
+                    <#if author ??>
+                        <p class="underline">You</p>
+                    <#else>
+                        <p class="underline">${review.author.username}</p>
+                    </#if>
+                    <p class="underline">${review.author.username}</p>
+                    <p class="grayed">${review.content}</p>
+                    <p>${review.rating}/5</p>
+                </li>
+                </#list>
+            </ul>
+            <#else>
+            <p>Hmm... No reviews to show here.</p>
                 <#if author ??>
                 <a href="/offers/create">
                     <button class="create">Post an Offer Here</button>
