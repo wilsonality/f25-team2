@@ -63,6 +63,14 @@ public class CartService {
 
       return cartRepository.save(cartItem);
     }
+
+    /** method to get cart item
+     * 
+     * 
+     */
+    public Cart getCartItem(Shopper shopper, Offer offer) {
+      return cartRepository.findByShopperAndOffer(shopper, offer);
+    }
     
 
     /** method to delete a cart item

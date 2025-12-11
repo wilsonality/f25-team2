@@ -31,18 +31,24 @@ public class CartController {
 
     @PostMapping("/addToCart/{offerID}")
     public String addToCart(@PathVariable Long offerID, Authentication auth) {
-
         // if user not signed in
         if (auth == null || !auth.isAuthenticated()){
             return null;
         }
+        Shopper user = shopperService.getShopperByPhone(auth.getName());
+
         // if offer does not exist
         Offer offer = offerService.getOfferById(offerID);
         if (offer == null) {
             return null;
         }
 
-        Shopper user = shopperService.getShopperByPhone(auth.getName());
+        // check if item exsists
+        Cart check = cartService.getCartItem(user, offer);
+        if (check != null) {
+            return "redirect:/shoppers/cart";
+        }
+
         cartService.addToCart(user, offer);
         return "redirect:/shoppers/cart";
     }

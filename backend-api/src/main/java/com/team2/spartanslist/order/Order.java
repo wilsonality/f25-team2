@@ -44,7 +44,6 @@ public class Order{
      * 4 = completed
      */
 
-
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime postDate;

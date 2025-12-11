@@ -3,6 +3,7 @@ package com.team2.spartanslist.review;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.ui.Model;
 
 import com.team2.spartanslist.Global;
@@ -39,16 +41,22 @@ public class ReviewController {
      * @return the offer of the review
      */
     @PostMapping
-    public String createReview(Review review, Long offerID){
-        Shopper author = shopperService.getShopper(Global.shopperID);
+    public String createReview(Review review, @RequestParam Long offerID, Authentication auth){
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Shopper user = shopperService.getShopperByPhone(auth.getName());
+
         Offer offer = offerService.getOfferById(offerID);
 
-        review.setAuthor(author);
+        review.setAuthor(user);
         review.setOffer(offer);
 
         reviewService.createReview(review);
 
-        return "redirect:/shoppers/offer/" + offerID;
+        return "redirect:/offers/" + offerID;
     }
 
     /** endpoint to update a review
@@ -59,6 +67,23 @@ public class ReviewController {
     @PutMapping("/{reviewID}")
     public ResponseEntity<Review> updateReview(@PathVariable Long reviewID, @Valid @RequestBody Review nReview){
         return ResponseEntity.ok(reviewService.updateReview(reviewID, nReview));
+    }
+
+    /*endpoint to reply to a review */
+    @PutMapping("/{reviewID}/reply")
+    public ResponseEntity<Review> replyReview(@PathVariable Long reviewID, Authentication auth, @RequestBody reply){
+        if (auth == null || !auth.isAuthenticated()){
+            return ResponseEntity.status(401).build();
+        }
+        Review existing = reviewService.getReviewById(reviewID);
+        if (existing == null){
+            // go back to the offer page
+            return "redirect:/offers/"+existing.getOffer().getOfferID();
+        }
+        
+
+        existing.setReply(reply);
+        return ResponseEntity.ok(reviewService.updateReview(reviewID, existing));
     }
 
     /** endpoint to get a review
