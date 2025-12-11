@@ -1,9 +1,9 @@
 # Software Requirements Specification
 ## For <Spartan's List>
 
-Version 0.2  
+Version 1  
 Prepared by <Team 2>    
-<Sept. 15> 
+<Dec 11> 
 
 Table of Contents
 =================
@@ -38,7 +38,7 @@ Table of Contents
 | ---- | ------- | ------------------- | --------- |
 |W.G.  |Sept. 15 2025      |Issues 7, 8, 9, 11                     |0.1           |
 |S.Z.      |Sept. 15 2025         |Issue 10                      |0.2           |
-|      |         |                     |           |
+|S.Z.      |Dec. 11 2025         |First Release                     |           |1
 
 ## 1. Introduction
 ### 1.1 Document Purpose
@@ -74,7 +74,6 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 
 ### 2.2 Product Constraints
 * Spartan's List will be hosted on a website.
-* Spartan's List must be mobile friendly.
 * Spartan's List must protect user's privacy.
   
 ### 2.3 User Characteristics
@@ -84,7 +83,6 @@ Spartan's List is a website not unlike Craigslist, where users can advertise goo
 * The Seller is a user who lists products or services for sale on Spartan's List. They should use the website for the purpose of advertising and monetary gain.
   
 ### 2.4 Assumptions and Dependencies
-* We will be using an external API: (https://www.abstractapi.com/api/phone-validation-api)
 * The user interface should look similar for all pages
 * Shoppers and Sellers have separate profiles
 * Spartan's List expects some technical prowess from our users. We expect all users to have familiarity with only a web-browser and common social media platforms, such as Facebook, Reddit, and X (formerly known as Twitter).
@@ -104,12 +102,12 @@ The specific requirements should:
    * Shoppers shall be able to search and filter offers by title, offer type, price, and availability.
 * FR3: The system shall allow Shoppers to view an offer.
   * Shoppers shall be able to view offer details, previous reviews, and the profile of the Seller.
-* FR4: The system shall allow Shoppers to view any Seller's profile, follower count, and offers for sale.
+* FR4: The system shall allow Shoppers to view any Seller's profile and offers for sale.
 * FR5: The system shall allow Shoppers shall be able to request offers and leave reviews on purchased offers.
 * FR6: The system shall allow Sellers to accept offer requests to mark them as purchased.
   * Sellers will be able to edit availability after an offer request
 * FR7: THe system shall allow Sellers to respond to reviews and select reviews to feature on their profile.
-* FR8: The system shall allow Sellers to view their follower count, their average rating, previous orders, and pending orders.
+* FR8: The system shall allow Sellers to view their previous orders, and pending orders.
 * FR9: The system shall allow Shoppers to request an offer.
   * Shoppers shall be able to see the status of their offers: requested, denied, and complete.
 * FR10: The system shall allow Shoppers to follow a Seller profile.
@@ -136,10 +134,10 @@ The system will require devices with web browser capabilities.
 #### 3.2.2 Security
 * NFR5: The system shall not allow offer postage, request, or purchase to non-authorized users.
 * NFR6: The system shall not handle payment within the application.
+* NFR6: The system shall not store sensitive information in plain text.
 
 #### 3.2.3 Reliability
-* NFR7: The system shall be able to handle ten users at once.
-* NFR8: The system shall be able to display 
+* NFR8: The system shall be able to handle thirty users at once.
 
 #### 3.2.4 Availability
 * NFR9: The system shall be available at all times. Maintenance will be scheduled during low traffic hours to impact user experiences as little as possible.
