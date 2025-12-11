@@ -16,7 +16,7 @@
                 <p>OfferID: ${offer.getOfferID()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                 <p>Purchased: ${offer.getNumPurchased()}</p>
-
+                <a href="/sellers/${offer.getSeller().getSellerID()}"><p>Seller: ${offer.getSeller().getUsername()}</p></a>
                 <form id="addToCart" action="/addToCart/${offer.offerID}" method="post">
                     <button type="submit">Add To Cart</button>
                 </form>

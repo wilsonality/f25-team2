@@ -74,6 +74,7 @@
       <a href="/shoppers/home">Home</a>
 		<a href="/shoppers/myprofile">My Profile</a>
       <a href="/shoppers/cart">Cart</a>
+      <a href="/shoppers/mysubscriptions">Subscriptions</a>
 		<a href="/"><img src="../images/icons/logout_black_20pt.svg" alt="Log Out"></a>
 </nav>
 </#macro>

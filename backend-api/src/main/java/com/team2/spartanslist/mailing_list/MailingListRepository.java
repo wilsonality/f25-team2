@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface MailingListRepository extends JpaRepository<MailingList, Long>{
-    @Query(value = "SELECT mailing_listID FROM mailing_list m WHERE m.shopperID = :shopperID AND m.sellerID = :sellerID", nativeQuery = true)
-    public Long getMailingListID(@Param("shopperID") Long shopperID, @Param("sellerID") Long sellerID);
+    @Query(value = "SELECT mailing_listID FROM mailing_list m WHERE m.shopperID = ?1 AND m.sellerID = ?2", nativeQuery = true)
+    public Long findMailingListID(Long shopperID, Long sellerID);
 
-    @Query(value = "SELECT * FROM mailing_list m WHERE m.shopperID = :shopperID", nativeQuery = true)
-    public List<MailingList> getAllSubs(@Param("shopperID") Long shopperID);
+    @Query(value = "SELECT * FROM mailing_list m WHERE m.shopperID = ?1", nativeQuery = true)
+    public List<MailingList> findSubsByShopperID(Long shopperID);
 
-    @Query(value = "SELECT * FROM mailing_list m WHERE m.shopperID = :shopperID AND m.sellerID = :sellerID", nativeQuery = true)
-    public List<MailingList> getSubscriptionStatus(@Param("shopperID") Long shopperID, @Param("sellerID") Long sellerID);
+    @Query(value = "SELECT * FROM mailing_list m WHERE m.shopperID = ?1 AND m.sellerID = ?2", nativeQuery = true)
+    public List<MailingList> findSubsByShopperIDAndSellerID(Long shopperID, Long sellerID);
 }
