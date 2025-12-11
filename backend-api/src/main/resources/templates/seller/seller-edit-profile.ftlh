@@ -6,7 +6,7 @@
     <@macros.header title="${title}"/>
 </head>
 <body>
-    <@macros.sellernav/>
+    <@macros.navbar/>
 <!-- begin seller profile -->
     <main class="seller-profile">
         <!-- about the seller -->

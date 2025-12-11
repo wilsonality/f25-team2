@@ -6,7 +6,7 @@
     <@macros.header title="${title}"/>
 </head>
 <body>
-	<#include "/navbars/seller-nav.html">
+	<@macros.navbar>
 
 	<aside>
 		<div class="order_preview">

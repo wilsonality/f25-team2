@@ -8,8 +8,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.team2.spartanslist.Global;
 import com.team2.spartanslist.cart.Cart;
@@ -138,11 +141,17 @@ public class ShopperController {
          * @param Shopper
          */
         @PostMapping
-        public String createShopper(Shopper newShopper) {
-            shopperService.createShopper(newShopper);
+        public String createShopper(Model model, Shopper newShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
+            Shopper shopper = shopperService.createShopper(newShopper, shopperPicture);
+            // check for unique phone
+            Shopper check = shopperService.getShopperByPhone(newShopper.getUserPhone());
+            if (check != null){
+                return "redirect:/shopper/register?error=failed%20to%20create%20shopper%20account";
+            }
 
-            Global.shopperID = newShopper.getShopperID();    
-            return "redirect:/shoppers/myprofile";
+            Global.shopperID = newShopper.getShopperID();
+
+            return "redirect:/shopper/" + String.valueOf(shopper.getShopperID());
         }
 
     // Update endpoints
@@ -152,9 +161,8 @@ public class ShopperController {
          * @param shopperID
          * @param updatedShopper
          */
-        @PostMapping("/update")
-        public String updateShopper(Shopper updatedShopper) {
-            shopperService.updateShopper(Global.shopperID, updatedShopper);
-            return "redirect:/shoppers/myprofile";
+        @PutMapping("/update/{user_ID}")
+        public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
+            return shopperService.updateShopper(shopperID, updatedShopper, shopperPicture);
         }
 }

@@ -1,5 +1,9 @@
 package com.team2.spartanslist.shopper;
 
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import com.team2.spartanslist.cart.Cart;
 
 import jakarta.persistence.CascadeType;
@@ -32,6 +36,14 @@ public class Shopper {
     @Column(nullable = false)
     private String userPhone;
     
-    private String profileImage;
+    private String profileImagePath;
     private String profileBio;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "cartID")
+    private Cart cart;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDate joinDate;
 }

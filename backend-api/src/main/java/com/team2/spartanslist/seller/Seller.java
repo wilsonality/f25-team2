@@ -1,5 +1,9 @@
 package com.team2.spartanslist.seller;
 
+import java.time.LocalDate;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -28,14 +32,19 @@ public class Seller {
     private String userPhone;
     
     private String profileImagePath;
+    
     private String profileBio;
+
+    @CreationTimestamp
+    @Column(updatable = false)
+    private LocalDate joinDate;
 
 
     /*
      * Constructors
      */
 
-    public Seller(Long sellerID, String username, String password, String userPhone, String profileImage, String profileBio) {
+    public Seller(Long sellerID, String username, String password, String userPhone, String profileImagePath, String profileBio) {
         this.sellerID = sellerID;
         this.username = username;
         this.userPhone = userPhone;
@@ -43,7 +52,7 @@ public class Seller {
         this.profileImagePath = profileImagePath;
         this.profileBio = profileBio;
     }
-    public Seller (String username, String password, String userPhone, String profileImage, String profileBio) {
+    public Seller (String username, String password, String userPhone, String profileImagePath, String profileBio) {
         this.username = username;
         this.userPhone = userPhone;
         this.password = password;

@@ -6,7 +6,7 @@
     <@macros.header title="${title}"/>
 </head>
 <body class="open-sans-bold">
-    <@macros.sellernav/>
+    <@macros.navbar/>
     <h2>View All Offers By Seller ${seller.getUsername()}</h2>
     <#if offers??>
     <ul class="offers-list">
@@ -16,6 +16,11 @@
                 <p class="open-sans-bold">${offer.getTitle()}</p>
                 <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
                 <p class="grayed">${offer.getDescription()}</p>
+                <#if offer.getPrice() ??>
+                <p>Price: ${offer.getPrice()}</p>
+                <#else>
+                <p>No Price Listed</p>
+                <#/if>
             </li>
         </#list>
         </a>

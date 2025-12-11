@@ -12,6 +12,7 @@
  <@macros.guestnav/>
 
 <body>
+    
 	<main>
         <h1>Register New Shopper</h1>
 		

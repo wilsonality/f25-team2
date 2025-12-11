@@ -6,7 +6,7 @@
     <@macros.header title="${offer.getTitle()}"/>
     <link rel="stylesheet" type="text/css" href="/css/offer.css">
 </head>
-<body class="open-sans-bold">
+<body>
     <@macros.navbar/>
     <main>
         <section class="offer-summary">
@@ -26,7 +26,7 @@
             </div>
         </section>
         <section>
-            <!-- <#if requests??>
+            <#if requests??>
                 <h3>orders for this offer</h3>
                 <ul class="orders-list">
                     <#list request as requests>
@@ -36,7 +36,7 @@
                         </li>
                     </#list>
                 </ul>
-            </#if> -->
+            </#if>
         </section>
         <a href="/offers/${offer.getOfferID()}/update">
             <button>edit offer</button>
