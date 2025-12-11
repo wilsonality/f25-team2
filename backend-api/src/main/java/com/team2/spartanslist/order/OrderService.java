@@ -52,6 +52,10 @@ public class OrderService {
         return orderRepository.save(o);
     }
 
+    public void deleteOrder(Long orderID) {
+        orderRepository.deleteById(orderID);
+    }
+
     /** method to get an order
      * @param orderID order to get
      * @return

@@ -20,7 +20,7 @@
 		<h3>Cart</h3>
 		 <#list offers as offer>
             <a href="/shoppers/offer/${offer.offerID}">
-                <div style="border: 1px solid black;">
+                <div style="border-bottom: 1px solid black;">
                     <p>${offer.title}</p>
                     <p>${offer.description}</p>
                     <p>$ ${offer.price}</p>
@@ -36,12 +36,22 @@
                 </div>
             </a>
         </#list>
-		
+		<hr>
 		<h3>Orders</h3>	
 		<#list orders as order>
-			<div stlye="border: 1px solid black">
-				<p>${order.orderID}</p>
+		<a href="/shoppers/offer/${order.offer.getOfferID()}">
+			<div style="border-bottom: 1px solid black;">
+				<p>${order.offer.getTitle()}</p>
+				<p>${order.getStatusAsString()}</p>
+
+				<!-- Pending -->
+				<#if order.status == 1>
+					<form id="cancelOrder" action="/api/orders/delete/${order.orderID}" method="get">
+					<button type="submit">Cancel</button>
+					</form>
+				</#if>
 			</div>
+		</a>	
 		</#list>
 	</main>
 
