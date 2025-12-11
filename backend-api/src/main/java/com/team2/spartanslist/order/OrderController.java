@@ -80,6 +80,11 @@ public class OrderController {
      */
     @PutMapping("/{orderID}/accept")
     public ResponseEntity<Order> acceptOrder(@PathVariable Long orderID){
+        Order order = orderService.getOrder(orderID);
+        Offer offer = order.getOffer();
+        int numPurchased = offer.getNumPurchased();
+        offer.setNumPurchased(++numPurchased);
+
         return ResponseEntity.ok(orderService.changeStatus(orderID, 2));
     }
     /** endpoint to reject an order

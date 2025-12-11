@@ -32,6 +32,11 @@
 					<h3>All-Time</h3>
 					<p>Follow Count: <span>NULL</span></p>
             </div>
+
+            <#if user.shopperID??>
+            <a href="/mailinglist/subscribe/${user.shopperID}/${seller.getSellerID()}"><button>Subscribe</button></a>
+            </#if>
+            
         </section>
         <section class="seller-right">
             <h2>Offers</h2>

@@ -1,33 +1,40 @@
 <#import "../macros.ftlh" as macros>
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
-	<link rel="stylesheet" href="profile.css">
-	<link rel="stylesheet" href="shopper_profile.css">
 
-	<title>Mailing List</title>
-	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <@macros.header title="Mailing List"/>
 </head>
 
 <body>
-	 <@macros.shoppernav/>
+	 <@macros.navbar/>
+
+
 
 	<main>
+		<ul>
         <#list subs as sub>
+		<li class="cart-item">
             <a href="/sellers/${sub.getSeller().getSellerID()}">
-                <div style="border-bottom: 1px solid black;">
-                    <p>${sub.getSeller().getUsername()}</p>
+				<#if sub.seller.getProfileImagePath()??>
+					<img src="${sub.seller.getProfileImagePath()}" alt="" class="profile-image pulse">
+				<#else>
+					<img src="/seller-pictures/default.jpg" alt="" class="profile-image pulse">
+				</#if>
 
-                    <form id="unsubscribe" action="/mailinglist/unsubscribe/${shopperID}/${sub.getSeller().getSellerID()}" method="post">
-                        <button type="submit">Unsubscribe</button>
-                    </form>					
-                </div>
+				<h1>${sub.seller.getUsername()}</h1>
+				<p>Spartan Seller</p>
+				<p>Member since: ${sub.seller.getJoinDate()}</p>
+				<p>Description: ${sub.seller.getProfileBio()}</p>
+
+
+				<form id="unsubscribe" action="/mailinglist/unsubscribe/${shopperID}/${sub.getSeller().getSellerID()}" method="post">
+					<button type="submit">Unsubscribe</button>
+				</form>					
             </a>
+		</li>	
         </#list>
+		</ul>
 	</main>
 
 	<footer>
