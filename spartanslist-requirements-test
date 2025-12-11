@@ -1,0 +1,38 @@
+# Spartan's List Requirements Testing
+## Actors
+- Seller S
+- Shopper SH
+- Offer o
+- Review R
+
+### Use Cases
+
+#### 0. Prepopulate the database with data.        
+
+#### 1. Seller: Create/modify Seller profile use case:
+1. Seller S1 registers an account and logs in.
+2. S1 edits their profile.
+
+#### 2. Seller: Create services use case:
+1. S1 creates an offer o1.
+2. S1 edits o1.
+
+#### 3. Shopper: Create/modify Shopper profile use case:
+1. Shopper SH1 registers an account and logs in.
+2. SH1 edits their profile.
+
+#### 4. Shopper: View available services use case:
+1. SH1 browses for an offer.
+2. SH1 selects o1, adds it to cart, and requests o1.
+
+#### 5. Seller: Accept orders use case:
+1. S1 accepts the o1.
+
+#### 6. Shopper: Subscribe and write reviews to available services use case:
+1. SH1 views S1's profile.
+2. SH1 subscribes to S1.
+3. SH1 writes a review R1 for o1.
+
+#### 7. Seller: View customer statistics and reply to reviews use case:
+1. S1 views SH1's profile.
+2. S1 replys to R1.
