@@ -31,6 +31,12 @@ main{
   padding: 0em 2em;
 }
 
+/* text */
+
+.white-text{
+  color: white;
+}
+
 .grayed{
   opacity: 0.5;
 }
@@ -38,6 +44,12 @@ main{
 .small{
   font-size: 10pt;
 }
+
+
+.large{
+  font-size: 20pt;
+}
+
 
 .center{
   text-align: center;
@@ -64,6 +76,19 @@ main{
   font-variation-settings:
     "wdth" 100;
 }
+
+.comic {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.comic-bold {
+  font-family: "Comic Relief", system-ui;
+  font-weight: 700;
+  font-style: normal;
+}
+
 
 /* button styling */
 

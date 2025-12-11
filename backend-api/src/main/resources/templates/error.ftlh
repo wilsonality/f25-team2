@@ -6,11 +6,13 @@
     <@macros.header title="An Error Occurred"/>
 </head>
 <body>
-    <h2>Something went wrong :/</h2>
+    <main class="comic">
+        <h2>Something went wrong :/</h2>
     <#if error??>
         <p>${error}</p>
     <#else>
         <p>We're not sure what happened.</p>
     </#if>
+    </main>
 </body>
 </html>

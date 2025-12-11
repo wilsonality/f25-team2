@@ -11,8 +11,7 @@
    <title>${title}</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
-   <script src="/js/animations.js" defer></script>
+   <link href="https://fonts.googleapis.com/css2?family=Comic+Relief:wght@400;700&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
 </#macro>
 
 <#macro extrastyling>
@@ -22,7 +21,7 @@
 
 <#macro navbar>
 <nav>
-   <ul class="navigation open-sans-bold">
+   <ul class="navigation comic-bold">
       <#if !(shopper?? || seller??)>
           <li>
             <a href="/home" class="navlink">home</a>

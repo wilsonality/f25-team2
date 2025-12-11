@@ -14,10 +14,10 @@ public interface OrderRepository extends JpaRepository<Order, Long>{
     public List<Order> findByOffer(Offer offer);
 
     // this one won't work, order has no sellerID
-    @Query(value = "select * from orders where sellerID = ?1", nativeQuery = true)
+    @Query(value = "select r.* from orders r inner join offer f on r.offerID = f.offerID where f.sellerID = ?1", nativeQuery = true)
     public List<Order> findByOffer_Seller(Long sellerID);
     
-    @Query(value = "select orders.* from orders orders inner join offer offers on orders.offerID = offers.offerID where orders.status = ?2 and offers.sellerID = ?1", nativeQuery = true)
+    @Query(value = "select r.* from orders r inner join offer f on r.offerID = f.offerID where r.status = ?2 and f.sellerID = ?1", nativeQuery = true)
     public List<Order> findByOffer_SellerAndStatus(Long sellerID, int status);
 
     @Query(value = "select * from orders where status = ?1 and shopperID = ?2", nativeQuery = true)

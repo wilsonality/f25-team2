@@ -3,18 +3,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <@macros.header title="${offer.getTitle()}"/>
-    <link rel="stylesheet" type="text/css" href="/css/offer.css">
+    <@macros.header title="View ${offer.getTitle()}"/>
 </head>
 <body class="open-sans-bold">
     <@macros.navbar/>
-    <main>
+    <main class="offer-details">
         <section class="offer-summary">
             <div class="offer-left">
-                <img src="" alt="" class="offer-picture">
+                <#if offer.getOfferImagePath()??>
+                <img src="${offer.getOfferImagePath()}" alt="" class="offer-picture">
+                <#else>
+                <img src="/offer-pictures/eraser.jpeg" alt="" class="offer-picture">
+                </#if>
                 <h3>${offer.getTitle()}</h3>
-                <!-- <p>OfferID: ${offer.getOfferID()}</p> -->
-                <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
+                <a href="/offers/${offer.getOfferID()}/update">
+                    <button>edit offer</button>
+                </a>
+                <p>${offer.isAvailability()?string('Available Now', 'Currently Unavailable')}</p>
                 <p>Purchased: ${offer.getNumPurchased()}</p>
             </div>
             <div class="offer-right">
@@ -25,8 +30,8 @@
                 </#if>
             </div>
         </section>
-        <section>
-            <!-- <#if requests??>
+        <section class="offer-requests">
+            <#if requests??>
                 <h3>orders for this offer</h3>
                 <ul class="orders-list">
                     <#list request as requests>
@@ -36,11 +41,9 @@
                         </li>
                     </#list>
                 </ul>
-            </#if> -->
+            </#if>
         </section>
-        <a href="/offers/${offer.getOfferID()}/update">
-            <button>edit offer</button>
-        </a>
+        
     </main>
 </body>
 </html>

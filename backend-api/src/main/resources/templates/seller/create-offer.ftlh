@@ -49,7 +49,7 @@
             <input type="hidden" name="numPurchased" value="0">
 
             <button type="submit">Post Offer</button>
-            <a href="/sellers/1">Cancel</a>
+            <a href="/home">Cancel</a>
         </form>
         </section>
 	</main>

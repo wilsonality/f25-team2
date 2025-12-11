@@ -5,16 +5,18 @@
 <head>
     <@macros.header title="Access Denied"/>
 </head>
-<body class="open-sans">
+<body>
     <@macros.navbar/>
-    <section class="error-msg">
-        <h2>Access Denied</h2>
-        <p>Hey, you are NOT supposed to be here.</p>
+    <main class="comic">
+        <section class="error-msg">
+            <h2>Access Denied</h2>
+            <p>Hey, you are NOT supposed to be here.</p>
 
-        <a href="/home">
-            <p>Go home?</p>
-        </a>
-    </section>
+            <a href="/home">
+                <p>Go home?</p>
+            </a>
+        </section>
+    </main>
     
 </body>
 </html>
