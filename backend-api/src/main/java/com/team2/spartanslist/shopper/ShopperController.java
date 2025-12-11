@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -46,6 +47,8 @@ public class ShopperController {
     private CartRepository cartRepository;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private SellerService sellerService;
 
     // Show forms endpoints
         /**
@@ -58,15 +61,24 @@ public class ShopperController {
             Shopper newShopper = new Shopper();
             model.addAttribute(newShopper);
 
-            return "/shopper/shopper-registration-form";
+            return "shopper/shopper-registration-form";
         } 
 
-        @GetMapping("/updateForm")
-        public String showUpdateForm(Model model) {
-            Shopper shopperToUpdate = shopperService.getShopper(Global.shopperID);
-            model.addAttribute("shopper", shopperToUpdate);
+        @GetMapping("/updateprofile")
+        public String showUpdateForm(Model model, Authentication auth) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
 
-            return "/shopper/shopper-update-form";
+            String pageTitle = String.format("Edit %s's Profile'",user.getUsername());
+            model.addAttribute("title", pageTitle);
+
+            model.addAttribute("shopper", user);
+            model.addAttribute("user", user);
+
+            return "shopper/shopper-update";
         }
 
     // Get endpoints
@@ -80,7 +92,6 @@ public class ShopperController {
             return shopperService.getAllShoppers();
         }
 
-        // TODO : add auth
         /** endpoint to the user's profile
          * 
          * @return user's profile
@@ -94,15 +105,19 @@ public class ShopperController {
             }
 
             Shopper user = shopperService.getShopperByPhone(auth.getName());
-            // Long shopperID = user.getShopperID();
 
             String pageTitle = "View Your profile";
             model.addAttribute("title", pageTitle);
             model.addAttribute("user", user);
             model.addAttribute("shopper", user);
-            model.addAttribute("author", true);
 
-            model.addAttribute("cart", null);
+            model.addAttribute("author", true);
+            model.addAttribute("cart", cartService.getCart(user));
+
+            List<Review> reviews = reviewService.getAllReviewsByAuthorId(user.getShopperID());
+            if (reviews.size() > 0){
+                model.addAttribute("reviews", reviews);
+            }
             
             return "shopper/shopper-details";
          }
@@ -113,12 +128,31 @@ public class ShopperController {
          * @param shopperID
          * @return a shopper
          */
-        @GetMapping("/{shopperID}") 
-        public String getShopper(Model model, @PathVariable Long shopperID) {
+        @GetMapping("/{shopperID}")
+        public String getShopper(Model model, @PathVariable Long shopperID, Authentication auth) {
             Shopper shopper = shopperService.getShopper(shopperID);
+            if (shopper == null){
+                return "redirect:/shoppers?error=shopper%20not%20found";
+            }
+            String pageTitle = String.format("View %s's profile",shopper.getUsername());
             model.addAttribute("shopper", shopper);
+            model.addAttribute("title", pageTitle);
 
-            return "/shopper/shopper-profile";
+            if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SHOPPER"))){
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            // if it's their own page, redirectt
+            if (user.getShopperID() == shopperID){
+                return "redirect:/shoppers/myprofile";
+            }
+            
+            model.addAttribute("user", user);
+        } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SELLER"))){
+            Seller user = sellerService.getSellerByPhone(auth.getName());
+            model.addAttribute("user", user);
+            return "shopper/shopper-details";
+        }
+
+            return "redirect:/home";
         }
 
         /** endpoint to show shopper homepage
@@ -153,20 +187,6 @@ public class ShopperController {
             return "shopper/shopper-home";
         }
 
-        // TODO - get rid of and add auth to offer controller
-        @GetMapping("/offer/{offerID}")
-        public String getOffer(Model model, @PathVariable Long offerID) {
-            Offer offer = offerService.getOfferById(offerID);
-            List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
-            Review newReview = new Review();
-
-            model.addAttribute("offer", offer);
-            model.addAttribute("reviews", reviews);
-            model.addAttribute(newReview);
-            model.addAttribute("shopperID", Global.shopperID);
-
-            return "/shopper/shopper-view-offer";
-        }
 
         @GetMapping("/cart")
         public Object getCart(Model model, Authentication auth) {
@@ -185,7 +205,7 @@ public class ShopperController {
             model.addAttribute("items", cartService.getCart(user));
             model.addAttribute("orders", orderService.getOrdersByShopper(user.getShopperID()));
 
-            return "/shopper/shopper-cart";
+            return "shopper/shopper-cart";
         }
 
         @GetMapping("/mysubscriptions")
@@ -205,10 +225,10 @@ public class ShopperController {
             // check for unique phone
             Shopper check = shopperService.getShopperByPhone(newShopper.getUserPhone());
             if (check != null){
-                return "redirect:/shopper/register?error=failed%20to%20create%20shopper%20account";
+                return "redirect:/shoppers/register?error=failed%20to%20create%20shopper%20account";
             }
 
-            return "redirect:/shopper/" + String.valueOf(shopper.getShopperID());
+            return "redirect:/shoppers/" + String.valueOf(shopper.getShopperID());
         }
 
         /** Update a shopper profile
@@ -216,8 +236,20 @@ public class ShopperController {
          * @param shopperID
          * @param updatedShopper
          */
-        @PutMapping("/update/{shopperID}")
-        public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
-            return shopperService.updateShopper(shopperID, updatedShopper, shopperPicture);
+        @PostMapping("/{shopperID}")
+        public String updateShopper(@PathVariable Long shopperID, Shopper nShopper, Authentication auth, @RequestParam(required = false)MultipartFile shopperPicture) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
+
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            // make sure users can only update their profiles
+            if (user.getShopperID() != shopperID){
+                return "redirect:/403";
+            }
+            shopperService.updateShopper(shopperID, nShopper, shopperPicture);
+
+            return "redirect:/shoppers/" + shopperID;
         }
 }

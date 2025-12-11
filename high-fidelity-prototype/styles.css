@@ -31,42 +31,6 @@ body {
 	/* TODO: fade in animation */
 }
 
-nav {
-	grid-area: navbar;
-
-	/* Sticky navbar */
-	position: sticky;
-	top: 0;
-	padding-top: 0.25em;
-
-	background-color: floralwhite;
-	border-bottom: 1px solid black;
-
-	a, a:visited{
-		text-decoration: none;
-		color: inherit;
-		font-weight: 900;
-		padding: 3px;
-	}
-
-	span {
-		font-size: larger;
-	}
-
-
-
-
-}
-
-aside {
-	grid-area: sidebar;
-	border-right: 1px solid black;
-}
-
-main {
-	grid-area: main;
-}
-
 /* offer styling */
 
 .offers_container {

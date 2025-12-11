@@ -1,0 +1,24 @@
+.offers-list{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+li.cart-item{
+    border-radius: 2px;
+    border: 3px lightpink solid;
+    background-color: floralwhite;
+    padding: 2em;
+    margin: 1em 3em;
+    max-width: 500px;
+    display: flex;
+    flex-wrap: wrap;
+    transition: all 0.2s ease;
+}
+
+li.cart-item:hover{
+    border: 3px palevioletred solid;
+    border-bottom: 3px solid black;
+    background-color: antiquewhite;
+    scale: 1.05;
+}

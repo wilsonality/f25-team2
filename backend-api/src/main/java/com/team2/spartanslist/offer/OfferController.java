@@ -156,17 +156,22 @@ public class OfferController{
                 if (orders.size() > 0){
                     model.addAttribute("requests", orders);
                 }
-
-                List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
-                if (reviews.size() > 0){
-                    model.addAttribute("reviews", reviews);
-                }
+            }
+            List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
+            if (reviews.size() > 0){
+                model.addAttribute("reviews", reviews);
             }
             return "seller/seller-view-offer";
         } else if (auth.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_SHOPPER"))){
             Shopper user = shopperService.getShopperByPhone(auth.getName());
             model.addAttribute("user", user);
+            
             model.addAttribute("incart", false);
+            List<Review> reviews = reviewService.getAllReviewsByOfferId(offerID);
+            if (reviews.size() > 0){
+                model.addAttribute("reviews", reviews);
+            }
+
             return "shopper/shopper-view-offer";
         }
 

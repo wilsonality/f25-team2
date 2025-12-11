@@ -42,11 +42,17 @@
             <!-- show all orders -->
             <h1>Pending Orders</h3>
             <#if requests ??>
+            <p>The following orders are still requests. Manage Your Orders <a href="/sellers/myorders"class="open-sans-bold">here</a>.</p>
                 <ul class="orders-list">
                     <#list requests as request>
-                        <li class="request-item">
-                            <p>${request.getShopper().getUsername()}</p>
-                            <p>${request.getOffer().getTitle()}</p>
+                    <li class="orders-item">
+                            <#if request.getOffer().getOfferImagePath() ??>
+                            <img src="${request.getOffer().getOfferImagePath()}" alt="" class="order-icon">
+                            <#else>
+                            <img src="/offer-pictures/eraser.jpeg" alt="" class="order-icon">
+                            </#if>
+                            <p>Request from User: ${request.getShopper().getUsername()}</p>
+                            <p>For Offer ${request.getOffer().getTitle()}</p>
                         </li>
                     </#list>
                 </ul>

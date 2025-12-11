@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.Shopper;
 import com.team2.spartanslist.shopper.ShopperService;
@@ -43,7 +44,7 @@ public class ReviewService {
         review.setAuthor(nReview.getAuthor());
         review.setOffer(nReview.getOffer());
         review.setContent(nReview.getContent());
-        review.setDateTime(nReview.getDateTime());
+        review.setPostDate(nReview.getPostDate());
         review.setRating(nReview.getRating());
         review.setReply(nReview.getReply());
 
@@ -94,6 +95,13 @@ public class ReviewService {
      */
     public List<Review> getAllReviewsBySellerAndNoReply(Long sellerID){
         return reviewRepository.findAllByOffer_SellerAndReplyIsNull(sellerService.getSellerById(sellerID));
+    }
+    /** method to get unreplied reviews for a seller
+     * @param sellerID id of the seller
+     * @return
+     */
+    public List<Review> getReviewsBySellerOrderByRatingDescLimitThree(Seller seller){
+        return reviewRepository.findAllByOffer_SellerAndReplyIsNull((seller));
     }
 
     /** method to reply to a review 

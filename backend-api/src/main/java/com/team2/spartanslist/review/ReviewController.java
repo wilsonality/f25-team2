@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,8 +26,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 
-@Controller
 @RequiredArgsConstructor
+@Controller
 @RequestMapping("/reviews")
 public class ReviewController {
     @Autowired
@@ -40,8 +41,8 @@ public class ReviewController {
      * @param review the review to add
      * @return the offer of the review
      */
-    @PostMapping
-    public String createReview(Review review, @RequestParam Long offerID, Authentication auth){
+    @PostMapping("/offer/{offerID}")
+    public String createReview(Review review, @PathVariable Long offerID, Authentication auth){
         // if user not signed in
         if (auth == null || !auth.isAuthenticated()){
             return "redirect:/login";
@@ -59,6 +60,25 @@ public class ReviewController {
         return "redirect:/offers/" + offerID;
     }
 
+    /** endpoint to reply to a review
+     * 
+     */
+    @PutMapping("/{reviewID}/reply")
+    public String replyReview(@PathVariable Long reviewID, Authentication auth, @RequestParam("reply") String reply){
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        Review existing = reviewService.getReviewById(reviewID);
+        if (existing == null){
+            // go back to the offer page
+            return "redirect:/home";
+        }
+ 
+        existing.setReply(reply);
+        reviewService.updateReview(reviewID, existing);
+        return "redirect:/offers/" + existing.getOffer().getOfferID();
+    }
+
     /** endpoint to update a review
      * @param reviewID the id of the review to update 
      * @param nReview the new details of the review
@@ -67,23 +87,6 @@ public class ReviewController {
     @PutMapping("/{reviewID}")
     public ResponseEntity<Review> updateReview(@PathVariable Long reviewID, @Valid @RequestBody Review nReview){
         return ResponseEntity.ok(reviewService.updateReview(reviewID, nReview));
-    }
-
-    /*endpoint to reply to a review */
-    @PutMapping("/{reviewID}/reply")
-    public ResponseEntity<Review> replyReview(@PathVariable Long reviewID, Authentication auth, @RequestBody reply){
-        if (auth == null || !auth.isAuthenticated()){
-            return ResponseEntity.status(401).build();
-        }
-        Review existing = reviewService.getReviewById(reviewID);
-        if (existing == null){
-            // go back to the offer page
-            return "redirect:/offers/"+existing.getOffer().getOfferID();
-        }
-        
-
-        existing.setReply(reply);
-        return ResponseEntity.ok(reviewService.updateReview(reviewID, existing));
     }
 
     /** endpoint to get a review
@@ -99,8 +102,17 @@ public class ReviewController {
      * @param reviewID the id of the review to delete
      * @return all reviews
     */
-    @PostMapping("/{reviewID}")
+    @PostMapping("/{reviewID}/delete")
     public ResponseEntity<List<Review>> deleteReview(@PathVariable Long reviewID){
+        reviewService.deleteReview(reviewID);
+        return ResponseEntity.ok(reviewService.getAllReviews());    
+    }
+    /** endpoint to delete a review
+     * @param reviewID the id of the review to delete
+     * @return all reviews
+    */
+    @DeleteMapping("/{reviewID}")
+    public ResponseEntity<List<Review>> removeReview(@PathVariable Long reviewID){
         reviewService.deleteReview(reviewID);
         return ResponseEntity.ok(reviewService.getAllReviews());    
     }

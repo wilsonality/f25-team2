@@ -8,6 +8,7 @@
    <link rel="stylesheet" type="text/css" href="/css/profiles.css">
    <link rel="stylesheet" type="text/css" href="/css/forms.css">
    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+   <link rel="stylesheet" type="text/css" href="/css/review.css">
    <title>${title}</title>
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

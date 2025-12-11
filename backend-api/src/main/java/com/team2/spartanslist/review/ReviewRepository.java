@@ -14,4 +14,6 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
     public List<Review> findAllByAuthor(Shopper author);
     public List<Review> findAllByOffer(Offer offer);
     public List<Review> findAllByOffer_SellerAndReplyIsNull(Seller seller);
+    public List<Review> findTop3ByOffer_SellerOrderByRatingDesc(Seller seller);
+
 }
