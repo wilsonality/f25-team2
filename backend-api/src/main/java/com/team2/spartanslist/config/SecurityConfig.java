@@ -9,6 +9,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -21,13 +22,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
+        .csrf(csrf -> csrf.disable())
+          .securityContext(securityContext ->
+            securityContext.requireExplicitSave(false)
+        )
+        .sessionManagement(session ->
+            session.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        )
         .authorizeHttpRequests(authorize -> authorize
-            .requestMatchers("/", "/home", "/css/**", "/js/**", "/images/**", "/register", "/sellers", "/shoppers").permitAll()
-            .requestMatchers("/offers/**", "/reviews/**", "/orders/**", "/carts/**").hasAnyRole("SELLER", "SHOPPER")
-            .requestMatchers(HttpMethod.POST,"/offers/**","/sellers/**").hasAnyRole("SELLER")
-            .requestMatchers(HttpMethod.POST,"/shoppers/**").hasAnyRole("SHOPPER")
-            .requestMatchers("/reviews/**").hasAnyRole("SELLER", "SHOPPER")
-            .requestMatchers("/shoppers/*/update").hasAnyRole("SHOPPER")
+            .requestMatchers("/", "/home", "/css/**", "/js/**", "/images/**", "/register", "/login", "/login/**").permitAll()
+            .requestMatchers(HttpMethod.POST, "/sellers", "/shoppers").permitAll()
+            .requestMatchers(HttpMethod.POST, "/offers/**", "/sellers/**").hasRole("SELLER")
+            .requestMatchers(HttpMethod.POST, "/shoppers/**").hasRole("SHOPPER")
+            .requestMatchers(HttpMethod.POST, "/offers/**", "/reviews/**", "/orders/**", "/carts/**").hasAnyRole("SELLER", "SHOPPER")
             .anyRequest().authenticated())
         .formLogin(form -> form
             .loginPage("/login")
@@ -37,10 +44,6 @@ public class SecurityConfig {
     return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {

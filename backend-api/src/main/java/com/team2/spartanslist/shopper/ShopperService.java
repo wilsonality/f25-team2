@@ -16,6 +16,8 @@ import com.team2.spartanslist.seller.Seller;
 public class ShopperService {
     @Autowired 
     private ShopperRepository shopperRepository;
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/shopper-pictures";
     private static final String SOURCE_DIR = "backend-api/target/main/resources/static/shopper-pictures";
@@ -29,7 +31,8 @@ public class ShopperService {
     }
 
     public Shopper createShopper(Shopper shopper, MultipartFile shopperPicture) {
-        // pass is hashed by spring security
+        // hash pass before saving
+        shopper.setPassword(passwordEncoder.encode(shopper.getPassword()));
 
         Shopper newShopper = shopperRepository.save(shopper);
 
@@ -110,5 +113,9 @@ public class ShopperService {
 
     public Shopper getShopperByPhone(String userPhone){
         return shopperRepository.findByUserPhone(userPhone);
+    }
+
+    public Shopper getShopperByUsername(String username){
+        return shopperRepository.findByUsername(username);
     }
 }

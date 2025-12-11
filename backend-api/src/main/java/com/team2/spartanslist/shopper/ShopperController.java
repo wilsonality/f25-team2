@@ -3,6 +3,7 @@ package com.team2.spartanslist.shopper;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.team2.spartanslist.cart.CartService;
 import com.team2.spartanslist.offer.Offer;
 import com.team2.spartanslist.offer.OfferRepository;
 import com.team2.spartanslist.offer.OfferService;
+import com.team2.spartanslist.order.Order;
 import com.team2.spartanslist.order.OrderRepository;
 import com.team2.spartanslist.order.OrderService;
 import com.team2.spartanslist.review.Review;
@@ -77,10 +79,10 @@ public class ShopperController {
             return shopperService.getAllShoppers();
         }
 
-        /**
-         * Redirect for navbar buttons
+        // TODO : add auth
+        /** endpoint to the user's profile
          * 
-         * @return your specific profile
+         * @return user's profile
          */
 
          @GetMapping("/myprofile")
@@ -102,14 +104,38 @@ public class ShopperController {
             return "/shopper/shopper-profile";
         }
 
+        /** endpoint to show shopper homepage
+         * @param model
+         * @param auth
+         * @return
+         */
         @GetMapping("/home")
-        public String getOffers(Model model) {
-            List<Offer> offers = offerService.getAllOffers();
-            model.addAttribute("offers", offers);
+        public String showShopperHome(Model model, Authentication auth) {
+            // if user not signed in
+            if (auth == null || !auth.isAuthenticated()){
+                return "redirect:/login";
+            }
 
-            return "/shopper/shopper-home";
+            Shopper user = shopperService.getShopperByPhone(auth.getName());
+            model.addAttribute("shopper", user);
+
+            String pageTitle = String.format("Welcome, %s.",user.getUsername());
+            model.addAttribute("title", pageTitle);
+
+            List<Offer> offers = offerService.getAllOffers();
+            if (offers.size() != 0){
+                model.addAttribute("offers", offers);
+            }
+
+            List<Order> requests = orderService.getOrdersbyShopperIDAndStatus(user.getShopperID(), 1);
+            if (requests.size() != 0){
+                model.addAttribute("requests", requests);
+            }
+
+            return "shopper/shopper-home";
         }
 
+        // TODO - get rid of and add auth to offer controller
         @GetMapping("/offer/{offerID}")
         public String getOffer(Model model, @PathVariable Long offerID) {
             Offer offer = offerService.getOfferById(offerID);
@@ -133,10 +159,7 @@ public class ShopperController {
         }
 
 
-
-    // Add endpoints
-        /**
-         * Add a shopper into the table
+        /** endpoint to create a shopper
          * 
          * @param Shopper
          */
@@ -149,19 +172,15 @@ public class ShopperController {
                 return "redirect:/shopper/register?error=failed%20to%20create%20shopper%20account";
             }
 
-            Global.shopperID = newShopper.getShopperID();
-
             return "redirect:/shopper/" + String.valueOf(shopper.getShopperID());
         }
 
-    // Update endpoints
-        /**
-         * Update a shopper profile
+        /** Update a shopper profile
          * 
          * @param shopperID
          * @param updatedShopper
          */
-        @PutMapping("/update/{user_ID}")
+        @PutMapping("/update/{shopperID}")
         public Shopper updateShopper(@PathVariable Long shopperID, @RequestBody Shopper updatedShopper, @RequestParam(required = false)MultipartFile shopperPicture) {
             return shopperService.updateShopper(shopperID, updatedShopper, shopperPicture);
         }

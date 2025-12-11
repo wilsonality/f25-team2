@@ -1,37 +1,61 @@
 <#import "../macros.ftlh" as macros>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../styles.css">
-    <link rel="stylesheet" href="../provider-prototype/provider_styles.css">
-	<link rel="stylesheet" href="profile.css">
-	<link rel="stylesheet" href="shopper_profile.css">
-
-	<title>Home</title>
-	<link rel="icon" type="image/x-icon" href="../images/icons/favicon.svg">
+    <@macros.header title="${title}"/>
 </head>
-
 <body>
-	 <@macros.shoppernav/>
-
-	<main>
-        <#list offers as offer>
-            <a href="/shoppers/offer/${offer.offerID}">
-                <div style="border: 1px solid black;">
-                    <p>${offer.title}</p>
-                    <p>${offer.description}</p>
-                    <p>$ ${offer.price}</p>
-                    <img href="${offer.offerImagePath}" alt="Image of ${offer.title}">
-                </div>
+    <@macros.navbar/>
+	<main class="open-sans">
+		<section class="offers-box">
+			<#if offers??>
+            <ul class="offers-list">
+                <#list offers as offer>
+                        <li class="offer-item">
+                            <a href="/offers/${offer.getOfferID()}/seller">
+                                <img src="backend-api/src/main/resources/static/offer-pictures/eraser.jpeg" alt="" class="offer-picture">
+                                <h3>${offer.getTitle()}</h3>
+                                <p>Availability: ${offer.isAvailability()?string('Available Now', 'Unavailable')}</p>
+                                <#if offer.getPrice()??>
+									<p>Price: $${offer.getPrice()}</p>
+								</#if>
+								
+                            </a>
+                        </li>
+                </#list>
+            </ul>
+            <#else>
+            <p>Hmm... You don't have any offers.</p>
+            <a href="/offers/create">
+                <button class="create">Post an Offer Here</button>
             </a>
-        </#list>
+            </#if>
+		</section>
+		<section class="cart-preview">
+			<!-- cart content preview -->
+		</section>
+		<section class="orders-box">
+			<!-- show your requests -->
+			 <h1>Your Requests</h1>
+			 <#if requests ??>
+                <ul class="orders-list">
+                    <#list requests as request>
+                        <li class="request-item">
+                            <p>${request.getShopper().getUsername()}</p>
+                            <p>${request.getOffer().getTitle()}</p>
+                        </li>
+                    </#list>
+                </ul>
+            <#else>
+                <p>Hmm... You don't have any requests. Browse offers and make a request</p>
+                <a href="/offers">
+                	<button class="view">Browse Offers </button>
+            	</a>
+            </#if>
+		</section>
 	</main>
-
 	<footer>
         <hr>
-		<!-- Footer -->
 		<p>About Us</p>
 		<p>Contact</p>
 		<p>Terms of Service</p>

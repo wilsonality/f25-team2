@@ -1,0 +1,37 @@
+main.log-in{
+    display: flex;
+    flex-direction: column;
+    gap: 5em;
+    padding: 2em;
+    section{
+        padding: 2em;
+    }
+}
+
+form{
+    padding: 1em 2em;
+    margin: 0em 2em;
+
+    input{
+        padding: 0.5em;
+        display: block;
+    }
+    p{
+        font-size: large;
+    }
+}
+
+
+form.register{
+    background-color: lavender;
+}
+
+/* specific elems */
+
+.shopper-log-in{
+    background-color: lightblue;
+}
+
+.seller-log-in{
+    background-color: lightpink;
+}

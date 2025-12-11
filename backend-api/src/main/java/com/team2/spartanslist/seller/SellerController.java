@@ -3,6 +3,7 @@ package com.team2.spartanslist.seller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,6 +88,34 @@ public class SellerController{
 
     //  TODO : add a follow count by counting mail lists relations tied to seller
 
+    /** endpoint to get to your specific profile from navbar
+     * @param model
+     * @param sellerID id of the seller to get
+     * @return
+     */
+    @GetMapping("/myprofile")
+    public String getSellerProfile(Model model, Authentication auth){
+        
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+
+        Seller seller = sellerService.getSellerByPhone(auth.getName());
+        Long sellerID = seller.getSellerID();
+
+        String pageTitle = String.format("View %s's profile",seller.getUsername());
+        model.addAttribute("seller", seller);
+        model.addAttribute("title", pageTitle);
+        
+        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(sellerID);
+        model.addAttribute("offers", offers);
+
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
+        model.addAttribute("requests", orders);
+        return "seller/seller-details";
+    }
+
     /** endpoint to get a seller by id
      * @param model
      * @param sellerID id of the seller to get
@@ -94,6 +123,8 @@ public class SellerController{
      */
     @GetMapping("/{sellerID}")
     public String getSellerById(Model model, @PathVariable Long sellerID){
+
+
         Seller seller = sellerService.getSellerById(sellerID);
         if (seller == null){
             return "redirect:/sellers?error=seller%20not%20found";
@@ -102,19 +133,9 @@ public class SellerController{
         model.addAttribute("seller", seller);
         model.addAttribute("title", pageTitle);
         
-        List<Offer> offers = offerService.findByAvailableAndSellerLimitThree(seller.getSellerID());
-        model.addAttribute("offers", offers);
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(sellerID, 1);
+        model.addAttribute("requests", orders);
         return "seller/seller-details";
-    }
-
-    /**
-     * Endpoint to get to your specific profile for the navbar.
-     * 
-     * @return your profile
-     */
-    @GetMapping("/myprofile")
-    public String getProfile() {
-        return "redirect:/sellers/" + Global.sellerID;
     }
 
     /** endpoint to find a seller by phone
@@ -163,18 +184,27 @@ public class SellerController{
      * @return
      */
     @GetMapping("/home")
-    public Object showSellerHome(Model model) {
-        Seller seller = sellerService.getSellerById(Global.sellerID);
+    public Object showSellerHome(Model model, Authentication auth) {
+        // if user not signed in
+        if (auth == null || !auth.isAuthenticated()){
+            return "redirect:/login";
+        }
+        
+        Seller user = sellerService.getSellerByPhone(auth.getName());
 
-        String pageTitle = String.format("Welcome, %s.",seller.getUsername());
-        model.addAttribute("seller", seller);
+        String pageTitle = String.format("Welcome, %s.",user.getUsername());
+        model.addAttribute("seller", user);
         model.addAttribute("title", pageTitle);
         
-        List<Offer> offers = offerService.findBySeller(seller.getSellerID());
-        model.addAttribute("offers", offers);
-
-        List<Order> orders = orderService.getOrdersbySellerAndStatus(seller.getSellerID(), 1);
-        model.addAttribute("requests", orders);
+        List<Offer> offers = offerService.findBySeller(user.getSellerID());
+        if (offers.size() != 0){
+            model.addAttribute("offers", offers);
+        }
+        
+        List<Order> orders = orderService.getOrdersbySellerAndStatus(user.getSellerID(), 1);
+        if (orders.size() != 0){
+            model.addAttribute("requests", orders);
+        }
 
         return "seller/seller-home";
     }

@@ -19,7 +19,6 @@
                 <br>
                 <button type="submit">Login</button>
             </form>
-                <a href="/shoppers/register"><button>Register</button></a>
         </section>
         <section class="seller-log-in">
             <h3>Seller Log In</h3>
@@ -33,7 +32,6 @@
                 <br>
                 <button type="submit">Login</button>
             </form>
-                <a href="/sellers/register"><button>Register</button></a>
         </section>
     </main>
     

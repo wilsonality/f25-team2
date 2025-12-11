@@ -24,26 +24,51 @@ public class CustomUserDetailsService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String usernameOrPhone) throws UsernameNotFoundException {
-        // Try to find as Seller first
-        Seller seller = sellerService.getSellerByPhone(usernameOrPhone);
-        if (seller != null) {
-            return User.builder()
-                .username(seller.getUsername())
-                .password(seller.getPassword())
-                .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_SELLER")))
-                .build();
+        // try to find by phone or username
+        try{
+            System.out.println("looking for seller by phone");
+            Seller seller = sellerService.getSellerByPhone(usernameOrPhone);
+            if (seller == null) {
+                System.out.println("looking for seller by username");
+                seller = sellerService.getSellerByUsername(usernameOrPhone);
+            }
+            System.out.println("\n\nDEBUG ::: before null check, SELLER IS");
+            System.out.println(seller);
+            if (seller != null) {
+                System.out.println("found seller with input" + usernameOrPhone);
+                return User.builder()
+                    .username(seller.getUserPhone()) 
+                    .password(seller.getPassword())
+                    .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_SELLER")))
+                    .build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
         
-        // Try to find as Shopper
-        Shopper shopper = shopperService.getShopperByPhone(usernameOrPhone);
-        if (shopper != null) {
-            return User.builder()
-                .username(shopper.getUsername())
-                .password(shopper.getPassword())
-                .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_SHOPPER")))
-                .build();
+
+        System.out.println("looking for a shopper now");
+        
+        try{
+            // try to find by phone or username
+            System.out.println("looking for shopper by phone");
+            Shopper shopper = shopperService.getShopperByPhone(usernameOrPhone);
+            if (shopper == null) {
+                System.out.println("looking for shopper by username");
+                shopper = shopperService.getShopperByUsername(usernameOrPhone);
+            }
+            if (shopper != null) {
+                System.out.println("found shopper with input" + usernameOrPhone);
+                return User.builder()
+                    .username(shopper.getUserPhone()) // Use phone as principal
+                    .password(shopper.getPassword())
+                    .authorities(Collections.singletonList(new SimpleGrantedAuthority("ROLE_SHOPPER")))
+                    .build();
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
         
-        throw new UsernameNotFoundException("User not found by username or phone: " + usernameOrPhone);
+        throw new UsernameNotFoundException("User not found: " + usernameOrPhone);
     }
 }

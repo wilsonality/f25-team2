@@ -21,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class SellerService {
     @Autowired
     private final SellerRepository sellerRepository;
+    @Autowired
+    private org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     private static final String UPLOAD_DIR = "backend-api/src/main/resources/static/seller-pictures";
     private static final String SOURCE_DIR = "backend-api/target/main/resources/static/seller-pictures";
@@ -36,7 +38,9 @@ public class SellerService {
         if (sellerRepository.findByUserPhone(seller.getUserPhone()) != null){
             throw new IllegalStateException("Phone number already registered.");
         }
-        // pass gets hashed by spring security
+        
+        // hash pass before saving
+        seller.setPassword(passwordEncoder.encode(seller.getPassword()));
 
         // save to db with no picture yet
         Seller newSeller = sellerRepository.save(seller); 

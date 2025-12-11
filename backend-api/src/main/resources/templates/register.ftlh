@@ -6,10 +6,10 @@
 </head>
 <body>
     <@macros.navbar/>
-	<main>
+	<main class="register ">
         <section class="shopper-register">
-            <h1 class="center">Register as a New Shopper</h1>
-            <form id="newShopper" action="/api/shoppers" method="post" class="register" enctype="multipart/form-data">
+            <h1 class="center underline">Register as a New Shopper</h1>
+            <form id="newShopper" action="/shoppers" method="post" class="register" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
                 <br>
@@ -31,11 +31,11 @@
                 <br>
 
                 <button type="submit">Register</button>
-                <a href="/homepage_no_login">Cancel</a>
+                <a href="/home">Cancel</a>
             </form>
         </section>
         <section class="seller-register">
-            <h1 class="center">Register as a New Seller</h1>
+            <h1 class="center underline">Register as a New Seller</h1>
             <form id="newSeller" action="/sellers" method="post" class="register" enctype="multipart/form-data">
                 <label for="username">Username</label><br>
                 <input type="text" id="username" name="username" maxlength="16" required><br>
