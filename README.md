@@ -5,7 +5,6 @@
 
 ## Description 
 Do you have old furniture that you don't need in your new dorm? Want to get the perfect accessory for your campus fits? Spartan's List is perfect for the job!
-
 Spartan's List is the solution for Spartans who need something from their community and Spartans who have something to offer. We want to bring Spartans together to support each other.
 
 ## App Functions
