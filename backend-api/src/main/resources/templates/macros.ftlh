@@ -57,13 +57,13 @@
             <a href="/shoppers/home">home</a>
          </li>
          <li>
-            <a href="/shoppers/myprofile">view profile</a>
+            <a href="/shoppers/${user.getShopperID()}">view profile</a>
          </li>
          <li>
-            <a href="/cart">view my cart</a>
+            <a href="/shoppers/cart">view my cart</a>
          </li>
          <li>
-            <a href="/ml">view mailing list</a>
+            <a href="/mailinglist/subscriptions/${user.getShopperID()}">view mailing list</a>
          </li>
          <li>
             <a href="/logout">log out</a>

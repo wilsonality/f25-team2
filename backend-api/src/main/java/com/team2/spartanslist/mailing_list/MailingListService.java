@@ -8,14 +8,19 @@ import org.springframework.stereotype.Service;
 import com.team2.spartanslist.seller.Seller;
 import com.team2.spartanslist.seller.SellerService;
 import com.team2.spartanslist.shopper.Shopper;
+import com.team2.spartanslist.shopper.ShopperRepository;
 import com.team2.spartanslist.shopper.ShopperService;
 
 @Service
 public class MailingListService {
     @Autowired
     private MailingListRepository mailingListRepository;
+    @Autowired
     private SellerService sellerService;
+    @Autowired
     private ShopperService shopperService;
+    @Autowired
+    private ShopperRepository shopperRepository;
     
     /** method to create a mailing list 
      * @param mailingList mailing list to create
@@ -25,8 +30,9 @@ public class MailingListService {
     */
     public MailingList subscribe(Long shopperID, Long sellerID) {
         MailingList mailingList = new MailingList();
-        mailingList.setShopperID(shopperID);
-        mailingList.setSellerID(sellerID);
+
+        mailingList.setShopper(shopperService.getShopper(shopperID));
+        mailingList.setSeller(sellerService.getSellerById(sellerID));
 
         return mailingListRepository.save(mailingList);
     }
@@ -37,7 +43,8 @@ public class MailingListService {
     }
 
     public List<MailingList> getSubsByShopperID(Long shopperID) {
-        return mailingListRepository.findSubsByShopperID(shopperID);
+        Shopper shopper = shopperRepository.findById(shopperID).orElse(null);
+        return mailingListRepository.findByShopper(shopper);
     }
 
     public boolean isSubscribed(Long shopperID, Long sellerID) {
